@@ -15,13 +15,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Legacy quarter-column strip block with horizontal facing. */
-final class LegacyVStripBlock extends HorizontalDirectionalBlock {
+public final class LegacyVStripBlock extends HorizontalDirectionalBlock {
   private static final VoxelShape NORTH_SHAPE = Block.box(0.0D, 0.0D, 0.0D, 8.0D, 16.0D, 8.0D);
   private static final VoxelShape SOUTH_SHAPE = Block.box(8.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
   private static final VoxelShape WEST_SHAPE = Block.box(0.0D, 0.0D, 8.0D, 8.0D, 16.0D, 16.0D);
   private static final VoxelShape EAST_SHAPE = Block.box(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
-
-  LegacyVStripBlock(BlockBehaviour.Properties properties) {
+  public LegacyVStripBlock(BlockBehaviour.Properties properties) {
     super(properties);
     registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
   }
@@ -63,3 +62,4 @@ final class LegacyVStripBlock extends HorizontalDirectionalBlock {
     builder.add(FACING);
   }
 }
+

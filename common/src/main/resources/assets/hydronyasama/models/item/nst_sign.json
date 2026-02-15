@@ -1,3 +1,6 @@
 {
-  "parent": "hydronyasama:block/nst_sign"
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "hydronyasama:block/nst_sign"
+  }
 }

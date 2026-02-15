@@ -1,6 +1,7 @@
-﻿{
+{
   "parent": "item/handheld",
   "textures": {
-    "layer0": "hydronyasama:items/ngt"
+    "layer0": "hydronyasama:item/ngt"
   }
 }
+

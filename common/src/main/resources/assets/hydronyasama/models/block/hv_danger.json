@@ -1,0 +1,40 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"display": {
+		"gui": {
+			"rotation": [ 0, 180, 0 ],
+			"translation": [ 0, 0, 0],
+			"scale":[ 0.75, 0.75, 0.75 ]
+		},
+		"head": {
+			"rotation": [ 0, -90, 0 ],
+			"translation": [ 0, 0, 0 ],
+			"scale": [ 1, 1, 1 ]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [ 75, -135, 0 ],
+			"translation": [ 0, 2.5, 0],
+			"scale": [ 0.375, 0.375, 0.375 ]
+		}
+	},
+	"textures": {
+		"0": "#front",
+		"1": "hydronyasama:block/hv_danger_base",
+		"particle": "#front"
+	},
+	"elements": [
+		{
+			"from": [1.5, 0, 15],
+			"to": [14.5, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 13, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 1, 16], "texture": "#0"},
+				"south": {"uv": [0, 0, 13, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 1, 16], "texture": "#0"},
+				"up": {"uv": [0, 0, 1, 13], "texture": "#0"},
+				"down": {"uv": [0, 0, 1, 13], "texture": "#0"}
+			}
+		}
+	]
+}

@@ -14,6 +14,7 @@ public final class BeaconProviderFabric implements ModInitializer {
     public void onInitialize() {
         BeaconProviderMod.init();
         ModContent.bootstrap(new FabricContentRegistrar());
+        FabricContentRegistrar.finalizeTelecomRenderRegistry();
         new FabricBeaconNetwork();
     }
 }

@@ -3,8 +3,20 @@ package cn.hydcraft.hydronyasama.fabric.content;
 import cn.hydcraft.hydronyasama.core.content.ModContent;
 import cn.hydcraft.hydronyasama.core.registry.ContentId;
 import cn.hydcraft.hydronyasama.core.registry.ContentRegistrar;
+import cn.hydcraft.hydronyasama.fabric.ConnectorItem;
+import cn.hydcraft.hydronyasama.fabric.DevEditorItem;
+import cn.hydcraft.hydronyasama.fabric.NgTabletItem;
+import cn.hydcraft.hydronyasama.fabric.LegacyEdgeBlock;
+import cn.hydcraft.hydronyasama.fabric.LegacyRailingBlock;
+import cn.hydcraft.hydronyasama.fabric.LegacyStripBlock;
+import cn.hydcraft.hydronyasama.fabric.LegacyVSlabBlock;
+import cn.hydcraft.hydronyasama.fabric.LegacyVStripBlock;
+import cn.hydcraft.hydronyasama.fabric.TelecomRenderBlock;
+import cn.hydcraft.hydronyasama.fabric.TelecomRenderBlockEntity;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
@@ -19,6 +31,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.GlassBlock;
@@ -26,6 +39,7 @@ import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public final class FabricContentRegistrar implements ContentRegistrar {
@@ -34,6 +48,12 @@ public final class FabricContentRegistrar implements ContentRegistrar {
             Registries.CREATIVE_MODE_TAB, new ResourceLocation(ModContent.MOD_GROUP_ID, "core"));
     public static final ResourceKey<CreativeModeTab> TAB_BUILDING_KEY = ResourceKey.create(
             Registries.CREATIVE_MODE_TAB, new ResourceLocation(ModContent.MOD_GROUP_ID, "building"));
+    public static final ResourceKey<CreativeModeTab> TAB_ELECTRICITY_KEY = ResourceKey.create(
+            Registries.CREATIVE_MODE_TAB, new ResourceLocation(ModContent.MOD_GROUP_ID, "electricity"));
+    public static final ResourceKey<CreativeModeTab> TAB_OPTICS_KEY = ResourceKey.create(
+            Registries.CREATIVE_MODE_TAB, new ResourceLocation(ModContent.MOD_GROUP_ID, "optics"));
+    public static final ResourceKey<CreativeModeTab> TAB_TELECOM_KEY = ResourceKey.create(
+            Registries.CREATIVE_MODE_TAB, new ResourceLocation(ModContent.MOD_GROUP_ID, "telecom"));
 
     static {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_CORE_KEY, FabricItemGroup.builder()
@@ -44,8 +64,22 @@ public final class FabricContentRegistrar implements ContentRegistrar {
                 .icon(() -> new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(ModContent.MOD_GROUP_ID, "anti_static_floor_block"))))
                 .title(Component.translatable("itemGroup." + ModContent.MOD_GROUP_ID + ".building"))
                 .build());
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_ELECTRICITY_KEY, FabricItemGroup.builder()
+                .icon(() -> new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(ModContent.MOD_GROUP_ID, "catenary_long"))))
+                .title(Component.translatable("itemGroup." + ModContent.MOD_GROUP_ID + ".electricity"))
+                .build());
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_OPTICS_KEY, FabricItemGroup.builder()
+                .icon(() -> new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(ModContent.MOD_GROUP_ID, "spot_light"))))
+                .title(Component.translatable("itemGroup." + ModContent.MOD_GROUP_ID + ".optics"))
+                .build());
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_TELECOM_KEY, FabricItemGroup.builder()
+                .icon(() -> new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(ModContent.MOD_GROUP_ID, "signal_box"))))
+                .title(Component.translatable("itemGroup." + ModContent.MOD_GROUP_ID + ".telecom"))
+                .build());
     }
 
+    private static final List<Block> TELECOM_RENDER_BLOCKS = new CopyOnWriteArrayList<>();
+    private static BlockEntityType<TelecomRenderBlockEntity> telecomRenderBlockEntityType;
     private final Map<ContentId, Block> blockIndex = new HashMap<>();
 
     @Override
@@ -53,31 +87,68 @@ public final class FabricContentRegistrar implements ContentRegistrar {
         ResourceLocation id = new ResourceLocation(definition.id.namespace(), definition.id.path());
         Block block = createBlock(definition);
         Registry.register(BuiltInRegistries.BLOCK, id, block);
+        if ("telecom".equals(definition.contentGroup) && block instanceof TelecomRenderBlock) {
+            TELECOM_RENDER_BLOCKS.add(block);
+        }
         blockIndex.put(definition.id, block);
         return block;
     }
 
+    public static void finalizeTelecomRenderRegistry() {
+        if (telecomRenderBlockEntityType != null || TELECOM_RENDER_BLOCKS.isEmpty()) {
+            return;
+        }
+        telecomRenderBlockEntityType =
+            Registry.register(
+                BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                new ResourceLocation(ModContent.MOD_GROUP_ID, "telecom_render"),
+                BlockEntityType.Builder.of(
+                        TelecomRenderBlockEntity::new,
+                        TELECOM_RENDER_BLOCKS.toArray(new Block[0]))
+                    .build(null));
+    }
+
+    public static BlockEntityType<TelecomRenderBlockEntity> telecomRenderBlockEntityType() {
+        return telecomRenderBlockEntityType;
+    }
+
     @Override
     public Object registerItem(ItemDefinition definition) {
-        if (!"block_item".equals(definition.kind)) {
+        ResourceLocation id = new ResourceLocation(definition.id.namespace(), definition.id.path());
+        Item item;
+        if ("block_item".equals(definition.kind)) {
+            if (definition.blockId == null) {
+                throw new IllegalArgumentException("blockId is required for block_item");
+            }
+            Block block = blockIndex.get(definition.blockId);
+            if (block == null) {
+                throw new IllegalStateException("Block not registered: " + definition.blockId);
+            }
+            item = new BlockItem(block, new Item.Properties());
+        } else if ("connector_tool".equals(definition.kind)) {
+            item = new ConnectorItem(new Item.Properties());
+        } else if ("dev_editor_tool".equals(definition.kind)) {
+            item = new DevEditorItem(new Item.Properties());
+        } else if ("ngtablet_tool".equals(definition.kind)) {
+            item = new NgTabletItem(new Item.Properties());
+        } else if ("simple_item".equals(definition.kind)) {
+            item = new Item(new Item.Properties());
+        } else {
             throw new IllegalArgumentException("Unsupported item kind: " + definition.kind);
         }
-        if (definition.blockId == null) {
-            throw new IllegalArgumentException("blockId is required for block_item");
-        }
-        Block block = blockIndex.get(definition.blockId);
-        if (block == null) {
-            throw new IllegalStateException("Block not registered: " + definition.blockId);
-        }
-        ResourceLocation id = new ResourceLocation(definition.id.namespace(), definition.id.path());
-        Item item = new BlockItem(block, new Item.Properties());
         Registry.register(BuiltInRegistries.ITEM, id, item);
-        
+
         ResourceKey<CreativeModeTab> tabKey;
         if ("core".equals(definition.contentGroup)) {
             tabKey = TAB_CORE_KEY;
         } else if ("building".equals(definition.contentGroup)) {
             tabKey = TAB_BUILDING_KEY;
+        } else if ("electricity".equals(definition.contentGroup)) {
+            tabKey = TAB_ELECTRICITY_KEY;
+        } else if ("optics".equals(definition.contentGroup)) {
+            tabKey = TAB_OPTICS_KEY;
+        } else if ("telecom".equals(definition.contentGroup)) {
+            tabKey = TAB_TELECOM_KEY;
         } else {
             tabKey = TAB_CORE_KEY; // Fallback
         }
@@ -91,6 +162,9 @@ public final class FabricContentRegistrar implements ContentRegistrar {
             props = BlockBehaviour.Properties.copy(Blocks.GLASS).lightLevel((state) -> definition.lightLevel);
         } else if ("iron".equals(definition.material)) {
             props = BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK);
+        }
+        if ("telecom".equals(definition.contentGroup) && "simple_block".equals(definition.kind)) {
+            return new TelecomRenderBlock(props.noOcclusion());
         }
         
         Block baseBlock = null;
@@ -108,15 +182,23 @@ public final class FabricContentRegistrar implements ContentRegistrar {
             case "simple_glass_block":
                 return new GlassBlock(props);
             case "slab":
+                return new SlabBlock(props);
             case "carpet":
+                return new CarpetBlock(props);
             case "edge":
+                return new LegacyEdgeBlock(props.noOcclusion());
             case "roof":
+                return new LegacyRailingBlock(props.noOcclusion(), true);
             case "strip":
+                if (baseBlock == null) baseBlock = Blocks.STONE;
+                return new LegacyStripBlock(baseBlock.defaultBlockState(), props.noOcclusion());
             case "v_slab":
             case "v_strip":
             case "vslab":
+                if (baseBlock == null) baseBlock = Blocks.STONE;
+                return new LegacyVSlabBlock(baseBlock.defaultBlockState(), props.noOcclusion());
             case "vstrip":
-                return new SlabBlock(props);
+                return new LegacyVStripBlock(props.noOcclusion());
             case "stairs":
                 if (baseBlock == null) baseBlock = Blocks.STONE;
                 return new StairBlock(baseBlock.defaultBlockState(), props) {};
@@ -124,7 +206,7 @@ public final class FabricContentRegistrar implements ContentRegistrar {
                 return new WallBlock(props);
             case "fence":
             case "railing":
-                return new FenceBlock(props);
+                return new LegacyRailingBlock(props.noOcclusion(), false);
             case "fence_gate":
                 return new FenceGateBlock(props, net.minecraft.world.level.block.state.properties.WoodType.OAK); // 1.20 requires WoodType
             case "pane":
@@ -135,3 +217,5 @@ public final class FabricContentRegistrar implements ContentRegistrar {
         }
     }
 }
+
+

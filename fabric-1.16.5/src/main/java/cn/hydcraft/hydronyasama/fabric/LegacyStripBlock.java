@@ -14,7 +14,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Legacy strip stair with quarter-width collision boxes matching old NyaSama behavior. */
-final class LegacyStripBlock extends StairBlock {
+public final class LegacyStripBlock extends StairBlock {
   private static final VoxelShape QTR_BOT_NORTH = Block.box(0.0D, 0.0D, 8.0D, 16.0D, 8.0D, 16.0D);
   private static final VoxelShape QTR_BOT_SOUTH = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 8.0D);
   private static final VoxelShape QTR_BOT_WEST = Block.box(8.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
@@ -34,8 +34,7 @@ final class LegacyStripBlock extends StairBlock {
   private static final VoxelShape OCT_TOP_NE = Block.box(8.0D, 8.0D, 8.0D, 16.0D, 16.0D, 16.0D);
   private static final VoxelShape OCT_TOP_SW = Block.box(0.0D, 8.0D, 0.0D, 8.0D, 16.0D, 8.0D);
   private static final VoxelShape OCT_TOP_SE = Block.box(8.0D, 8.0D, 0.0D, 16.0D, 16.0D, 8.0D);
-
-  LegacyStripBlock(BlockState baseState, BlockBehaviour.Properties properties) {
+  public LegacyStripBlock(BlockState baseState, BlockBehaviour.Properties properties) {
     super(baseState, properties);
   }
 
@@ -112,3 +111,4 @@ final class LegacyStripBlock extends StairBlock {
     }
   }
 }
+

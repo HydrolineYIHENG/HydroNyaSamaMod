@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/tile_icon",
+  "textures": {
+    "icon": "hydronyasama:block/catenary_insulator_rev"
+  }
+}

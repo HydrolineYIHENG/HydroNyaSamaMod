@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "hydronyasama:block/signal_box_getter"
+  }
+}

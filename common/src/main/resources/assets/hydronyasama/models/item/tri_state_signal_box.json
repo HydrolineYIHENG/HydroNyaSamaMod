@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/tile_icon",
+  "textures": {
+    "icon": "hydronyasama:block/tri_state_signal_box"
+  }
+}

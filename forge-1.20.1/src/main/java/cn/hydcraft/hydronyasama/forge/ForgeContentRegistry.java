@@ -34,8 +34,13 @@ final class ForgeContentRegistry {
       DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BeaconProviderMod.MOD_ID);
   private static final List<RegistryObject<Item>> CORE_TAB_ITEMS = new ArrayList<>();
   private static final List<RegistryObject<Item>> BUILDING_TAB_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Item>> ELECTRICITY_TAB_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Item>> OPTICS_TAB_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Item>> TELECOM_TAB_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Block>> TELECOM_RENDER_BLOCKS = new ArrayList<>();
   private static RegistryObject<Block> telecomNodeBlock;
   private static RegistryObject<BlockEntityType<TelecomNodeBlockEntity>> telecomNodeBlockEntityType;
+  private static RegistryObject<BlockEntityType<TelecomRenderBlockEntity>> telecomRenderBlockEntityType;
   private static RegistryObject<Item> probeItem;
 
   private ForgeContentRegistry() {}
@@ -53,6 +58,23 @@ final class ForgeContentRegistry {
     for (String id : LegacyContentIds.BUILDING_BATCH2_DERIVED_BLOCK_IDS) {
       registerDerivedBlock(id, BUILDING_TAB_ITEMS);
     }
+    for (String id : LegacyContentIds.ELECTRICITY_BLOCK_IDS) {
+      registerStoneBlock(id, ELECTRICITY_TAB_ITEMS);
+    }
+    for (String id : LegacyContentIds.OPTICS_BLOCK_IDS) {
+      registerStoneBlock(id, OPTICS_TAB_ITEMS);
+    }
+    for (String id : LegacyContentIds.TELECOM_BLOCK_IDS) {
+      registerTelecomBlock(id, TELECOM_TAB_ITEMS);
+    }
+    telecomRenderBlockEntityType =
+        BLOCK_ENTITY_TYPES.register(
+            "telecom_render",
+            () ->
+                BlockEntityType.Builder.of(
+                        TelecomRenderBlockEntity::new,
+                        TELECOM_RENDER_BLOCKS.stream().map(RegistryObject::get).toArray(Block[]::new))
+                    .build(null));
     telecomNodeBlock =
         BLOCKS.register(
             "telecom_node",
@@ -73,6 +95,10 @@ final class ForgeContentRegistry {
                     .build(null));
     probeItem = ITEMS.register("probe", () -> new ProbeItem(new Item.Properties()));
     BUILDING_TAB_ITEMS.add(probeItem);
+    TELECOM_TAB_ITEMS.add(ITEMS.register("connector", () -> new ConnectorItem(new Item.Properties())));
+    TELECOM_TAB_ITEMS.add(ITEMS.register("dev_editor", () -> new DevEditorItem(new Item.Properties())));
+    TELECOM_TAB_ITEMS.add(ITEMS.register("ngtablet", () -> new NgTabletItem(new Item.Properties())));
+    TELECOM_TAB_ITEMS.add(ITEMS.register("nyagame_mr", () -> new Item(new Item.Properties())));
     BLOCKS.register(modBus);
     ITEMS.register(modBus);
     BLOCK_ENTITY_TYPES.register(modBus);
@@ -86,6 +112,18 @@ final class ForgeContentRegistry {
     return Collections.unmodifiableList(BUILDING_TAB_ITEMS);
   }
 
+  static List<RegistryObject<Item>> electricityTabItems() {
+    return Collections.unmodifiableList(ELECTRICITY_TAB_ITEMS);
+  }
+
+  static List<RegistryObject<Item>> opticsTabItems() {
+    return Collections.unmodifiableList(OPTICS_TAB_ITEMS);
+  }
+
+  static List<RegistryObject<Item>> telecomTabItems() {
+    return Collections.unmodifiableList(TELECOM_TAB_ITEMS);
+  }
+
   static Item coreIconItem() {
     return CORE_TAB_ITEMS.isEmpty() ? Items.BRICK : CORE_TAB_ITEMS.get(0).get();
   }
@@ -94,12 +132,28 @@ final class ForgeContentRegistry {
     return BUILDING_TAB_ITEMS.isEmpty() ? Items.BRICK : BUILDING_TAB_ITEMS.get(0).get();
   }
 
+  static Item electricityIconItem() {
+    return ELECTRICITY_TAB_ITEMS.isEmpty() ? Items.BRICK : ELECTRICITY_TAB_ITEMS.get(0).get();
+  }
+
+  static Item opticsIconItem() {
+    return OPTICS_TAB_ITEMS.isEmpty() ? Items.BRICK : OPTICS_TAB_ITEMS.get(0).get();
+  }
+
+  static Item telecomIconItem() {
+    return TELECOM_TAB_ITEMS.isEmpty() ? Items.BRICK : TELECOM_TAB_ITEMS.get(0).get();
+  }
+
   static Item probeItem() {
     return probeItem == null ? Items.AIR : probeItem.get();
   }
 
   static BlockEntityType<TelecomNodeBlockEntity> telecomNodeBlockEntityType() {
     return telecomNodeBlockEntityType.get();
+  }
+
+  static BlockEntityType<TelecomRenderBlockEntity> telecomRenderBlockEntityType() {
+    return telecomRenderBlockEntityType.get();
   }
 
   private static void registerStoneBlock(String id, List<RegistryObject<Item>> tabItems) {
@@ -114,6 +168,19 @@ final class ForgeContentRegistry {
     RegistryObject<Block> block = BLOCKS.register(id, () -> createDerivedBlock(id));
     RegistryObject<Item> item =
         ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties()));
+    tabItems.add(item);
+  }
+
+  private static void registerTelecomBlock(String id, List<RegistryObject<Item>> tabItems) {
+    RegistryObject<Block> block =
+        BLOCKS.register(
+            id,
+            () ->
+                new TelecomRenderBlock(
+                    BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2.0F).noOcclusion()));
+    RegistryObject<Item> item =
+        ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties()));
+    TELECOM_RENDER_BLOCKS.add(block);
     tabItems.add(item);
   }
 
@@ -161,3 +228,6 @@ final class ForgeContentRegistry {
     return new Block(properties);
   }
 }
+
+
+

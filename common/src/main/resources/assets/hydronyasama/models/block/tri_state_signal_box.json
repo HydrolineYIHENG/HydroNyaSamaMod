@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "hydronyasama:block/tri_state_signal_box"
+  }
+}

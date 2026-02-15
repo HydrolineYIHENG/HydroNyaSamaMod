@@ -127,18 +127,29 @@ public final class BuildingContent {
 
         ContentId prefixId = ContentId.of("hydronyasama", prefix);
         registerVariant(registrar, prefixId, material, texture, "carpet", "carpet", baseBlockId);
+        registerVariant(registrar, prefixId, material, texture, "pane", "pane", baseBlockId);
+        if (isCompactFamily(prefix)) {
+            return;
+        }
+
         registerVariant(registrar, prefixId, material, texture, "edge", "edge", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "railing", "railing", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "roof", "roof", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "fence", "fence", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "fence_gate", "fence_gate", baseBlockId);
-        registerVariant(registrar, prefixId, material, texture, "pane", "pane", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "slab", "slab", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "stairs", "stairs", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "strip", "strip", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "vslab", "vslab", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "vstrip", "vstrip", baseBlockId);
         registerVariant(registrar, prefixId, material, texture, "wall", "wall", baseBlockId);
+    }
+
+    private static boolean isCompactFamily(String prefix) {
+        return prefix.contains("mesh_wire")
+                || "square_iron_mesh".equals(prefix)
+                || prefix.startsWith("tarp_")
+                || "tatami".equals(prefix);
     }
 
     private static void registerVariant(

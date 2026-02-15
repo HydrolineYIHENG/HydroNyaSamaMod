@@ -1,0 +1,38 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"display": {
+		"gui": {
+			"rotation": [ 30, 135, 0 ],
+			"translation": [ 0, 0, 0],
+			"scale":[ 0.625, 0.625, 0.625 ]
+		},
+		"head": {
+			"rotation": [ 0, -90, 0 ],
+			"translation": [ 0, 0, 0 ],
+			"scale": [ 1, 1, 1 ]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [ 75, -135, 0 ],
+			"translation": [ 0, 2.5, 0],
+			"scale": [ 0.375, 0.375, 0.375 ]
+		}
+	},
+	"textures": {
+		"particle": "#shell"
+	},
+	"elements": [
+		{
+			"from": [6, 6, 15],
+			"to": [10, 10, 16],
+			"faces": {
+				"north": {"uv": [6, 6, 10, 10], "texture": "#shell"},
+				"east": {"uv": [0, 6, 1, 10], "texture": "#shell"},
+				"south": {"uv": [6, 6, 10, 10], "texture": "#shell"},
+				"west": {"uv": [15, 6, 16, 10], "texture": "#shell"},
+				"up": {"uv": [6, 15, 10, 16], "texture": "#shell"},
+				"down": {"uv": [6, 0, 10, 1], "texture": "#shell"}
+			}
+		}
+	]
+}

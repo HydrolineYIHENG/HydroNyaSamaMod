@@ -18,13 +18,12 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Legacy railing/roof block based on fence with extra up/down booleans for model states. */
-final class LegacyRailingBlock extends FenceBlock {
+public final class LegacyRailingBlock extends FenceBlock {
   static final BooleanProperty UP = BooleanProperty.create("up");
   static final BooleanProperty DOWN = BooleanProperty.create("down");
 
   private final boolean roofMode;
-
-  LegacyRailingBlock(BlockBehaviour.Properties properties, boolean roofMode) {
+  public LegacyRailingBlock(BlockBehaviour.Properties properties, boolean roofMode) {
     super(properties);
     this.roofMode = roofMode;
     registerDefaultState(
@@ -104,3 +103,4 @@ final class LegacyRailingBlock extends FenceBlock {
     return !(aboveState.getBlock() instanceof FenceBlock);
   }
 }
+

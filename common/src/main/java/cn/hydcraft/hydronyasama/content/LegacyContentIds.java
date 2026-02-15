@@ -117,6 +117,97 @@ public final class LegacyContentIds {
               "zry_bathroom_cell_tile_block",
               "zry_tvbg_wall_block"));
 
+  public static final List<String> ELECTRICITY_BLOCK_IDS =
+      Collections.unmodifiableList(
+          Arrays.asList(
+              "big_pillar",
+              "catenary_long",
+              "catenary_short",
+              "catenary_insulator",
+              "catenary_insulator_rev",
+              "catenary_h",
+              "catenary_old_base",
+              "catenary_old_body",
+              "catenary_old_head",
+              "hv_danger_a",
+              "hv_danger_b",
+              "insulator_big",
+              "insulator_mid",
+              "insulator_small",
+              "quad_head",
+              "quad_shelf",
+              "quad_small",
+              "quad_tri_conv",
+              "tri_head",
+              "tri_shelf",
+              "wire_endpoint",
+              "wire_node",
+              "catenary_endpoint",
+              "catenary_node",
+              "cable_endpoint",
+              "cable_node",
+              "pillar_endpoint",
+              "pillar_node"));
+
+  public static final List<String> OPTICS_BLOCK_IDS =
+      Collections.unmodifiableList(
+          Arrays.asList(
+              "adsorption_lamp",
+              "fluorescent_lamp",
+              "spot_light",
+              "holo_jet_rev",
+              "led_plate",
+              "platform_plate_full",
+              "platform_plate_half",
+              "station_lamp",
+              "ad_board",
+              "station_board",
+              "text_wall",
+              "text_wall_lit",
+              "guide_board_np",
+              "guide_board_sp",
+              "guide_board_dp",
+              "guide_board_np_lit",
+              "guide_board_sp_lit",
+              "guide_board_dp_lit",
+              "light_beam_0",
+              "light_beam_1",
+              "pillar_head",
+              "pillar_body",
+              "adsorption_lamp_large",
+              "adsorption_lamp_mono",
+              "adsorption_lamp_multi",
+              "fluorescent_light",
+              "fluorescent_light_flock",
+              "mosaic_light_mono",
+              "mosaic_light_mono_small",
+              "mosaic_light_multi",
+              "mosaic_light_multi_small",
+              "platform_light_full",
+              "platform_light_half",
+              "cuball_lamp"));
+
+  public static final List<String> TELECOM_BLOCK_IDS =
+      Collections.unmodifiableList(
+          Arrays.asList(
+              "nspga_t0c0i8o8r0",
+              "nspga_t4c4i8o8r0",
+              "nspga_f011nhv1",
+              "nspga_f211nhv1",
+              "nspga_f344nhv1",
+              "nsasm_box",
+              "signal_box",
+              "signal_box_sender",
+              "signal_box_getter",
+              "tri_state_signal_box",
+              "signal_box_input",
+              "signal_box_output",
+              "signal_box_rx",
+              "signal_box_tx",
+              "rs_latch",
+              "timer",
+              "delayer"));
+
   public static final List<String> BUILDING_BATCH1_DERIVED_BLOCK_IDS =
       Collections.unmodifiableList(
           Arrays.asList(

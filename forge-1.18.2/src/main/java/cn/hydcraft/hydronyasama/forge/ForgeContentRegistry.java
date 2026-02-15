@@ -33,6 +33,9 @@ final class ForgeContentRegistry {
       DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, BeaconProviderMod.MOD_ID);
   private static final List<RegistryObject<Item>> CORE_ITEMS = new ArrayList<>();
   private static final List<RegistryObject<Item>> BUILDING_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Item>> ELECTRICITY_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Item>> OPTICS_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Item>> TELECOM_ITEMS = new ArrayList<>();
   private static RegistryObject<Block> telecomNodeBlock;
   private static RegistryObject<BlockEntityType<TelecomNodeBlockEntity>> telecomNodeBlockEntityType;
   private static RegistryObject<Item> probeItem;
@@ -51,6 +54,15 @@ final class ForgeContentRegistry {
     }
     for (String id : LegacyContentIds.BUILDING_BATCH2_DERIVED_BLOCK_IDS) {
       registerDerivedBlock(id, ForgeCreativeTabs.HYDRONYASAMA_BUILDING, BUILDING_ITEMS);
+    }
+    for (String id : LegacyContentIds.ELECTRICITY_BLOCK_IDS) {
+      registerStoneBlock(id, ForgeCreativeTabs.HYDRONYASAMA_ELECTRICITY, ELECTRICITY_ITEMS);
+    }
+    for (String id : LegacyContentIds.OPTICS_BLOCK_IDS) {
+      registerStoneBlock(id, ForgeCreativeTabs.HYDRONYASAMA_OPTICS, OPTICS_ITEMS);
+    }
+    for (String id : LegacyContentIds.TELECOM_BLOCK_IDS) {
+      registerStoneBlock(id, ForgeCreativeTabs.HYDRONYASAMA_TELECOM, TELECOM_ITEMS);
     }
     telecomNodeBlock =
         BLOCKS.register(
@@ -80,6 +92,25 @@ final class ForgeContentRegistry {
             () ->
                 new ProbeItem(new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_BUILDING)));
     BUILDING_ITEMS.add(probeItem);
+    TELECOM_ITEMS.add(
+        ITEMS.register(
+            "connector",
+            () ->
+                new ConnectorItem(new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
+    TELECOM_ITEMS.add(
+        ITEMS.register(
+            "dev_editor",
+            () ->
+                new DevEditorItem(new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
+    TELECOM_ITEMS.add(
+        ITEMS.register(
+            "ngtablet",
+            () ->
+                new NgTabletItem(new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
+    TELECOM_ITEMS.add(
+        ITEMS.register(
+            "nyagame_mr",
+            () -> new Item(new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
     BLOCKS.register(modBus);
     ITEMS.register(modBus);
     BLOCK_ENTITY_TYPES.register(modBus);
@@ -91,6 +122,18 @@ final class ForgeContentRegistry {
 
   static ItemStack buildingIcon() {
     return iconFor(BUILDING_ITEMS);
+  }
+
+  static ItemStack electricityIcon() {
+    return iconFor(ELECTRICITY_ITEMS);
+  }
+
+  static ItemStack opticsIcon() {
+    return iconFor(OPTICS_ITEMS);
+  }
+
+  static ItemStack telecomIcon() {
+    return iconFor(TELECOM_ITEMS);
   }
 
   static Item probeItem() {
@@ -170,3 +213,6 @@ final class ForgeContentRegistry {
     return new Block(properties);
   }
 }
+
+
+

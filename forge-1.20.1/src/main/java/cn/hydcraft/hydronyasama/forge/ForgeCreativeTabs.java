@@ -43,11 +43,59 @@ final class ForgeCreativeTabs {
                       })
                   .build());
 
+  static final RegistryObject<CreativeModeTab> HYDRONYASAMA_ELECTRICITY =
+      CREATIVE_TABS.register(
+          "hydronyasama_electricity",
+          () ->
+              CreativeModeTab.builder()
+                  .title(Component.translatable("itemGroup.hydronyasama_electricity"))
+                  .icon(() -> new ItemStack(ForgeContentRegistry.electricityIconItem()))
+                  .displayItems(
+                      (parameters, output) -> {
+                        for (var item : ForgeContentRegistry.electricityTabItems()) {
+                          output.accept(item.get());
+                        }
+                      })
+                  .build());
+
+  static final RegistryObject<CreativeModeTab> HYDRONYASAMA_OPTICS =
+      CREATIVE_TABS.register(
+          "hydronyasama_optics",
+          () ->
+              CreativeModeTab.builder()
+                  .title(Component.translatable("itemGroup.hydronyasama_optics"))
+                  .icon(() -> new ItemStack(ForgeContentRegistry.opticsIconItem()))
+                  .displayItems(
+                      (parameters, output) -> {
+                        for (var item : ForgeContentRegistry.opticsTabItems()) {
+                          output.accept(item.get());
+                        }
+                      })
+                  .build());
+
+  static final RegistryObject<CreativeModeTab> HYDRONYASAMA_TELECOM =
+      CREATIVE_TABS.register(
+          "hydronyasama_telecom",
+          () ->
+              CreativeModeTab.builder()
+                  .title(Component.translatable("itemGroup.hydronyasama_telecom"))
+                  .icon(() -> new ItemStack(ForgeContentRegistry.telecomIconItem()))
+                  .displayItems(
+                      (parameters, output) -> {
+                        for (var item : ForgeContentRegistry.telecomTabItems()) {
+                          output.accept(item.get());
+                        }
+                      })
+                  .build());
+
   private ForgeCreativeTabs() {}
 
   static void register(IEventBus modBus) {
     CREATIVE_TABS.register(modBus);
     HYDRONYASAMA_CORE.getId();
     HYDRONYASAMA_BUILDING.getId();
+    HYDRONYASAMA_ELECTRICITY.getId();
+    HYDRONYASAMA_OPTICS.getId();
+    HYDRONYASAMA_TELECOM.getId();
   }
 }

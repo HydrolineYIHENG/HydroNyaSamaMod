@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/tile_icon",
+  "textures": {
+    "icon": "hydronyasama:block/nspga_t0c0i8o8r0"
+  }
+}

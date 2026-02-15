@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "hydronyasama:block/tri_state_signal_box"
+    }
+  }
+}

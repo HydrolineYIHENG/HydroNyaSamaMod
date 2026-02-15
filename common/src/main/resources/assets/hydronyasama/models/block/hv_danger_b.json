@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "hydronyasama:block/hv_danger_b"
+  }
+}

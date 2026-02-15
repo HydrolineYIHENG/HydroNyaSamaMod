@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "hydronyasama:block/mosaic_light_mono_small"
+  }
+}

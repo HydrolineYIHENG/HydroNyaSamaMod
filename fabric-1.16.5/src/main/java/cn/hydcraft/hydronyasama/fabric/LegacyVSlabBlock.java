@@ -13,7 +13,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /** Legacy vertical-slab stair with full-height quarter/eighth collision boxes. */
-final class LegacyVSlabBlock extends StairBlock {
+public final class LegacyVSlabBlock extends StairBlock {
   private static final VoxelShape QTR_NORTH = Block.box(0.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
   private static final VoxelShape QTR_SOUTH = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
   private static final VoxelShape QTR_WEST = Block.box(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
@@ -23,8 +23,7 @@ final class LegacyVSlabBlock extends StairBlock {
   private static final VoxelShape OCT_NE = Block.box(8.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
   private static final VoxelShape OCT_SW = Block.box(0.0D, 0.0D, 0.0D, 8.0D, 16.0D, 8.0D);
   private static final VoxelShape OCT_SE = Block.box(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
-
-  LegacyVSlabBlock(BlockState baseState, BlockBehaviour.Properties properties) {
+  public LegacyVSlabBlock(BlockState baseState, BlockBehaviour.Properties properties) {
     super(baseState, properties);
   }
 
@@ -98,3 +97,4 @@ final class LegacyVSlabBlock extends StairBlock {
     }
   }
 }
+

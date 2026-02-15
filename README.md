@@ -16,14 +16,6 @@ The HydroLine development team has limited association with the original NyaSama
 
 We acknowledge and respect the contributions of the original development team. We may adjust or remove certain features or textures in accordance with the requirements of the original team.
 
-## ✨ Key Features
-
-- **Cross-Platform Support**: Single codebase supporting both Forge and Fabric loaders for major Minecraft versions
-- **MTR Integration**: Deep integration with Minecraft Transit Railway (MTR), providing interfaces for querying routes, stations, and real-time train data
-- **Create Integration**: Compatible with Create Mod, supporting stress network and device status reading (1.18.2+)
-- **Unified Communication Protocol**: Communicates with Bukkit plugins via Plugin Messaging Channels, supporting JSON-formatted RPC calls
-- **Shared Registration System**: Declares blocks and items in the Common layer, automatically adapting to registration APIs of each version
-
 ## 🎮 Download and Usage
 
 ### Stable Release
