@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/platform_plate_half"
-    }
+    "" : { "model": "hydronyasama:block/platform_plate_half" }
   }
 }
+

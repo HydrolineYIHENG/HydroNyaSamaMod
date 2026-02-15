@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/guide_board_dp"
-    }
+    "" : { "model": "hydronyasama:block/guide_board_dp" }
   }
 }
+

@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/fluorescent_light_flock"
-    }
+    "" : { "model": "hydronyasama:block/fluorescent_light_flock" }
   }
 }
+

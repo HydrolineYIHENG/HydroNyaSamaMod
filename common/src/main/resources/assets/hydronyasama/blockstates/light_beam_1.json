@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/light_beam_1"
-    }
+    "" : { "model": "hydronyasama:block/light_beam_1" }
   }
 }
+

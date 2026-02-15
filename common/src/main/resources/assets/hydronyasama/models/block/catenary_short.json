@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "hydronyasama:block/catenary_short"
-  }
+  "parent": "block/block",
+  "textures": {"all": "hydronyasama:block/catenary_short", "particle": "hydronyasama:block/catenary_short"},
+  "elements": [
+    {"from":[7,0,7],"to":[9,8,9],"faces":{"north":{"uv":[7,8,9,16],"texture":"#all"},"east":{"uv":[7,8,9,16],"texture":"#all"},"south":{"uv":[7,8,9,16],"texture":"#all"},"west":{"uv":[7,8,9,16],"texture":"#all"},"up":{"uv":[7,7,9,9],"texture":"#all"},"down":{"uv":[7,7,9,9],"texture":"#all"}}},
+    {"from":[4,8,7],"to":[16,10,9],"faces":{"north":{"uv":[4,6,16,8],"texture":"#all"},"east":{"uv":[7,6,9,8],"texture":"#all"},"south":{"uv":[4,6,16,8],"texture":"#all"},"west":{"uv":[7,6,9,8],"texture":"#all"},"up":{"uv":[4,7,16,9],"texture":"#all"},"down":{"uv":[4,7,16,9],"texture":"#all"}}}
+  ]
 }

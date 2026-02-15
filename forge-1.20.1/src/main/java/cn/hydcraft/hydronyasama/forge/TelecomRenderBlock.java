@@ -15,7 +15,8 @@ final class TelecomRenderBlock extends BaseEntityBlock {
 
   @Override
   public RenderShape getRenderShape(BlockState state) {
-    return RenderShape.INVISIBLE;
+    // Keep the base cube model visible and only overlay telemetry panel in BER.
+    return RenderShape.MODEL;
   }
 
   @Nullable

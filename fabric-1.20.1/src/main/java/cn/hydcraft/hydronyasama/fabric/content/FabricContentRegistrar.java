@@ -11,11 +11,13 @@ import cn.hydcraft.hydronyasama.fabric.LegacyRailingBlock;
 import cn.hydcraft.hydronyasama.fabric.LegacyStripBlock;
 import cn.hydcraft.hydronyasama.fabric.LegacyVSlabBlock;
 import cn.hydcraft.hydronyasama.fabric.LegacyVStripBlock;
+import cn.hydcraft.hydronyasama.fabric.ObjCollisionBlock;
 import cn.hydcraft.hydronyasama.fabric.TelecomRenderBlock;
 import cn.hydcraft.hydronyasama.fabric.TelecomRenderBlockEntity;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -79,6 +81,28 @@ public final class FabricContentRegistrar implements ContentRegistrar {
     }
 
     private static final List<Block> TELECOM_RENDER_BLOCKS = new CopyOnWriteArrayList<>();
+    private static final Set<String> OPTICS_OBJ_BLOCK_IDS = Set.of(
+            "ad_board",
+            "cuball_lamp",
+            "fluorescent_light",
+            "fluorescent_light_flock",
+            "holo_jet_rev",
+            "led_plate",
+            "mosaic_light_mono",
+            "mosaic_light_mono_small",
+            "mosaic_light_multi",
+            "mosaic_light_multi_small",
+            "pillar_body",
+            "pillar_head",
+            "platform_light_full",
+            "platform_light_half",
+            "platform_plate_full",
+            "platform_plate_half",
+            "station_board",
+            "station_lamp",
+            "adsorption_lamp_large",
+            "adsorption_lamp_mono",
+            "adsorption_lamp_multi");
     private static BlockEntityType<TelecomRenderBlockEntity> telecomRenderBlockEntityType;
     private final Map<ContentId, Block> blockIndex = new HashMap<>();
 
@@ -165,6 +189,11 @@ public final class FabricContentRegistrar implements ContentRegistrar {
         }
         if ("telecom".equals(definition.contentGroup) && "simple_block".equals(definition.kind)) {
             return new TelecomRenderBlock(props.noOcclusion());
+        }
+        if ("optics".equals(definition.contentGroup)
+                && "simple_block".equals(definition.kind)
+                && OPTICS_OBJ_BLOCK_IDS.contains(definition.id.path())) {
+            return new ObjCollisionBlock(props.noOcclusion(), definition.id.path());
         }
         
         Block baseBlock = null;

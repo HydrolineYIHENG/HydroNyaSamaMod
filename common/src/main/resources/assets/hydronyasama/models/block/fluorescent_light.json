@@ -1,6 +1,76 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "hydronyasama:block/fluorescent_light"
-  }
+﻿{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"display": {
+		"gui": {
+			"rotation": [ 30, 135, 0 ],
+			"translation": [ 0, 0, 0],
+			"scale":[ 0.625, 0.625, 0.625 ]
+		},
+		"head": {
+			"rotation": [ 0, -90, 0 ],
+			"translation": [ 0, 0, 0 ],
+			"scale": [ 1, 1, 1 ]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [ 75, -135, 0 ],
+			"translation": [ 0, 2.5, 0],
+			"scale": [ 0.375, 0.375, 0.375 ]
+		}
+	},
+	"textures": {
+    "particle": "#shell",
+    "shell": "hydronyasama:block/fluorescent_light",
+    "base": "hydronyasama:block/fluorescent_light"
+  },
+	"elements": [
+		{
+			"from": [0, 0, 6],
+			"to": [16, 1, 10],
+			"faces": {
+				"north": {"uv": [0, 15, 16, 16], "texture": "#shell"},
+				"east": {"uv": [6, 15, 10, 16], "texture": "#shell"},
+				"south": {"uv": [0, 15, 16, 16], "texture": "#shell"},
+				"west": {"uv": [6, 15, 10, 16], "texture": "#shell"},
+				"up": {"uv": [0, 6, 16, 10], "texture": "#shell"},
+				"down": {"uv": [0, 6, 16, 10], "texture": "#shell"}
+			}
+		},
+		{
+			"from": [2, 1.5, 7.5],
+			"to": [14, 2.5, 8.5],
+			"faces": {
+				"north": {"uv": [2, 13.5, 14, 14.5], "texture": "#base"},
+				"east": {"uv": [7.5, 13.5, 8.5, 14.5], "texture": "#base"},
+				"south": {"uv": [2, 13.5, 14, 14.5], "texture": "#base"},
+				"west": {"uv": [7.5, 13.5, 8.5, 14.5], "texture": "#base"},
+				"up": {"uv": [2, 7.5, 14, 8.5], "texture": "#base"},
+				"down": {"uv": [2, 7.5, 14, 8.5], "texture": "#base"}
+			}
+		},
+		{
+			"from": [1, 1, 7],
+			"to": [2, 3, 9],
+			"faces": {
+				"north": {"uv": [14, 13, 15, 15], "texture": "#shell"},
+				"east": {"uv": [7, 13, 9, 15], "texture": "#shell"},
+				"south": {"uv": [1, 13, 2, 15], "texture": "#shell"},
+				"west": {"uv": [7, 13, 9, 15], "texture": "#shell"},
+				"up": {"uv": [1, 7, 2, 9], "texture": "#shell"},
+				"down": {"uv": [1, 7, 2, 9], "texture": "#shell"}
+			}
+		},
+		{
+			"from": [14, 1, 7],
+			"to": [15, 3, 9],
+			"faces": {
+				"north": {"uv": [1, 13, 2, 15], "texture": "#shell"},
+				"east": {"uv": [7, 13, 9, 15], "texture": "#shell"},
+				"south": {"uv": [14, 13, 15, 15], "texture": "#shell"},
+				"west": {"uv": [7, 13, 9, 15], "texture": "#shell"},
+				"up": {"uv": [14, 7, 15, 9], "texture": "#shell"},
+				"down": {"uv": [14, 7, 15, 9], "texture": "#shell"}
+			}
+		}
+	]
 }

@@ -1,0 +1,9 @@
+﻿{
+  "loader": "forge:obj",
+  "model": "hydronyasama:models/blocks/station_board.obj",
+  "flip-v": true,
+  "shade_quads": true,
+  "textures": {
+    "particle": "hydronyasama:block/light_base"
+  }
+}

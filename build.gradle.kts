@@ -312,6 +312,8 @@ fun Project.configureLoaderProject(config: LoaderProject) {
         add("implementation", commonProject)
         add("implementation", "org.xerial:sqlite-jdbc:3.45.3.0")
         add("architecturyApi", "org.xerial:sqlite-jdbc:3.45.3.0")
+        add("implementation", "de.javagl:obj:0.4.0")
+        add("architecturyApi", "de.javagl:obj:0.4.0")
         if (config.target.minecraftVersion == "1.16.5") {
             add("architecturyApi", files(architecturyJar1165).builtBy(downloadArchitecturyJar1165))
         } else {
@@ -322,6 +324,7 @@ fun Project.configureLoaderProject(config: LoaderProject) {
 
     tasks.withType<Jar>().configureEach {
         dependsOn(commonProject.tasks.named("classes"))
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         from(commonSources)
     }
 

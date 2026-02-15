@@ -1,6 +1,3 @@
 {
-  "parent": "hydronyasama:block/tile_icon",
-  "textures": {
-    "icon": "hydronyasama:block/wire_endpoint"
-  }
+  "parent": "hydronyasama:block/wire_endpoint"
 }

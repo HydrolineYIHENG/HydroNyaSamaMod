@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/holo_jet_rev"
-    }
+    "" : { "model": "hydronyasama:block/holo_jet_rev" }
   }
 }
+

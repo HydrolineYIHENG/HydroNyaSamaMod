@@ -12,6 +12,18 @@ pluginManagement {
     }
 }
 
+plugins {
+    id("com.gradle.develocity") version "3.17.6"
+}
+
+develocity {
+    buildScan {
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
+        termsOfUseAgree = "yes"
+        publishing.onlyIf { System.getenv("GITHUB_ACTIONS") == "true" }
+    }
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {

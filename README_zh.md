@@ -24,10 +24,9 @@ HydroLine 团队感谢原开发团队的贡献，并尊重相关版权。我们�
 
 ### 开发版本
 你可通过以下途径下载到开发版本的模组 Jar：
-- HydroLine 开发者官网
-- GitHub Actions
-- Gitee
-- 腾讯云·云原生构建
+- [HydroLine 开发者官网](https://line.hydcraft.cn/open-source)
+- [GitHub Actions](https://github.com/HydrolineYIHENG/HydroNyaSamaMod/actions)
+- [腾讯云·云原生构建]()
 
 ## 📋 支持版本
 

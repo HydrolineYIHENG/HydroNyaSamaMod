@@ -1,6 +1,3 @@
 {
-  "parent": "hydronyasama:block/tile_icon",
-  "textures": {
-    "icon": "hydronyasama:block/quad_shelf"
-  }
+  "parent": "hydronyasama:block/quad_shelf"
 }

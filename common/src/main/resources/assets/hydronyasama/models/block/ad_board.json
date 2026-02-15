@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "hydronyasama:block/ad_board"
-  }
+  "parent": "block/block",
+  "textures": {"all": "hydronyasama:block/ad_board", "particle": "hydronyasama:block/ad_board"},
+  "elements": [
+    {"from":[1,1,7],"to":[15,15,9],"faces":{"north":{"uv":[1,1,15,15],"texture":"#all"},"east":{"uv":[7,1,9,15],"texture":"#all"},"south":{"uv":[1,1,15,15],"texture":"#all"},"west":{"uv":[7,1,9,15],"texture":"#all"},"up":{"uv":[1,7,15,9],"texture":"#all"},"down":{"uv":[1,7,15,9],"texture":"#all"}}}
+  ]
 }

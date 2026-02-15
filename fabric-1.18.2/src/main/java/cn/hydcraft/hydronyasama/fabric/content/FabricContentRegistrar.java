@@ -11,8 +11,10 @@ import cn.hydcraft.hydronyasama.fabric.LegacyRailingBlock;
 import cn.hydcraft.hydronyasama.fabric.LegacyStripBlock;
 import cn.hydcraft.hydronyasama.fabric.LegacyVSlabBlock;
 import cn.hydcraft.hydronyasama.fabric.LegacyVStripBlock;
+import cn.hydcraft.hydronyasama.fabric.ObjCollisionBlock;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -57,6 +59,28 @@ public final class FabricContentRegistrar implements ContentRegistrar {
             .build();
 
     private final Map<ContentId, Block> blockIndex = new HashMap<>();
+    private static final Set<String> OPTICS_OBJ_BLOCK_IDS = Set.of(
+            "ad_board",
+            "cuball_lamp",
+            "fluorescent_light",
+            "fluorescent_light_flock",
+            "holo_jet_rev",
+            "led_plate",
+            "mosaic_light_mono",
+            "mosaic_light_mono_small",
+            "mosaic_light_multi",
+            "mosaic_light_multi_small",
+            "pillar_body",
+            "pillar_head",
+            "platform_light_full",
+            "platform_light_half",
+            "platform_plate_full",
+            "platform_plate_half",
+            "station_board",
+            "station_lamp",
+            "adsorption_lamp_large",
+            "adsorption_lamp_mono",
+            "adsorption_lamp_multi");
 
     @Override
     public Object registerBlock(BlockDefinition definition) {
@@ -115,6 +139,11 @@ public final class FabricContentRegistrar implements ContentRegistrar {
             props = BlockBehaviour.Properties.copy(Blocks.GLASS).lightLevel((state) -> definition.lightLevel);
         } else if ("iron".equals(definition.material)) {
             props = BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK);
+        }
+        if ("optics".equals(definition.contentGroup)
+                && "simple_block".equals(definition.kind)
+                && OPTICS_OBJ_BLOCK_IDS.contains(definition.id.path())) {
+            return new ObjCollisionBlock(props.noOcclusion(), definition.id.path());
         }
         
         Block baseBlock = null;

@@ -1,0 +1,9 @@
+﻿{
+  "loader": "forge:obj",
+  "model": "hydronyasama:models/blocks/platform_light_full_base.obj",
+  "flip-v": true,
+  "shade_quads": true,
+  "textures": {
+    "particle": "hydronyasama:block/light_shell"
+  }
+}

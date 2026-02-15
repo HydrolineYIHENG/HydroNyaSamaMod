@@ -3,7 +3,11 @@ package cn.hydcraft.hydronyasama.forge;
 import cn.hydcraft.hydronyasama.BeaconProviderMod;
 import cn.hydcraft.hydronyasama.content.LegacyContentIds;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -36,6 +40,31 @@ final class ForgeContentRegistry {
   private static final List<RegistryObject<Item>> ELECTRICITY_ITEMS = new ArrayList<>();
   private static final List<RegistryObject<Item>> OPTICS_ITEMS = new ArrayList<>();
   private static final List<RegistryObject<Item>> TELECOM_ITEMS = new ArrayList<>();
+  private static final Set<String> OPTICS_OBJ_BLOCK_IDS =
+      Collections.unmodifiableSet(
+          new HashSet<>(
+              Arrays.asList(
+                  "ad_board",
+                  "cuball_lamp",
+                  "fluorescent_light",
+                  "fluorescent_light_flock",
+                  "holo_jet_rev",
+                  "led_plate",
+                  "mosaic_light_mono",
+                  "mosaic_light_mono_small",
+                  "mosaic_light_multi",
+                  "mosaic_light_multi_small",
+                  "pillar_body",
+                  "pillar_head",
+                  "platform_light_full",
+                  "platform_light_half",
+                  "platform_plate_full",
+                  "platform_plate_half",
+                  "station_board",
+                  "station_lamp",
+                  "adsorption_lamp_large",
+                  "adsorption_lamp_mono",
+                  "adsorption_lamp_multi")));
   private static RegistryObject<Block> telecomNodeBlock;
   private static RegistryObject<BlockEntityType<TelecomNodeBlockEntity>> telecomNodeBlockEntityType;
   private static RegistryObject<Item> probeItem;
@@ -59,7 +88,7 @@ final class ForgeContentRegistry {
       registerStoneBlock(id, ForgeCreativeTabs.HYDRONYASAMA_ELECTRICITY, ELECTRICITY_ITEMS);
     }
     for (String id : LegacyContentIds.OPTICS_BLOCK_IDS) {
-      registerStoneBlock(id, ForgeCreativeTabs.HYDRONYASAMA_OPTICS, OPTICS_ITEMS);
+      registerOpticsBlock(id, ForgeCreativeTabs.HYDRONYASAMA_OPTICS, OPTICS_ITEMS);
     }
     for (String id : LegacyContentIds.TELECOM_BLOCK_IDS) {
       registerStoneBlock(id, ForgeCreativeTabs.HYDRONYASAMA_TELECOM, TELECOM_ITEMS);
@@ -164,6 +193,21 @@ final class ForgeContentRegistry {
       net.minecraft.world.item.CreativeModeTab tab,
       List<RegistryObject<Item>> tabItems) {
     RegistryObject<Block> block = BLOCKS.register(id, () -> createDerivedBlock(id));
+    RegistryObject<Item> item =
+        ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+    tabItems.add(item);
+  }
+
+  private static void registerOpticsBlock(
+      String id, net.minecraft.world.item.CreativeModeTab tab, List<RegistryObject<Item>> tabItems) {
+    RegistryObject<Block> block =
+        BLOCKS.register(
+            id,
+            () ->
+                OPTICS_OBJ_BLOCK_IDS.contains(id)
+                    ? new ObjCollisionBlock(
+                        BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), id)
+                    : new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
     RegistryObject<Item> item =
         ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
     tabItems.add(item);

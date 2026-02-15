@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/adsorption_lamp_large"
-    }
+    "" : { "model": "hydronyasama:block/adsorption_lamp_large" }
   }
 }
+

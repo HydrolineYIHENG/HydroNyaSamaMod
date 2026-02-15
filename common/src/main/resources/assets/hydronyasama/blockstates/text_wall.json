@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/text_wall"
-    }
+    "" : { "model": "hydronyasama:block/text_wall" }
   }
 }
+

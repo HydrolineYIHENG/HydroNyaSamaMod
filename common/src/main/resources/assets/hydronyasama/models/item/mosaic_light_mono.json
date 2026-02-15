@@ -1,4 +1,4 @@
-{
+﻿{
   "parent": "hydronyasama:block/tile_icon",
   "textures": {
     "icon": "hydronyasama:block/mosaic_light_mono"

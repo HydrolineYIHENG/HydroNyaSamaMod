@@ -1,0 +1,87 @@
+{
+  "ad_board": {
+    "model": "hydronyasama:models/blocks/ad_board_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "cuball_lamp": {
+    "model": "hydronyasama:models/blocks/cuball_lamp_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "fluorescent_light": {
+    "model": "hydronyasama:models/blocks/fluorescent_light_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "fluorescent_light_flock": {
+    "model": "hydronyasama:models/blocks/fluorescent_light_flock_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "holo_jet_rev": {
+    "model": "hydronyasama:models/blocks/holo_jet_rev_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "led_plate": {
+    "model": "hydronyasama:models/blocks/led_plate_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "mosaic_light_mono": {
+    "model": "hydronyasama:models/blocks/mosaic_light_mono_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "mosaic_light_mono_small": {
+    "model": "hydronyasama:models/blocks/mosaic_light_mono_small_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "mosaic_light_multi": {
+    "model": "hydronyasama:models/blocks/mosaic_light_multi_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "mosaic_light_multi_small": {
+    "model": "hydronyasama:models/blocks/mosaic_light_multi_small_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "pillar_body": {
+    "model": "hydronyasama:models/blocks/pillar_body_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "pillar_head": {
+    "model": "hydronyasama:models/blocks/pillar_head_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "platform_light_full": {
+    "model": "hydronyasama:models/blocks/platform_light_full_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "platform_light_half": {
+    "model": "hydronyasama:models/blocks/platform_light_half_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "platform_plate_full": {
+    "model": "hydronyasama:models/blocks/platform_light_full_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "platform_plate_half": {
+    "model": "hydronyasama:models/blocks/platform_light_half_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "station_board": {
+    "model": "hydronyasama:models/blocks/station_board.obj",
+    "texture": "hydronyasama:block/light_base"
+  },
+  "station_lamp": {
+    "model": "hydronyasama:models/blocks/station_lamp_mid.obj",
+    "texture": "hydronyasama:block/station_lamp_base"
+  },
+  "adsorption_lamp_large": {
+    "model": "hydronyasama:models/blocks/adsorption_lamp_large_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "adsorption_lamp_mono": {
+    "model": "hydronyasama:models/blocks/adsorption_lamp_mono_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  },
+  "adsorption_lamp_multi": {
+    "model": "hydronyasama:models/blocks/adsorption_lamp_multi_base.obj",
+    "texture": "hydronyasama:block/light_shell"
+  }
+}
+

@@ -1,6 +1,3 @@
 {
-  "parent": "hydronyasama:block/tile_icon",
-  "textures": {
-    "icon": "hydronyasama:block/big_pillar"
-  }
+  "parent": "hydronyasama:block/big_pillar"
 }

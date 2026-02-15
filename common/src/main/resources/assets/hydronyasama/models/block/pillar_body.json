@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "hydronyasama:block/pillar_body"
-  }
+  "parent": "block/block",
+  "textures": {"all": "hydronyasama:block/pillar_body", "particle": "hydronyasama:block/pillar_body"},
+  "elements": [
+    {"from":[5,0,5],"to":[11,16,11],"faces":{"north":{"uv":[5,0,11,16],"texture":"#all"},"east":{"uv":[5,0,11,16],"texture":"#all"},"south":{"uv":[5,0,11,16],"texture":"#all"},"west":{"uv":[5,0,11,16],"texture":"#all"},"up":{"uv":[5,5,11,11],"texture":"#all"},"down":{"uv":[5,5,11,11],"texture":"#all"}}}
+  ]
 }

@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/ad_board"
-    }
+    "" : { "model": "hydronyasama:block/ad_board" }
   }
 }
+

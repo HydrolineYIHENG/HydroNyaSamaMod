@@ -14,6 +14,9 @@
   "entrypoints": {
     "main": [
       "cn.hydcraft.hydronyasama.fabric.BeaconProviderFabric"
+    ],
+    "client": [
+      "cn.hydcraft.hydronyasama.fabric.BeaconProviderFabricClient"
     ]
   },
   "depends": {

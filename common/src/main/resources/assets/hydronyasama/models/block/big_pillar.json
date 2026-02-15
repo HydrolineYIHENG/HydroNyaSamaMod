@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "hydronyasama:block/big_pillar"
-  }
+  "parent": "block/block",
+  "textures": {"all": "hydronyasama:block/big_pillar", "particle": "hydronyasama:block/big_pillar"},
+  "elements": [
+    {"from":[4,0,4],"to":[12,2,12],"faces":{"north":{"uv":[4,14,12,16],"texture":"#all"},"east":{"uv":[4,14,12,16],"texture":"#all"},"south":{"uv":[4,14,12,16],"texture":"#all"},"west":{"uv":[4,14,12,16],"texture":"#all"},"up":{"uv":[4,4,12,12],"texture":"#all"},"down":{"uv":[4,4,12,12],"texture":"#all"}}},
+    {"from":[6,2,6],"to":[10,16,10],"faces":{"north":{"uv":[6,0,10,14],"texture":"#all"},"east":{"uv":[6,0,10,14],"texture":"#all"},"south":{"uv":[6,0,10,14],"texture":"#all"},"west":{"uv":[6,0,10,14],"texture":"#all"},"up":{"uv":[6,6,10,10],"texture":"#all"},"down":{"uv":[6,6,10,10],"texture":"#all"}}}
+  ]
 }

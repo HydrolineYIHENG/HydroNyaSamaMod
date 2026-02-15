@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/spot_light"
-    }
+    "" : { "model": "hydronyasama:block/spot_light" }
   }
 }
+

@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/pillar_head"
-    }
+    "" : { "model": "hydronyasama:block/pillar_head" }
   }
 }
+

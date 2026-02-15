@@ -23,10 +23,9 @@ Not yet available
 
 ### Development Builds
 Download from the following sources:
-- HydroLine Developer Website
-- GitHub Actions
-- Gitee
-- Cloud Native Builds
+- [HydroLine Developer Website](https://line.hydcraft.cn/open-source)
+- [GitHub Actions](https://github.com/HydrolineYIHENG/HydroNyaSamaMod/actions)
+- [Cloud Native Builds]()
 
 ## 📋 Supported Versions
 

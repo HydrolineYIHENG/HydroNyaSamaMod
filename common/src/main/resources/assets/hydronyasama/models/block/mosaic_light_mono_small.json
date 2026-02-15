@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "hydronyasama:block/mosaic_light_mono_small"
-  }
+  "parent": "block/block",
+  "textures": {"all": "hydronyasama:block/mosaic_light_mono_small", "particle": "hydronyasama:block/mosaic_light_mono_small"},
+  "elements": [
+    {"from":[3,3,3],"to":[13,13,13],"faces":{"north":{"uv":[3,3,13,13],"texture":"#all"},"east":{"uv":[3,3,13,13],"texture":"#all"},"south":{"uv":[3,3,13,13],"texture":"#all"},"west":{"uv":[3,3,13,13],"texture":"#all"},"up":{"uv":[3,3,13,13],"texture":"#all"},"down":{"uv":[3,3,13,13],"texture":"#all"}}}
+  ]
 }

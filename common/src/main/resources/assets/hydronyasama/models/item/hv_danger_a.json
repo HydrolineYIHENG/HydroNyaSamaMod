@@ -1,6 +1,3 @@
 {
-  "parent": "hydronyasama:block/tile_icon",
-  "textures": {
-    "icon": "hydronyasama:block/hv_danger_a"
-  }
+  "parent": "hydronyasama:block/hv_danger_a"
 }

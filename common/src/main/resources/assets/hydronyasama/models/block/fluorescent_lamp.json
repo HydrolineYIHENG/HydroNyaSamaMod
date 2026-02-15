@@ -1,4 +1,4 @@
-{
+﻿{
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"display": {
@@ -19,8 +19,10 @@
 		}
 	},
 	"textures": {
-		"particle": "#shell"
-	},
+    "particle": "#shell",
+    "shell": "hydronyasama:block/light_shell",
+    "base": "hydronyasama:block/light_base"
+  },
 	"elements": [
 		{
 			"from": [0, 0, 6],
@@ -72,3 +74,5 @@
 		}
 	]
 }
+
+

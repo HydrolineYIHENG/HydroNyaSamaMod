@@ -1,7 +1,6 @@
-{
+﻿{
   "variants": {
-    "": {
-      "model": "hydronyasama:block/led_plate"
-    }
+    "" : { "model": "hydronyasama:block/led_plate" }
   }
 }
+
