@@ -1,5 +1,4 @@
 .gradle/
-.reference/
 **/.gradle/
 .gradle-user-home/
 /.architectury-transformer/
@@ -16,8 +15,6 @@ run/
 logs/
 out/
 classes/
-/bin/
-**/bin/
 .idea/
 .vscode/
 *.iml
@@ -31,3 +28,4 @@ Thumbs.db
 .DS_Store
 checkouts/
 examples/
+.reference/

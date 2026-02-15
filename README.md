@@ -1,4 +1,4 @@
-﻿# HydroNyaSama
+# HydroNyaSama
 
 > [中文](README_zh.md)
 
@@ -80,21 +80,6 @@ Artifacts can be found in the `build/libs/` directory of each subproject.
 ./gradlew :fabric-1.20.1:build  # Only build Fabric 1.20.1
 ```
 
-## Code Formatting
-
-This project uses Spotless for formatting checks and auto-fixes.
-
-### Check Formatting
-```bash
-./gradlew spotlessCheck
-```
-
-### Apply Formatting
-```bash
-./gradlew spotlessApply
-```
-
 ## 🤝 Contribution Guide
 
 Issues and PRs are welcome. Before adding new content, please read the [Project Structure Guide](docs/Structure.md) to understand our code organization standards.
-

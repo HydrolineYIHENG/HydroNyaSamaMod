@@ -1,5 +1,4 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.diffplug.gradle.spotless.SpotlessExtension
 import net.fabricmc.loom.api.LoomGradleExtensionAPI
 import net.fabricmc.loom.task.RemapJarTask
 import org.gradle.api.Project
@@ -19,7 +18,6 @@ import org.gradle.api.GradleException
 plugins {
     id("dev.architectury.loom") version "1.6.422" apply false
     id("com.github.johnrengelman.shadow") version "8.1.1" apply false
-    id("com.diffplug.spotless") version "6.25.0" apply false
     id("base")
 }
 
@@ -177,8 +175,6 @@ subprojects {
     group = property("mavenGroup") as String
     version = property("modVersion") as String
 
-    apply(plugin = "com.diffplug.spotless")
-
     repositories {
         mavenLocal()
         maven("https://maven.architectury.dev/")
@@ -191,25 +187,12 @@ subprojects {
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
     }
-
-    extensions.configure(SpotlessExtension::class.java) {
-        java {
-            target("src/*/java/**/*.java")
-            googleJavaFormat("1.17.0")
-            trimTrailingWhitespace()
-            endWithNewline()
-        }
-        format("misc") {
-            target("*.md", "docs/**/*.md", ".gitignore")
-            trimTrailingWhitespace()
-            endWithNewline()
-        }
-    }
 }
 
-loaderProjects.forEach { loaderProject ->
-    project(":${loaderProject.name}") {
-        configureLoaderProject(loaderProject)
+subprojects {
+    val loaderConfig = loaderProjects.firstOrNull { it.name == name }
+    if (loaderConfig != null) {
+        configureLoaderProject(loaderConfig)
     }
 }
 
