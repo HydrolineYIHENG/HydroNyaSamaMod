@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/half_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/tread_steel_grey",
+        "top": "hydronyasama:block/tread_steel_grey",
+        "side": "hydronyasama:block/tread_steel_grey"
+    }
+}
+

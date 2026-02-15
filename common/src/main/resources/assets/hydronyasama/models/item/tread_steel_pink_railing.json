@@ -1,0 +1,7 @@
+{
+    "parent": "hydronyasama:block/base/railing_inventory",
+    "textures": {
+        "texture": "hydronyasama:block/tread_steel_pink"
+    }
+}
+

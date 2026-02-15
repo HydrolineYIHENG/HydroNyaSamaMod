@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/dark_grey_cell_tile",
+        "top": "hydronyasama:block/dark_grey_cell_tile",
+        "side": "hydronyasama:block/dark_grey_cell_tile"
+    }
+}
+

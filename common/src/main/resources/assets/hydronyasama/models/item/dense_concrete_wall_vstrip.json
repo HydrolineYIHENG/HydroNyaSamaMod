@@ -1,0 +1,8 @@
+{
+  "parent": "hydronyasama:block/base/vstrip",
+  "textures": {
+    "top": "hydronyasama:block/dense_concrete_wall",
+    "side": "hydronyasama:block/dense_concrete_wall",
+    "bottom": "hydronyasama:block/dense_concrete_wall"
+  }
+}

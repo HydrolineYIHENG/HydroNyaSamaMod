@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/zry_tvbg_wall_slab" },
+    "type=top": { "model": "hydronyasama:block/zry_tvbg_wall_slab_top" },
+    "type=double": { "model": "hydronyasama:block/zry_tvbg_wall_block" }
+  }
+}

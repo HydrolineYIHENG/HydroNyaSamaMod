@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "hydronyasama:block/road_dark_orange_tile"
+  }
+}

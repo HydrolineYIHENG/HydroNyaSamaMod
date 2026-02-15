@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "hydronyasama:block/mineral_wool_celling_plate"
+  }
+}

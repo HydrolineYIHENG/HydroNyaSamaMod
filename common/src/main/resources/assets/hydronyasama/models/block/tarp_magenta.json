@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "all":  "hydronyasama:block/tarp_magenta"
+                 },
+    "parent":  "block/cube_all"
+}
+

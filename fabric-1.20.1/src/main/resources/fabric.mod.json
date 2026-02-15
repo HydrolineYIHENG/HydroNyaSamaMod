@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "hydronyasama",
+  "version": "${version}",
+  "name": "HydroNyaSama",
+  "description": "Bridge loader for deploying HydroNyaSama on Fabric.",
+  "authors": ["Hydroline"],
+  "contact": {
+    "homepage": "https://example.com",
+    "sources": "https://github.com/Hydroline/hydroline-HydroNyaSama"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "cn.hydcraft.hydronyasama.fabric.BeaconProviderFabric"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.10",
+    "fabric-api": ">=0.92.1+1.20.1",
+    "minecraft": "1.20.1",
+    "java": ">=17"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": ["library"]
+    }
+  }
+}

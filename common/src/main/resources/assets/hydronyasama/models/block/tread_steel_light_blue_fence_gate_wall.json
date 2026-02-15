@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fence_gate_wall",
+  "textures": {
+    "texture": "hydronyasama:block/tread_steel_light_blue"
+  }
+}

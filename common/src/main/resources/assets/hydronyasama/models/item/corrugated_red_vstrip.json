@@ -1,0 +1,8 @@
+{
+  "parent": "hydronyasama:block/base/vstrip",
+  "textures": {
+    "top": "hydronyasama:block/corrugated_red",
+    "side": "hydronyasama:block/corrugated_red",
+    "bottom": "hydronyasama:block/corrugated_red"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "hydronyasama:block/road_light_yellow_tile",
+    "top": "hydronyasama:block/road_light_yellow_tile",
+    "side": "hydronyasama:block/road_light_yellow_tile"
+  }
+}

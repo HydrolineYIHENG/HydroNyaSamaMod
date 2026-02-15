@@ -1,0 +1,7 @@
+﻿{
+    "parent": "block/wall_gate_open",
+    "textures": {
+        "texture": "hydronyasama:block/zry_bathroom_cell_tile"
+    }
+}
+

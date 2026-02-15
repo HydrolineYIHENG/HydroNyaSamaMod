@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/base/roof_inventory",
+  "textures": {
+    "texture": "hydronyasama:block/rusty_tread_steel_plate"
+  }
+}

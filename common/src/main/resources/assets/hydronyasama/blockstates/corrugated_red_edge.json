@@ -1,0 +1,61 @@
+{
+  "variants": {
+    "facing=north,half=top": {
+      "model": "hydronyasama:block/corrugated_red_edge_top",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north,half=bottom": {
+      "model": "hydronyasama:block/corrugated_red_edge_bottom",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=north,half=tall": {
+      "model": "hydronyasama:block/corrugated_red_edge",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=south,half=top": {
+      "model": "hydronyasama:block/corrugated_red_edge_top",
+      "uvlock": true,
+      "y": 270
+    },
+    "facing=south,half=bottom": {
+      "model": "hydronyasama:block/corrugated_red_edge_bottom",
+      "uvlock": true,
+      "y": 270
+    },
+    "facing=south,half=tall": {
+      "model": "hydronyasama:block/corrugated_red_edge",
+      "uvlock": true,
+      "y": 270
+    },
+    "facing=west,half=top": {
+      "model": "hydronyasama:block/corrugated_red_edge_top",
+      "uvlock": true
+    },
+    "facing=west,half=bottom": {
+      "model": "hydronyasama:block/corrugated_red_edge_bottom",
+      "uvlock": true
+    },
+    "facing=west,half=tall": {
+      "model": "hydronyasama:block/corrugated_red_edge",
+      "uvlock": true
+    },
+    "facing=east,half=top": {
+      "model": "hydronyasama:block/corrugated_red_edge_top",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=east,half=bottom": {
+      "model": "hydronyasama:block/corrugated_red_edge_bottom",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=east,half=tall": {
+      "model": "hydronyasama:block/corrugated_red_edge",
+      "uvlock": true,
+      "y": 180
+    }
+  }
+}

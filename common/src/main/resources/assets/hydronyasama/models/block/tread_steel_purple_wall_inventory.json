@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "hydronyasama:block/tread_steel_purple"
+  }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/half_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/road_light_green_tile",
+        "top": "hydronyasama:block/road_light_green_tile",
+        "side": "hydronyasama:block/road_light_green_tile"
+    }
+}
+

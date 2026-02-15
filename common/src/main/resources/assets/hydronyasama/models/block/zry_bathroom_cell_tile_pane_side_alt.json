@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/template_glass_pane_side_alt",
+    "textures": {
+        "edge": "hydronyasama:block/zry_bathroom_cell_tile",
+        "pane": "hydronyasama:block/zry_bathroom_cell_tile"
+    }
+}

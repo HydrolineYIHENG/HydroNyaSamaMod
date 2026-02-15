@@ -1,0 +1,7 @@
+﻿{
+    "parent": "block/pane_noside",
+    "textures": {
+        "pane": "hydronyasama:block/#replace"
+    }
+}
+

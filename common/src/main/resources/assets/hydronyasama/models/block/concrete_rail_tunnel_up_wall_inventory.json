@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "hydronyasama:block/concrete_rail_tunnel_up"
+  }
+}

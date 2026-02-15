@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_top",
+  "textures": {
+    "top": "hydronyasama:block/exq_marble",
+    "side": "hydronyasama:block/exq_marble",
+    "bottom": "hydronyasama:block/exq_marble",
+    "face": "hydronyasama:block/exq_marble"
+  }
+}

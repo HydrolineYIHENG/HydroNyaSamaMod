@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/outer_vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/tread_steel_brown",
+        "top": "hydronyasama:block/tread_steel_brown",
+        "side": "hydronyasama:block/tread_steel_brown"
+    }
+}
+

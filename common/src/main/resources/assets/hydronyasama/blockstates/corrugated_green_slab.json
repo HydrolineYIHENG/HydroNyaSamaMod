@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/corrugated_green_slab" },
+    "type=top": { "model": "hydronyasama:block/corrugated_green_slab_top" },
+    "type=double": { "model": "hydronyasama:block/corrugated_green_block" }
+  }
+}

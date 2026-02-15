@@ -1,0 +1,8 @@
+﻿{
+    "parent": "block/pane_side",
+    "textures": {
+        "edge": "hydronyasama:block/#replace",
+        "pane": "hydronyasama:block/#replace"
+    }
+}
+

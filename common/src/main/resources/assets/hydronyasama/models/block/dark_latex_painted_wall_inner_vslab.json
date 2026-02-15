@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/inner_vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/dark_latex_painted_wall",
+        "top": "hydronyasama:block/dark_latex_painted_wall",
+        "side": "hydronyasama:block/dark_latex_painted_wall"
+    }
+}
+

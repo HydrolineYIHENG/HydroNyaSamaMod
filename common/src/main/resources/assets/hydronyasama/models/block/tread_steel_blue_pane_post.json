@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/template_glass_pane_post",
+    "textures": {
+        "edge": "hydronyasama:block/tread_steel_blue",
+        "pane": "hydronyasama:block/tread_steel_blue"
+    }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/outer_strip",
+    "textures": {
+        "bottom": "hydronyasama:block/corrugated_cyan",
+        "top": "hydronyasama:block/corrugated_cyan",
+        "side": "hydronyasama:block/corrugated_cyan"
+    }
+}
+

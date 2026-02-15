@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/inner_strip",
+    "textures": {
+        "bottom": "hydronyasama:block/tread_steel_lime",
+        "top": "hydronyasama:block/tread_steel_lime",
+        "side": "hydronyasama:block/tread_steel_lime"
+    }
+}
+

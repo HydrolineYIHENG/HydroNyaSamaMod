@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "all":  "hydronyasama:block/dense_mesh_wire"
+                 },
+    "parent":  "block/cube_all"
+}
+

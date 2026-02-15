@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/strip",
+    "textures": {
+        "bottom": "hydronyasama:block/light_grey_cell_tile",
+        "top": "hydronyasama:block/light_grey_cell_tile",
+        "side": "hydronyasama:block/light_grey_cell_tile"
+    }
+}
+

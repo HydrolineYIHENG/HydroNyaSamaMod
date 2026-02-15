@@ -1,0 +1,8 @@
+﻿{
+    "parent": "block/carpet",
+    "textures": {
+        "particle": "hydronyasama:block/#replace",
+        "wool": "hydronyasama:block/#replace"
+    }
+}
+

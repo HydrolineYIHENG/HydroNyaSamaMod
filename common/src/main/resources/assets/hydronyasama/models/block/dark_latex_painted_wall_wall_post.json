@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "hydronyasama:block/dark_latex_painted_wall"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/template_glass_pane_post",
+    "textures": {
+        "edge": "hydronyasama:block/zry_tvbg_wall",
+        "pane": "hydronyasama:block/zry_tvbg_wall"
+    }
+}

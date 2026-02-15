@@ -1,0 +1,8 @@
+{
+  "parent": "hydronyasama:block/base/vstrip",
+  "textures": {
+    "top": "hydronyasama:block/road_bed_stone",
+    "side": "hydronyasama:block/road_bed_stone",
+    "bottom": "hydronyasama:block/road_bed_stone"
+  }
+}

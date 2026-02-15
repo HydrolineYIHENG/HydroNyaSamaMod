@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "hydronyasama:block/exq_marble",
+    "top": "hydronyasama:block/exq_marble",
+    "side": "hydronyasama:block/exq_marble"
+  }
+}

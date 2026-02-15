@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/inner_vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/road_dark_green_tile",
+        "top": "hydronyasama:block/road_dark_green_tile",
+        "side": "hydronyasama:block/road_dark_green_tile"
+    }
+}
+

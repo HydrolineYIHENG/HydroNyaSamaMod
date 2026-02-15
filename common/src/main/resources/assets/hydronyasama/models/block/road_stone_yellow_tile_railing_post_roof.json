@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/base/railing_post_roof",
+  "textures": {
+    "texture": "hydronyasama:block/road_stone_yellow_tile"
+  }
+}

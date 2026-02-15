@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "hydronyasama:block/anti_static_floor"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "hydronyasama:block/road_dust_yellow_tile"
+  }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/inner_vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/#replace",
+        "top": "hydronyasama:block/#replace",
+        "side": "hydronyasama:block/#replace"
+    }
+}
+

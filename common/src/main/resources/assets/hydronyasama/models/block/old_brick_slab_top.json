@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "hydronyasama:block/old_brick",
+    "top": "hydronyasama:block/old_brick",
+    "side": "hydronyasama:block/old_brick"
+  }
+}

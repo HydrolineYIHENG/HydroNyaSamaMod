@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/strip",
+    "textures": {
+        "bottom": "hydronyasama:block/zry_tvbg_wall",
+        "top": "hydronyasama:block/zry_tvbg_wall",
+        "side": "hydronyasama:block/zry_tvbg_wall"
+    }
+}
+

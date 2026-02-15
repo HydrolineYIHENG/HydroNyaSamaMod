@@ -1,0 +1,26 @@
+﻿{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "top": "hydronyasama:block/#replace",
+      "side": "hydronyasama:block/#replace",
+      "bottom": "hydronyasama:block/#replace",
+      "face": "hydronyasama:block/#replace"
+    },
+    "model": "hydronyasama:base/edge_tall"
+  },
+  "variants": {
+    "normal": [{}],
+    "facing": {
+      "north": { "y": 90, "uvlock": true },
+      "south": { "y": 270, "uvlock": true },
+      "west": { "uvlock": true },
+      "east": { "y": 180, "uvlock": true }
+    },
+    "half": {
+      "top": { "model": "hydronyasama:base/edge_top" },
+      "bottom": { "model": "hydronyasama:base/edge_bottom" },
+      "tall": {  }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/template_glass_pane_side_alt",
+    "textures": {
+        "edge": "hydronyasama:block/road_light_yellow_tile",
+        "pane": "hydronyasama:block/road_light_yellow_tile"
+    }
+}

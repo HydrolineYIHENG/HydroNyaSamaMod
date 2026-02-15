@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_tall",
+  "textures": {
+    "top": "hydronyasama:block/black_marble",
+    "side": "hydronyasama:block/black_marble",
+    "bottom": "hydronyasama:block/black_marble",
+    "face": "hydronyasama:block/black_marble"
+  }
+}

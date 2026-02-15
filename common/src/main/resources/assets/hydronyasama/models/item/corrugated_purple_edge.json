@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_tall",
+  "textures": {
+    "top": "hydronyasama:block/corrugated_purple",
+    "side": "hydronyasama:block/corrugated_purple",
+    "bottom": "hydronyasama:block/corrugated_purple",
+    "face": "hydronyasama:block/corrugated_purple"
+  }
+}

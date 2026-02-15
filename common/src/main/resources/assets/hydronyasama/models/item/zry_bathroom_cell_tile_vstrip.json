@@ -1,0 +1,8 @@
+{
+  "parent": "hydronyasama:block/base/vstrip",
+  "textures": {
+    "top": "hydronyasama:block/zry_bathroom_cell_tile",
+    "side": "hydronyasama:block/zry_bathroom_cell_tile",
+    "bottom": "hydronyasama:block/zry_bathroom_cell_tile"
+  }
+}

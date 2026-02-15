@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "hydronyasama:block/corrugated_purple",
+    "top": "hydronyasama:block/corrugated_purple",
+    "side": "hydronyasama:block/corrugated_purple"
+  }
+}

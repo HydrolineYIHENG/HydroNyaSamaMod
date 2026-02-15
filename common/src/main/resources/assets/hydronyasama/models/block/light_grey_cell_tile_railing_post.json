@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/base/railing_post",
+  "textures": {
+    "texture": "hydronyasama:block/light_grey_cell_tile"
+  }
+}

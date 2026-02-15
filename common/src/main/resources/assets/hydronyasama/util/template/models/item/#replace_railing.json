@@ -1,0 +1,7 @@
+﻿{
+    "parent": "hydronyasama:base/railing_inventory",
+    "textures": {
+        "texture": "hydronyasama:block/#replace"
+    }
+}
+

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/template_glass_pane_side_alt",
+    "textures": {
+        "edge": "hydronyasama:block/mesh_wire",
+        "pane": "hydronyasama:block/mesh_wire"
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "hydronyasama:block/rusty_tread_steel_plate"
+  }
+}

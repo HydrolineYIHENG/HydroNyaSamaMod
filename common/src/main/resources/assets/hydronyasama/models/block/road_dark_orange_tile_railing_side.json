@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/base/railing_side",
+  "textures": {
+    "texture": "hydronyasama:block/road_dark_orange_tile"
+  }
+}

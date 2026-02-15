@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/light_grey_cell_tile_slab" },
+    "type=top": { "model": "hydronyasama:block/light_grey_cell_tile_slab_top" },
+    "type=double": { "model": "hydronyasama:block/light_grey_cell_tile_block" }
+  }
+}

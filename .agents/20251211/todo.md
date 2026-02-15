@@ -1,0 +1,4 @@
+- [x] 重写 `docs/Railway Snapshot Format.md`，按照 stations/platforms/routes/depots 每段详细描述字段、单位与编码，并补充 MessagePack/BlockPos/重复 id 的说明。
+- [x] 更新 `.agents/20251211/spec.md`，记录 `RailwayData` 作为唯一数据源、world/mtr 关系、节点来源与数据体积估算。
+- [ ] 运行 `./gradlew buildAllTARGETS` 验证当前改动不会破坏编译。
+- [ ] 等待 Beacon Provider 上线后，重新执行 `tests/test-actions.js`（或 `pnpm test:actions`）以生成新的快照样本。

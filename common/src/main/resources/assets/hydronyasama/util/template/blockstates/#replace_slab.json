@@ -1,0 +1,7 @@
+﻿{
+    "variants": {
+        "half=bottom": { "model": "hydronyasama:half_slab_#replace" },
+        "half=top": { "model": "hydronyasama:upper_slab_#replace" }
+    }
+}
+

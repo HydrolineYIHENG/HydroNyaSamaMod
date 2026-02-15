@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "hydronyasama:block/cinder_brick_wall"
+  }
+}

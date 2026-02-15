@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/outer_strip",
+    "textures": {
+        "bottom": "hydronyasama:block/road_light_orange_tile",
+        "top": "hydronyasama:block/road_light_orange_tile",
+        "side": "hydronyasama:block/road_light_orange_tile"
+    }
+}
+

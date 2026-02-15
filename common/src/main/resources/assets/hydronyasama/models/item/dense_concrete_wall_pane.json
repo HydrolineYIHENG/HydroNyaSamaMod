@@ -1,0 +1,7 @@
+﻿{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "hydronyasama:block/dense_concrete_wall"
+    }
+}
+

@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/outer_strip",
+    "textures": {
+        "bottom": "hydronyasama:block/asphalt",
+        "top": "hydronyasama:block/asphalt",
+        "side": "hydronyasama:block/asphalt"
+    }
+}
+

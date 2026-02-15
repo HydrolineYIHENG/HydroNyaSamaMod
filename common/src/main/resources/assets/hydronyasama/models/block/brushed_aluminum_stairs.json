@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "hydronyasama:block/brushed_aluminum",
+    "top": "hydronyasama:block/brushed_aluminum",
+    "side": "hydronyasama:block/brushed_aluminum"
+  }
+}

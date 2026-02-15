@@ -1,0 +1,8 @@
+{
+  "parent": "hydronyasama:block/base/vstrip",
+  "textures": {
+    "top": "hydronyasama:block/plazza_floor",
+    "side": "hydronyasama:block/plazza_floor",
+    "bottom": "hydronyasama:block/plazza_floor"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "hydronyasama:block/light_grey_cell_tile"
+  }
+}

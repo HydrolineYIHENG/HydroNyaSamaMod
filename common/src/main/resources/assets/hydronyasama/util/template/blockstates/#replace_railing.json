@@ -1,0 +1,40 @@
+﻿{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "texture": "hydronyasama:block/#replace"
+        },
+        "model": "hydronyasama:base/railing_post"
+    },
+    "variants": {
+    "normal": [{}],
+    "inventory": [{
+        "model": "hydronyasama:base/railing_inventory"
+    }],
+    "up": {
+        "true": { "submodel": { "up": { "model": "hydronyasama:base/railing_post_top" } } },
+        "false": {  }
+    },
+    "down": {
+        "true": { "submodel": { "down": { "model": "hydronyasama:base/railing_post_bottom" } } },
+        "false": {  }
+    },
+    "north": {
+        "true": { "submodel": { "north": { "model": "hydronyasama:base/railing_side", "uvlock": true } } },
+        "false": {  }
+    },
+    "south": {
+        "true": { "submodel": { "south": { "model": "hydronyasama:base/railing_side", "y": 180, "uvlock": true } } },
+        "false": {  }
+    },
+    "west": {
+        "true": { "submodel": { "west": { "model": "hydronyasama:base/railing_side", "y": 270, "uvlock": true } } },
+        "false": {  }
+    },
+    "east": {
+        "true": { "submodel": { "east": { "model": "hydronyasama:base/railing_side", "y": 90, "uvlock": true } } },
+        "false": {  }
+    }
+    }
+}
+

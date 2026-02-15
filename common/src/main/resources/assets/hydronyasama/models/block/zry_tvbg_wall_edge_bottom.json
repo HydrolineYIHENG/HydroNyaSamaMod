@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_bottom",
+  "textures": {
+    "top": "hydronyasama:block/zry_tvbg_wall",
+    "side": "hydronyasama:block/zry_tvbg_wall",
+    "bottom": "hydronyasama:block/zry_tvbg_wall",
+    "face": "hydronyasama:block/zry_tvbg_wall"
+  }
+}

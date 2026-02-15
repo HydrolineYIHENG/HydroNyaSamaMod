@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/upper_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/corrugated_green",
+        "top": "hydronyasama:block/corrugated_green",
+        "side": "hydronyasama:block/corrugated_green"
+    }
+}
+

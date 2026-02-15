@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "hydronyasama:block/tread_steel_green",
+    "top": "hydronyasama:block/tread_steel_green",
+    "side": "hydronyasama:block/tread_steel_green"
+  }
+}

@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/upper_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/latex_painted_wall",
+        "top": "hydronyasama:block/latex_painted_wall",
+        "side": "hydronyasama:block/latex_painted_wall"
+    }
+}
+

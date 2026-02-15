@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/coarse_concrete_floor_slab" },
+    "type=top": { "model": "hydronyasama:block/coarse_concrete_floor_slab_top" },
+    "type=double": { "model": "hydronyasama:block/coarse_concrete_floor_block" }
+  }
+}

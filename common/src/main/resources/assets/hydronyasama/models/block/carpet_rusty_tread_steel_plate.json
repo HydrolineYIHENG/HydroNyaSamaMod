@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "hydronyasama:block/rusty_tread_steel_plate"
+  }
+}

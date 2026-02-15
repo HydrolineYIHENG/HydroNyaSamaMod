@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "hydronyasama:block/road_shine_orange_tile"
+  }
+}

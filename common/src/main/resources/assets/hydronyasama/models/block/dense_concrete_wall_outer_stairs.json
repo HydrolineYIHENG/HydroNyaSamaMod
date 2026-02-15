@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "hydronyasama:block/dense_concrete_wall",
+    "top": "hydronyasama:block/dense_concrete_wall",
+    "side": "hydronyasama:block/dense_concrete_wall"
+  }
+}

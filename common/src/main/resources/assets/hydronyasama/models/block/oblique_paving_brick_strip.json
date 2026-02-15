@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/strip",
+    "textures": {
+        "bottom": "hydronyasama:block/oblique_paving_brick",
+        "top": "hydronyasama:block/oblique_paving_brick",
+        "side": "hydronyasama:block/oblique_paving_brick"
+    }
+}
+

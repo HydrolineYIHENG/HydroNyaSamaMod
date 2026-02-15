@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_inventory",
+  "textures": {
+    "texture": "hydronyasama:block/road_yellow_tile"
+  }
+}

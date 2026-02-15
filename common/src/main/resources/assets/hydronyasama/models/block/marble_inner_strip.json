@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/inner_strip",
+    "textures": {
+        "bottom": "hydronyasama:block/marble",
+        "top": "hydronyasama:block/marble",
+        "side": "hydronyasama:block/marble"
+    }
+}
+

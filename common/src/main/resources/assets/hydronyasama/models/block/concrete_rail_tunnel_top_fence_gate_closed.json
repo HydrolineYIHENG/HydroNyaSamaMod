@@ -1,0 +1,7 @@
+﻿{
+    "parent": "block/fence_gate_closed",
+    "textures": {
+        "texture": "hydronyasama:block/concrete_rail_tunnel_top"
+    }
+}
+

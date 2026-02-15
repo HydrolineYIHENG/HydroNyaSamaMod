@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/inner_strip",
+    "textures": {
+        "bottom": "hydronyasama:block/road_bed_stone",
+        "top": "hydronyasama:block/road_bed_stone",
+        "side": "hydronyasama:block/road_bed_stone"
+    }
+}
+

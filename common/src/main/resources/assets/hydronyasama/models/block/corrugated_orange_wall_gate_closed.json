@@ -1,0 +1,7 @@
+﻿{
+    "parent": "block/wall_gate_closed",
+    "textures": {
+        "texture": "hydronyasama:block/corrugated_orange"
+    }
+}
+

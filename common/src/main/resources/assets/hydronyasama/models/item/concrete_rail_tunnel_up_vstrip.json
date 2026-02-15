@@ -1,0 +1,8 @@
+{
+  "parent": "hydronyasama:block/base/vstrip",
+  "textures": {
+    "top": "hydronyasama:block/concrete_rail_tunnel_up",
+    "side": "hydronyasama:block/concrete_rail_tunnel_up",
+    "bottom": "hydronyasama:block/concrete_rail_tunnel_up"
+  }
+}

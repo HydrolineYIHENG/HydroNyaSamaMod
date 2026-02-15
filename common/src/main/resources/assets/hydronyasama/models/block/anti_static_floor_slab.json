@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "hydronyasama:block/anti_static_floor",
+    "top": "hydronyasama:block/anti_static_floor",
+    "side": "hydronyasama:block/anti_static_floor"
+  }
+}

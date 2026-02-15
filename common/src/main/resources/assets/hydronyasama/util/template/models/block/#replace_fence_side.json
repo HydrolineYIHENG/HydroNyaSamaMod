@@ -1,0 +1,7 @@
+﻿{
+    "parent": "block/fence_side",
+    "textures": {
+        "texture": "hydronyasama:block/#replace"
+    }
+}
+

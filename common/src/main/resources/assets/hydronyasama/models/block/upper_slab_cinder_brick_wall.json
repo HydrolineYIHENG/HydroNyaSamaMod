@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/upper_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/cinder_brick_wall",
+        "top": "hydronyasama:block/cinder_brick_wall",
+        "side": "hydronyasama:block/cinder_brick_wall"
+    }
+}
+

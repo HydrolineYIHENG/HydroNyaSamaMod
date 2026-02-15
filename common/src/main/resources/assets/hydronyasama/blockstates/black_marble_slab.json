@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/black_marble_slab" },
+    "type=top": { "model": "hydronyasama:block/black_marble_slab_top" },
+    "type=double": { "model": "hydronyasama:block/black_marble_block" }
+  }
+}

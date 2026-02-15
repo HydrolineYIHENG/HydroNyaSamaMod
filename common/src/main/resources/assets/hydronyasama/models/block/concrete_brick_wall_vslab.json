@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/concrete_brick_wall",
+        "top": "hydronyasama:block/concrete_brick_wall",
+        "side": "hydronyasama:block/concrete_brick_wall"
+    }
+}
+

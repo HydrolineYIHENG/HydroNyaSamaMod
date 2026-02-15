@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/rusty_tread_steel_plate_slab" },
+    "type=top": { "model": "hydronyasama:block/rusty_tread_steel_plate_slab_top" },
+    "type=double": { "model": "hydronyasama:block/rusty_tread_steel_plate_block" }
+  }
+}

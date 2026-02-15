@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_tall",
+  "textures": {
+    "top": "hydronyasama:block/white_brick_wall",
+    "side": "hydronyasama:block/white_brick_wall",
+    "bottom": "hydronyasama:block/white_brick_wall",
+    "face": "hydronyasama:block/white_brick_wall"
+  }
+}

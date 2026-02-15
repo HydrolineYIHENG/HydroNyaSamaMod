@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/half_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/mineral_wool_celling_plate",
+        "top": "hydronyasama:block/mineral_wool_celling_plate",
+        "side": "hydronyasama:block/mineral_wool_celling_plate"
+    }
+}
+

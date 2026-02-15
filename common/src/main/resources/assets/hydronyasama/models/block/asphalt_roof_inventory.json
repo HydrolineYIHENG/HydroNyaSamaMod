@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/base/roof_inventory",
+  "textures": {
+    "texture": "hydronyasama:block/asphalt"
+  }
+}

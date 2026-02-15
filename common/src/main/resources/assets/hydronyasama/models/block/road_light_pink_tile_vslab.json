@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/road_light_pink_tile",
+        "top": "hydronyasama:block/road_light_pink_tile",
+        "side": "hydronyasama:block/road_light_pink_tile"
+    }
+}
+

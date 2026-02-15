@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_bottom",
+  "textures": {
+    "top": "hydronyasama:block/road_red_tile",
+    "side": "hydronyasama:block/road_red_tile",
+    "bottom": "hydronyasama:block/road_red_tile",
+    "face": "hydronyasama:block/road_red_tile"
+  }
+}

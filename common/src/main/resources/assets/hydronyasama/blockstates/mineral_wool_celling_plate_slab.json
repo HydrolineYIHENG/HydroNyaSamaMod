@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/mineral_wool_celling_plate_slab" },
+    "type=top": { "model": "hydronyasama:block/mineral_wool_celling_plate_slab_top" },
+    "type=double": { "model": "hydronyasama:block/mineral_wool_celling_plate_block" }
+  }
+}

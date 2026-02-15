@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/road_shine_yellow_tile_slab" },
+    "type=top": { "model": "hydronyasama:block/road_shine_yellow_tile_slab_top" },
+    "type=double": { "model": "hydronyasama:block/road_shine_yellow_tile_block" }
+  }
+}

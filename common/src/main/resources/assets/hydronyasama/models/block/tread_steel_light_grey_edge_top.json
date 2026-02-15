@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_top",
+  "textures": {
+    "top": "hydronyasama:block/tread_steel_light_grey",
+    "side": "hydronyasama:block/tread_steel_light_grey",
+    "bottom": "hydronyasama:block/tread_steel_light_grey",
+    "face": "hydronyasama:block/tread_steel_light_grey"
+  }
+}

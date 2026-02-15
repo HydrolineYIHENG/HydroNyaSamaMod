@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/sand_brick_slab" },
+    "type=top": { "model": "hydronyasama:block/sand_brick_slab_top" },
+    "type=double": { "model": "hydronyasama:block/sand_brick_block" }
+  }
+}

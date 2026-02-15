@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "hydronyasama:block/road_dust_yellow_tile"
+  }
+}

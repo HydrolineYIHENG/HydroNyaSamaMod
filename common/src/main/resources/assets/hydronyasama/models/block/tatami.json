@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "all":  "hydronyasama:block/tatami"
+                 },
+    "parent":  "block/cube_all"
+}
+

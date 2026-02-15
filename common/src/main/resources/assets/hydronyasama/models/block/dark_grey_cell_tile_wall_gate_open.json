@@ -1,0 +1,7 @@
+﻿{
+    "parent": "block/wall_gate_open",
+    "textures": {
+        "texture": "hydronyasama:block/dark_grey_cell_tile"
+    }
+}
+

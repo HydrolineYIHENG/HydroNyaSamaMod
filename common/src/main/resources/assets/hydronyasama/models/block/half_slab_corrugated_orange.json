@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/half_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/corrugated_orange",
+        "top": "hydronyasama:block/corrugated_orange",
+        "side": "hydronyasama:block/corrugated_orange"
+    }
+}
+

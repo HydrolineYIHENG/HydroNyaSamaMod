@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_tall",
+  "textures": {
+    "top": "hydronyasama:block/plazza_floor",
+    "side": "hydronyasama:block/plazza_floor",
+    "bottom": "hydronyasama:block/plazza_floor",
+    "face": "hydronyasama:block/plazza_floor"
+  }
+}

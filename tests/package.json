@@ -1,0 +1,12 @@
+{
+  "name": "HydroNyaSama-action-tests",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:actions": "node test-actions.js"
+  },
+  "dependencies": {
+    "msgpack-lite": "^0.1.5"
+  }
+}

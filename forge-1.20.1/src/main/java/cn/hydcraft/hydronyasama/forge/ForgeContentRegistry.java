@@ -1,0 +1,163 @@
+package cn.hydcraft.hydronyasama.forge;
+
+import cn.hydcraft.hydronyasama.BeaconProviderMod;
+import cn.hydcraft.hydronyasama.content.LegacyContentIds;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarpetBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+final class ForgeContentRegistry {
+  private static final DeferredRegister<Block> BLOCKS =
+      DeferredRegister.create(ForgeRegistries.BLOCKS, BeaconProviderMod.MOD_ID);
+  private static final DeferredRegister<Item> ITEMS =
+      DeferredRegister.create(ForgeRegistries.ITEMS, BeaconProviderMod.MOD_ID);
+  private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
+      DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BeaconProviderMod.MOD_ID);
+  private static final List<RegistryObject<Item>> CORE_TAB_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Item>> BUILDING_TAB_ITEMS = new ArrayList<>();
+  private static RegistryObject<Block> telecomNodeBlock;
+  private static RegistryObject<BlockEntityType<TelecomNodeBlockEntity>> telecomNodeBlockEntityType;
+  private static RegistryObject<Item> probeItem;
+
+  private ForgeContentRegistry() {}
+
+  static void register(IEventBus modBus) {
+    for (String id : LegacyContentIds.CORE_BLOCK_IDS) {
+      registerStoneBlock(id, CORE_TAB_ITEMS);
+    }
+    for (String id : LegacyContentIds.BUILDING_BLOCK_IDS) {
+      registerStoneBlock(id, BUILDING_TAB_ITEMS);
+    }
+    for (String id : LegacyContentIds.BUILDING_BATCH1_DERIVED_BLOCK_IDS) {
+      registerDerivedBlock(id, BUILDING_TAB_ITEMS);
+    }
+    for (String id : LegacyContentIds.BUILDING_BATCH2_DERIVED_BLOCK_IDS) {
+      registerDerivedBlock(id, BUILDING_TAB_ITEMS);
+    }
+    telecomNodeBlock =
+        BLOCKS.register(
+            "telecom_node",
+            () ->
+                new TelecomNodeBlock(
+                    BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                        .strength(2.0F)
+                        .noOcclusion()));
+    RegistryObject<Item> telecomNodeItem =
+        ITEMS.register(
+            "telecom_node", () -> new BlockItem(telecomNodeBlock.get(), new Item.Properties()));
+    CORE_TAB_ITEMS.add(telecomNodeItem);
+    telecomNodeBlockEntityType =
+        BLOCK_ENTITY_TYPES.register(
+            "telecom_node",
+            () ->
+                BlockEntityType.Builder.of(TelecomNodeBlockEntity::new, telecomNodeBlock.get())
+                    .build(null));
+    probeItem = ITEMS.register("probe", () -> new ProbeItem(new Item.Properties()));
+    BUILDING_TAB_ITEMS.add(probeItem);
+    BLOCKS.register(modBus);
+    ITEMS.register(modBus);
+    BLOCK_ENTITY_TYPES.register(modBus);
+  }
+
+  static List<RegistryObject<Item>> coreTabItems() {
+    return Collections.unmodifiableList(CORE_TAB_ITEMS);
+  }
+
+  static List<RegistryObject<Item>> buildingTabItems() {
+    return Collections.unmodifiableList(BUILDING_TAB_ITEMS);
+  }
+
+  static Item coreIconItem() {
+    return CORE_TAB_ITEMS.isEmpty() ? Items.BRICK : CORE_TAB_ITEMS.get(0).get();
+  }
+
+  static Item buildingIconItem() {
+    return BUILDING_TAB_ITEMS.isEmpty() ? Items.BRICK : BUILDING_TAB_ITEMS.get(0).get();
+  }
+
+  static Item probeItem() {
+    return probeItem == null ? Items.AIR : probeItem.get();
+  }
+
+  static BlockEntityType<TelecomNodeBlockEntity> telecomNodeBlockEntityType() {
+    return telecomNodeBlockEntityType.get();
+  }
+
+  private static void registerStoneBlock(String id, List<RegistryObject<Item>> tabItems) {
+    RegistryObject<Block> block =
+        BLOCKS.register(id, () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    RegistryObject<Item> item =
+        ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties()));
+    tabItems.add(item);
+  }
+
+  private static void registerDerivedBlock(String id, List<RegistryObject<Item>> tabItems) {
+    RegistryObject<Block> block = BLOCKS.register(id, () -> createDerivedBlock(id));
+    RegistryObject<Item> item =
+        ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties()));
+    tabItems.add(item);
+  }
+
+  private static Block createDerivedBlock(String id) {
+    BlockBehaviour.Properties properties = BlockBehaviour.Properties.copy(Blocks.STONE);
+    if (id.endsWith("_stairs")) {
+      return new StairBlock(Blocks.STONE.defaultBlockState(), properties) {};
+    }
+    if (id.endsWith("_strip")) {
+      return new LegacyStripBlock(Blocks.STONE.defaultBlockState(), properties.noOcclusion());
+    }
+    if (id.endsWith("_vslab")) {
+      return new LegacyVSlabBlock(Blocks.STONE.defaultBlockState(), properties.noOcclusion());
+    }
+    if (id.endsWith("_vstrip")) {
+      return new LegacyVStripBlock(properties.noOcclusion());
+    }
+    if (id.endsWith("_edge")) {
+      return new LegacyEdgeBlock(properties.noOcclusion());
+    }
+    if (id.endsWith("_railing")) {
+      return new LegacyRailingBlock(properties.noOcclusion(), false);
+    }
+    if (id.endsWith("_roof")) {
+      return new LegacyRailingBlock(properties.noOcclusion(), true);
+    }
+    if (id.endsWith("_slab")) {
+      return new SlabBlock(properties);
+    }
+    if (id.endsWith("_carpet")) {
+      return new CarpetBlock(properties);
+    }
+    if (id.endsWith("_pane")) {
+      return new IronBarsBlock(properties);
+    }
+    if (id.endsWith("_wall")) {
+      return new WallBlock(properties);
+    }
+    if (id.endsWith("_fence_gate")) {
+      return new FenceGateBlock(properties, WoodType.OAK);
+    }
+    if (id.endsWith("_fence")) {
+      return new FenceBlock(properties);
+    }
+    return new Block(properties);
+  }
+}

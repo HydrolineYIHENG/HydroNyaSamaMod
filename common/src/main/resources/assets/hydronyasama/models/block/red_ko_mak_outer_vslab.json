@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/outer_vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/red_ko_mak",
+        "top": "hydronyasama:block/red_ko_mak",
+        "side": "hydronyasama:block/red_ko_mak"
+    }
+}
+

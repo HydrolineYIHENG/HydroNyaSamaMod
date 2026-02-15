@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/upper_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/coarse_concrete_floor",
+        "top": "hydronyasama:block/coarse_concrete_floor",
+        "side": "hydronyasama:block/coarse_concrete_floor"
+    }
+}
+

@@ -1,0 +1,9 @@
+﻿{
+    "parent": "block/half_slab",
+    "textures": {
+        "bottom": "hydronyasama:block/asphalt",
+        "top": "hydronyasama:block/asphalt",
+        "side": "hydronyasama:block/asphalt"
+    }
+}
+

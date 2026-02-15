@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_top",
+  "textures": {
+    "top": "hydronyasama:block/brushed_aluminum",
+    "side": "hydronyasama:block/brushed_aluminum",
+    "bottom": "hydronyasama:block/brushed_aluminum",
+    "face": "hydronyasama:block/brushed_aluminum"
+  }
+}

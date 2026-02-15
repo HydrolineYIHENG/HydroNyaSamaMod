@@ -1,0 +1,9 @@
+{
+  "parent": "hydronyasama:block/base/edge_tall",
+  "textures": {
+    "top": "hydronyasama:block/concrete_rail_tunnel_up",
+    "side": "hydronyasama:block/concrete_rail_tunnel_up",
+    "bottom": "hydronyasama:block/concrete_rail_tunnel_up",
+    "face": "hydronyasama:block/concrete_rail_tunnel_up"
+  }
+}

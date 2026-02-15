@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "hydronyasama:block/tread_steel_lime_vstrip",
+      "uvlock": true,
+      "y": 270
+    },
+    "facing=south": {
+      "model": "hydronyasama:block/tread_steel_lime_vstrip",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "hydronyasama:block/tread_steel_lime_vstrip",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=east": {
+      "model": "hydronyasama:block/tread_steel_lime_vstrip",
+      "uvlock": true
+    }
+  }
+}

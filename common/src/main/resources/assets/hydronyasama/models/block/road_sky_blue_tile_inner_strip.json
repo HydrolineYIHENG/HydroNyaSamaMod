@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/inner_strip",
+    "textures": {
+        "bottom": "hydronyasama:block/road_sky_blue_tile",
+        "top": "hydronyasama:block/road_sky_blue_tile",
+        "side": "hydronyasama:block/road_sky_blue_tile"
+    }
+}
+

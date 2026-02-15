@@ -1,0 +1,6 @@
+﻿{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "hydronyasama:items/ntp_32"
+  }
+}

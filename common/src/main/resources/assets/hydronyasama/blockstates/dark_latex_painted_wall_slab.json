@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/dark_latex_painted_wall_slab" },
+    "type=top": { "model": "hydronyasama:block/dark_latex_painted_wall_slab_top" },
+    "type=double": { "model": "hydronyasama:block/dark_latex_painted_wall_block" }
+  }
+}

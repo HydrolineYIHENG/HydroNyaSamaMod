@@ -1,0 +1,6 @@
+{
+  "parent": "hydronyasama:block/base/railing_inventory",
+  "textures": {
+    "texture": "hydronyasama:block/road_light_grey_tile"
+  }
+}

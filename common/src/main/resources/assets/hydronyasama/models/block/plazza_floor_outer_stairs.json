@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "hydronyasama:block/plazza_floor",
+    "top": "hydronyasama:block/plazza_floor",
+    "side": "hydronyasama:block/plazza_floor"
+  }
+}

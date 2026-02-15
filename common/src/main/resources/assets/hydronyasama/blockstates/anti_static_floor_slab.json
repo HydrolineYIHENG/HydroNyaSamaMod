@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/anti_static_floor_slab" },
+    "type=top": { "model": "hydronyasama:block/anti_static_floor_slab_top" },
+    "type=double": { "model": "hydronyasama:block/anti_static_floor_block" }
+  }
+}

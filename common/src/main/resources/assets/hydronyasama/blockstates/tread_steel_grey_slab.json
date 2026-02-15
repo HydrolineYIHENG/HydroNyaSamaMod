@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/tread_steel_grey_slab" },
+    "type=top": { "model": "hydronyasama:block/tread_steel_grey_slab_top" },
+    "type=double": { "model": "hydronyasama:block/tread_steel_grey_block" }
+  }
+}

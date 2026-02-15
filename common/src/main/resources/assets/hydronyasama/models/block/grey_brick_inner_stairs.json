@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "hydronyasama:block/grey_brick",
+    "top": "hydronyasama:block/grey_brick",
+    "side": "hydronyasama:block/grey_brick"
+  }
+}

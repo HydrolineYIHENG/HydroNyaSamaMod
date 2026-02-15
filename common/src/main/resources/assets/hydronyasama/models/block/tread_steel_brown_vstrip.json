@@ -1,0 +1,8 @@
+{
+  "parent": "hydronyasama:block/base/vstrip",
+  "textures": {
+    "top": "hydronyasama:block/tread_steel_brown",
+    "side": "hydronyasama:block/tread_steel_brown",
+    "bottom": "hydronyasama:block/tread_steel_brown"
+  }
+}

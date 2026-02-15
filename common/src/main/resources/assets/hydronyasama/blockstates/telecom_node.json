@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "hydronyasama:block/telecom_node"
+    },
+    "powered=true": {
+      "model": "hydronyasama:block/telecom_node"
+    }
+  }
+}

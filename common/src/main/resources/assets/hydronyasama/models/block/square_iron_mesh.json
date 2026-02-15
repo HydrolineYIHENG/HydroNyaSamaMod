@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "all":  "hydronyasama:block/square_iron_mesh"
+                 },
+    "parent":  "block/cube_all"
+}
+

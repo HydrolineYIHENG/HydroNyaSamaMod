@@ -1,0 +1,8 @@
+{
+  "parent": "hydronyasama:block/base/vstrip",
+  "textures": {
+    "top": "hydronyasama:block/anti_static_floor",
+    "side": "hydronyasama:block/anti_static_floor",
+    "bottom": "hydronyasama:block/anti_static_floor"
+  }
+}

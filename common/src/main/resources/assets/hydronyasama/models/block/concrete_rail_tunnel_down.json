@@ -1,0 +1,7 @@
+﻿{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "hydronyasama:block/concrete_rail_tunnel_down"
+    }
+}
+

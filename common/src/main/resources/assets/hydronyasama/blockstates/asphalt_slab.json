@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "hydronyasama:block/asphalt_slab" },
+    "type=top": { "model": "hydronyasama:block/asphalt_slab_top" },
+    "type=double": { "model": "hydronyasama:block/asphalt_block" }
+  }
+}

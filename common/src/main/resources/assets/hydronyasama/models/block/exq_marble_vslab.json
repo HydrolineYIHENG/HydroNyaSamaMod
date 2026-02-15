@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/exq_marble",
+        "top": "hydronyasama:block/exq_marble",
+        "side": "hydronyasama:block/exq_marble"
+    }
+}
+

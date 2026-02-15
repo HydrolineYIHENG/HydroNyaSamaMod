@@ -1,0 +1,9 @@
+﻿{
+    "parent": "hydronyasama:base/inner_vslab",
+    "textures": {
+        "bottom": "hydronyasama:block/sand_brick",
+        "top": "hydronyasama:block/sand_brick",
+        "side": "hydronyasama:block/sand_brick"
+    }
+}
+

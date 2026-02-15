@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/template_glass_pane_side_alt",
+    "textures": {
+        "edge": "hydronyasama:block/big_concrete_brick",
+        "pane": "hydronyasama:block/big_concrete_brick"
+    }
+}

@@ -1,0 +1,7 @@
+﻿{
+    "parent": "block/wall_gate_open",
+    "textures": {
+        "texture": "hydronyasama:block/road_light_pink_tile"
+    }
+}
+
