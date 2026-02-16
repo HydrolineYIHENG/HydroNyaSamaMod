@@ -187,6 +187,13 @@ subprojects {
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
     }
+    tasks.withType<ProcessResources>().configureEach {
+        // Copy task is incremental and may leave removed/renamed files in output.
+        // Always clear destination to avoid stale resources leaking into built jars.
+        doFirst {
+            delete(destinationDir)
+        }
+    }
 }
 
 subprojects {

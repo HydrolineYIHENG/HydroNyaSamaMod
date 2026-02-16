@@ -1,11 +1,6 @@
 ﻿{
-  "forge_marker": 1,
   "variants": {
-    "normal": {
-      "model": "hydronyasama:cube_block",
-      "textures": {
-        "texture": "hydronyasama:block/nso_logo"
-      }
-    }
+    "": { "model": "hydronyasama:block/nso_logo" }
   }
 }
+

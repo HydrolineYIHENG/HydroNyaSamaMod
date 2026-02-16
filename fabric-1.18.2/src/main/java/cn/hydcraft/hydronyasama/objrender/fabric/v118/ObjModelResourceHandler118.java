@@ -1,7 +1,9 @@
-package cn.hydcraft.hydronyasama.objrender.fabric.v120;
+package cn.hydcraft.hydronyasama.objrender.fabric.v118;
 
 import com.google.gson.JsonObject;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.nio.charset.StandardCharsets;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.model.ModelProviderContext;
 import net.fabricmc.fabric.api.client.model.ModelProviderException;
@@ -19,18 +22,18 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import org.jetbrains.annotations.Nullable;
 
-public final class ObjModelResourceHandler120 implements ModelResourceProvider {
+public final class ObjModelResourceHandler118 implements ModelResourceProvider {
   private static final String MOD_ID = "hydronyasama";
 
   private final ResourceManager resourceManager;
   private final Map<ResourceLocation, Optional<UnbakedModel>> cache = new ConcurrentHashMap<>();
 
-  public ObjModelResourceHandler120(ResourceManager resourceManager) {
+  public ObjModelResourceHandler118(ResourceManager resourceManager) {
     this.resourceManager = resourceManager;
   }
 
   public static void register() {
-    ModelLoadingRegistry.INSTANCE.registerResourceProvider(ObjModelResourceHandler120::new);
+    ModelLoadingRegistry.INSTANCE.registerResourceProvider(ObjModelResourceHandler118::new);
   }
 
   @Override
@@ -91,20 +94,20 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
   }
 
   private @Nullable UnbakedModel tryLoadSupportedObj(JsonObject modelJson) throws ModelProviderException {
-    if (!ObjUnbakedModel120.isForgeObjModel(modelJson)) {
+    if (!ObjUnbakedModel118.isForgeObjModel(modelJson)) {
       return null;
     }
-    ResourceLocation modelLocation = ObjUnbakedModel120.getObjModelLocation(modelJson);
+    ResourceLocation modelLocation = ObjUnbakedModel118.getObjModelLocation(modelJson);
     if (!isSupportedObjModelLocation(modelLocation)) {
       return null;
     }
-    UnbakedModel baseModel = ObjUnbakedModel120.tryLoadFromModelJson(resourceManager, modelJson);
+    UnbakedModel baseModel = ObjUnbakedModel118.tryLoadFromModelJson(resourceManager, modelJson);
     if (baseModel == null || modelLocation == null) {
       return baseModel;
     }
 
     ResourceLocation lightLocation = toLightObjModelLocation(modelLocation);
-    if (lightLocation == null || resourceManager.getResource(lightLocation).isEmpty()) {
+    if (lightLocation == null || !resourceManager.hasResource(lightLocation)) {
       return baseModel;
     }
 
@@ -116,12 +119,12 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     textures.addProperty("particle", "hydronyasama:block/light_base");
     lightJson.add("textures", textures);
 
-    UnbakedModel lightModel = ObjUnbakedModel120.tryLoadFromModelJson(resourceManager, lightJson);
+    UnbakedModel lightModel = ObjUnbakedModel118.tryLoadFromModelJson(resourceManager, lightJson);
     if (lightModel == null) {
       return baseModel;
     }
 
-    return new CombinedObjUnbakedModel120(List.of(baseModel, lightModel));
+    return new CombinedObjUnbakedModel118(List.of(baseModel, lightModel));
   }
 
   private static boolean isSupportedObjModelLocation(@Nullable ResourceLocation modelLocation) {
@@ -144,11 +147,12 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
   private @Nullable JsonObject readModelJson(ResourceLocation modelId) throws ModelProviderException {
     ResourceLocation jsonLocation =
         new ResourceLocation(modelId.getNamespace(), "models/" + modelId.getPath() + ".json");
-    var resource = resourceManager.getResource(jsonLocation);
-    if (resource.isEmpty()) {
+    if (!resourceManager.hasResource(jsonLocation)) {
       return null;
     }
-    try (var reader = resource.get().openAsReader()) {
+    try (var reader =
+        new BufferedReader(
+            new InputStreamReader(resourceManager.getResource(jsonLocation).getInputStream(), StandardCharsets.UTF_8))) {
       return GsonHelper.parse(reader);
     } catch (IOException e) {
       throw new ModelProviderException("Failed to read model json: " + modelId, e);
@@ -175,3 +179,4 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     return merged;
   }
 }
+

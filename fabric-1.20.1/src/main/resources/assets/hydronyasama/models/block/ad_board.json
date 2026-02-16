@@ -1,4 +1,5 @@
-﻿{
+{
+  "parent": "block/block",
   "loader": "forge:obj",
   "model": "hydronyasama:models/blocks/ad_board_base.obj",
   "flip-v": true,
