@@ -59,4 +59,3 @@ final class CombinedObjUnbakedModel120 implements UnbakedModel {
     return new CombinedObjBakedModel120(baked);
   }
 }
-

@@ -23,6 +23,7 @@ public final class LegacyRailingBlock extends FenceBlock {
   static final BooleanProperty DOWN = BooleanProperty.create("down");
 
   private final boolean roofMode;
+
   public LegacyRailingBlock(BlockBehaviour.Properties properties, boolean roofMode) {
     super(properties);
     this.roofMode = roofMode;
@@ -103,4 +104,3 @@ public final class LegacyRailingBlock extends FenceBlock {
     return !(aboveState.getBlock() instanceof FenceBlock);
   }
 }
-

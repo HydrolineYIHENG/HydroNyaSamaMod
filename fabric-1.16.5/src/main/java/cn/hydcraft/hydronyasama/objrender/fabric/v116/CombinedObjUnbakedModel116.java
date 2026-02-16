@@ -34,7 +34,8 @@ final class CombinedObjUnbakedModel116 implements UnbakedModel {
 
   @Override
   public Collection<Material> getMaterials(
-      Function<ResourceLocation, UnbakedModel> resolver, Set<Pair<String, String>> unresolvedTextureReferences) {
+      Function<ResourceLocation, UnbakedModel> resolver,
+      Set<Pair<String, String>> unresolvedTextureReferences) {
     Set<Material> all = new LinkedHashSet<>();
     for (UnbakedModel delegate : delegates) {
       all.addAll(delegate.getMaterials(resolver, unresolvedTextureReferences));
@@ -64,6 +65,3 @@ final class CombinedObjUnbakedModel116 implements UnbakedModel {
     return new CombinedObjBakedModel116(baked);
   }
 }
-
-
-

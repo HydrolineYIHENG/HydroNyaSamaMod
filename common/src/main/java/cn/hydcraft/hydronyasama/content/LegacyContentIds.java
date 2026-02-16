@@ -19,6 +19,7 @@ public final class LegacyContentIds {
               "nsr_logo",
               "nsr_sign",
               "nst_logo",
+              "nst_nsdn",
               "nst_sign"));
 
   public static final List<String> BUILDING_BLOCK_IDS =

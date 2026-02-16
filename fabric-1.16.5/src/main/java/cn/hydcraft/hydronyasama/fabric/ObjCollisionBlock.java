@@ -18,12 +18,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/**
- * Collision shape driven by OBJ vertex bounds, avoiding full-cube collisions for model blocks.
- */
+/** Collision shape driven by OBJ vertex bounds, avoiding full-cube collisions for model blocks. */
 public final class ObjCollisionBlock extends Block {
-  private static final Map<String, String> MODEL_BY_BLOCK_ID =
-      createModelMap();
+  private static final Map<String, String> MODEL_BY_BLOCK_ID = createModelMap();
 
   private static final Map<String, VoxelShape> SHAPE_CACHE = new ConcurrentHashMap<>();
   private final VoxelShape shape;
@@ -31,7 +28,10 @@ public final class ObjCollisionBlock extends Block {
   public ObjCollisionBlock(BlockBehaviour.Properties properties, String blockId) {
     super(properties);
     String modelFile = MODEL_BY_BLOCK_ID.get(blockId);
-    this.shape = modelFile == null ? Shapes.block() : SHAPE_CACHE.computeIfAbsent(modelFile, ObjCollisionBlock::loadShapeFromObj);
+    this.shape =
+        modelFile == null
+            ? Shapes.block()
+            : SHAPE_CACHE.computeIfAbsent(modelFile, ObjCollisionBlock::loadShapeFromObj);
   }
 
   @Override

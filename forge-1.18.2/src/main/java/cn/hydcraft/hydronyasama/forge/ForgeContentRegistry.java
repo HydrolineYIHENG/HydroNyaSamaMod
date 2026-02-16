@@ -91,7 +91,7 @@ final class ForgeContentRegistry {
       registerOpticsBlock(id, ForgeCreativeTabs.HYDRONYASAMA_OPTICS, OPTICS_ITEMS);
     }
     for (String id : LegacyContentIds.TELECOM_BLOCK_IDS) {
-      registerStoneBlock(id, ForgeCreativeTabs.HYDRONYASAMA_TELECOM, TELECOM_ITEMS);
+      registerTelecomBlock(id, ForgeCreativeTabs.HYDRONYASAMA_TELECOM, TELECOM_ITEMS);
     }
     telecomNodeBlock =
         BLOCKS.register(
@@ -125,17 +125,20 @@ final class ForgeContentRegistry {
         ITEMS.register(
             "connector",
             () ->
-                new ConnectorItem(new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
+                new ConnectorItem(
+                    new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
     TELECOM_ITEMS.add(
         ITEMS.register(
             "dev_editor",
             () ->
-                new DevEditorItem(new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
+                new DevEditorItem(
+                    new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
     TELECOM_ITEMS.add(
         ITEMS.register(
             "ngtablet",
             () ->
-                new NgTabletItem(new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
+                new NgTabletItem(
+                    new Item.Properties().tab(ForgeCreativeTabs.HYDRONYASAMA_TELECOM))));
     TELECOM_ITEMS.add(
         ITEMS.register(
             "nyagame_mr",
@@ -199,7 +202,9 @@ final class ForgeContentRegistry {
   }
 
   private static void registerOpticsBlock(
-      String id, net.minecraft.world.item.CreativeModeTab tab, List<RegistryObject<Item>> tabItems) {
+      String id,
+      net.minecraft.world.item.CreativeModeTab tab,
+      List<RegistryObject<Item>> tabItems) {
     RegistryObject<Block> block =
         BLOCKS.register(
             id,
@@ -208,6 +213,23 @@ final class ForgeContentRegistry {
                     ? new ObjCollisionBlock(
                         BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), id)
                     : new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    RegistryObject<Item> item =
+        ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+    tabItems.add(item);
+  }
+
+  private static void registerTelecomBlock(
+      String id,
+      net.minecraft.world.item.CreativeModeTab tab,
+      List<RegistryObject<Item>> tabItems) {
+    RegistryObject<Block> block =
+        BLOCKS.register(
+            id,
+            () ->
+                new TelecomInteractiveBlock(
+                    BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                        .strength(2.0F)
+                        .noOcclusion()));
     RegistryObject<Item> item =
         ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
     tabItems.add(item);
@@ -257,6 +279,3 @@ final class ForgeContentRegistry {
     return new Block(properties);
   }
 }
-
-
-

@@ -35,6 +35,7 @@ public final class LegacyEdgeBlock extends HorizontalDirectionalBlock {
   private static final VoxelShape EAST_BOTTOM = Block.box(0.0D, 0.0D, 0.0D, 10.0D, 8.0D, 16.0D);
   private static final VoxelShape EAST_TOP = Block.box(0.0D, 8.0D, 0.0D, 10.0D, 16.0D, 16.0D);
   private static final VoxelShape EAST_TALL = Block.box(0.0D, 0.0D, 0.0D, 10.0D, 16.0D, 16.0D);
+
   public LegacyEdgeBlock(BlockBehaviour.Properties properties) {
     super(properties);
     registerDefaultState(
@@ -107,4 +108,3 @@ public final class LegacyEdgeBlock extends HorizontalDirectionalBlock {
     }
   }
 }
-

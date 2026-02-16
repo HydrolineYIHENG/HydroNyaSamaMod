@@ -14,10 +14,12 @@ import org.gradle.language.jvm.tasks.ProcessResources
 import kotlin.math.max
 import org.gradle.api.file.RegularFile
 import org.gradle.api.GradleException
+import com.diffplug.gradle.spotless.SpotlessExtension
 
 plugins {
     id("dev.architectury.loom") version "1.6.422" apply false
     id("com.github.johnrengelman.shadow") version "8.1.1" apply false
+    id("com.diffplug.spotless") version "6.25.0" apply false
     id("base")
 }
 
@@ -172,6 +174,8 @@ val loaderProjects = listOf(
 )
 
 subprojects {
+    apply(plugin = "com.diffplug.spotless")
+
     group = property("mavenGroup") as String
     version = property("modVersion") as String
 
@@ -192,6 +196,17 @@ subprojects {
         // Always clear destination to avoid stale resources leaking into built jars.
         doFirst {
             delete(destinationDir)
+        }
+    }
+
+    extensions.configure<SpotlessExtension>("spotless") {
+        java {
+            target("src/**/*.java")
+            targetExclude("**/build/**")
+            googleJavaFormat("1.17.0")
+            removeUnusedImports()
+            trimTrailingWhitespace()
+            endWithNewline()
         }
     }
 }
@@ -223,6 +238,18 @@ val buildAllTargets = tasks.register("buildAllTargets") {
 
 tasks.named("build") {
     dependsOn(buildAllTargets)
+}
+
+val spotlessApplyAll = tasks.register("spotlessApplyAll") {
+    group = "formatting"
+    description = "Run Spotless formatter for all subprojects"
+    dependsOn(subprojects.map { "${it.path}:spotlessApply" })
+}
+
+val spotlessCheckAll = tasks.register("spotlessCheckAll") {
+    group = "verification"
+    description = "Check Spotless formatting for all subprojects"
+    dependsOn(subprojects.map { "${it.path}:spotlessCheck" })
 }
 
 fun Project.configureLoaderProject(config: LoaderProject) {

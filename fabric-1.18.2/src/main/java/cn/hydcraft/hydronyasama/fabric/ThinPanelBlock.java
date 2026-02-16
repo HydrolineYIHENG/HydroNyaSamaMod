@@ -17,7 +17,8 @@ public class ThinPanelBlock extends Block {
   }
 
   @Override
-  public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction direction) {
+  public boolean skipRendering(
+      BlockState state, BlockState adjacentBlockState, Direction direction) {
     return false;
   }
 
@@ -37,4 +38,3 @@ public class ThinPanelBlock extends Block {
     return true;
   }
 }
-

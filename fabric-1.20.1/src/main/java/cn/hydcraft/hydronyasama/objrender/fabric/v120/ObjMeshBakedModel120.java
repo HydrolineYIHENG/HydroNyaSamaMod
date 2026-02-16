@@ -29,7 +29,10 @@ public final class ObjMeshBakedModel120 implements BakedModel, FabricBakedModel 
   private final Supplier<List<BakedQuad>[]> quadCache;
 
   public ObjMeshBakedModel120(
-      Mesh mesh, TextureAtlasSprite particleIcon, boolean useAmbientOcclusion, boolean usesBlockLight) {
+      Mesh mesh,
+      TextureAtlasSprite particleIcon,
+      boolean useAmbientOcclusion,
+      boolean usesBlockLight) {
     this.mesh = mesh;
     this.particleIcon = particleIcon;
     this.useAmbientOcclusion = useAmbientOcclusion;

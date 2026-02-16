@@ -9,9 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-/**
- * Fabric client entrypoint for client-only render bootstrap.
- */
+/** Fabric client entrypoint for client-only render bootstrap. */
 public final class BeaconProviderFabricClient implements ClientModInitializer {
   @Override
   public void onInitializeClient() {

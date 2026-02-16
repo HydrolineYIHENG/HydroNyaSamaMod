@@ -4,8 +4,8 @@ import cn.hydcraft.hydronyasama.BeaconProviderMod;
 import cn.hydcraft.hydronyasama.content.LegacyContentIds;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import net.minecraft.world.item.BlockItem;
@@ -68,7 +68,8 @@ final class ForgeContentRegistry {
                   "adsorption_lamp_multi")));
   private static RegistryObject<Block> telecomNodeBlock;
   private static RegistryObject<BlockEntityType<TelecomNodeBlockEntity>> telecomNodeBlockEntityType;
-  private static RegistryObject<BlockEntityType<TelecomRenderBlockEntity>> telecomRenderBlockEntityType;
+  private static RegistryObject<BlockEntityType<TelecomRenderBlockEntity>>
+      telecomRenderBlockEntityType;
   private static RegistryObject<Item> probeItem;
 
   private ForgeContentRegistry() {}
@@ -101,7 +102,9 @@ final class ForgeContentRegistry {
             () ->
                 BlockEntityType.Builder.of(
                         TelecomRenderBlockEntity::new,
-                        TELECOM_RENDER_BLOCKS.stream().map(RegistryObject::get).toArray(Block[]::new))
+                        TELECOM_RENDER_BLOCKS.stream()
+                            .map(RegistryObject::get)
+                            .toArray(Block[]::new))
                     .build(null));
     telecomNodeBlock =
         BLOCKS.register(
@@ -123,9 +126,12 @@ final class ForgeContentRegistry {
                     .build(null));
     probeItem = ITEMS.register("probe", () -> new ProbeItem(new Item.Properties()));
     BUILDING_TAB_ITEMS.add(probeItem);
-    TELECOM_TAB_ITEMS.add(ITEMS.register("connector", () -> new ConnectorItem(new Item.Properties())));
-    TELECOM_TAB_ITEMS.add(ITEMS.register("dev_editor", () -> new DevEditorItem(new Item.Properties())));
-    TELECOM_TAB_ITEMS.add(ITEMS.register("ngtablet", () -> new NgTabletItem(new Item.Properties())));
+    TELECOM_TAB_ITEMS.add(
+        ITEMS.register("connector", () -> new ConnectorItem(new Item.Properties())));
+    TELECOM_TAB_ITEMS.add(
+        ITEMS.register("dev_editor", () -> new DevEditorItem(new Item.Properties())));
+    TELECOM_TAB_ITEMS.add(
+        ITEMS.register("ngtablet", () -> new NgTabletItem(new Item.Properties())));
     TELECOM_TAB_ITEMS.add(ITEMS.register("nyagame_mr", () -> new Item(new Item.Properties())));
     BLOCKS.register(modBus);
     ITEMS.register(modBus);
@@ -205,7 +211,9 @@ final class ForgeContentRegistry {
             id,
             () ->
                 new TelecomRenderBlock(
-                    BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(2.0F).noOcclusion()));
+                    BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                        .strength(2.0F)
+                        .noOcclusion()));
     RegistryObject<Item> item =
         ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties()));
     TELECOM_RENDER_BLOCKS.add(block);
@@ -270,6 +278,3 @@ final class ForgeContentRegistry {
     return new Block(properties);
   }
 }
-
-
-

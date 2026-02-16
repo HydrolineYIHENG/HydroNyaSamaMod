@@ -97,15 +97,10 @@ public final class TelecomProcessor {
   private final Map<String, Boolean> innerOutputs = new HashMap<>();
 
   public DeviceInfo registerReceiver(
-      String id,
-      String key,
-      String dimension,
-      int x,
-      int y,
-      int z,
-      BoolSink sink) {
+      String id, String key, String dimension, int x, int y, int z, BoolSink sink) {
     Objects.requireNonNull(sink, "sink");
-    DeviceInfo info = new DeviceInfo(requireId(id), requireKey(key), safeDimension(dimension), x, y, z);
+    DeviceInfo info =
+        new DeviceInfo(requireId(id), requireKey(key), safeDimension(dimension), x, y, z);
     lock.lock();
     try {
       devices.put(info.id(), info);
@@ -120,15 +115,10 @@ public final class TelecomProcessor {
   }
 
   public DeviceInfo registerTransmitter(
-      String id,
-      String key,
-      String dimension,
-      int x,
-      int y,
-      int z,
-      BooleanSupplier source) {
+      String id, String key, String dimension, int x, int y, int z, BooleanSupplier source) {
     Objects.requireNonNull(source, "source");
-    DeviceInfo info = new DeviceInfo(requireId(id), requireKey(key), safeDimension(dimension), x, y, z);
+    DeviceInfo info =
+        new DeviceInfo(requireId(id), requireKey(key), safeDimension(dimension), x, y, z);
     lock.lock();
     try {
       devices.put(info.id(), info);

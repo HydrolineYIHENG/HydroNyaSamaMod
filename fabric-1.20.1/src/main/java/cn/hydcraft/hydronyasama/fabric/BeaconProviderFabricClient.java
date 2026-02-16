@@ -1,7 +1,7 @@
 package cn.hydcraft.hydronyasama.fabric;
 
-import cn.hydcraft.hydronyasama.fabric.content.FabricContentRegistrar;
 import cn.hydcraft.hydronyasama.fabric.config.HydroNyaSamaClientConfig;
+import cn.hydcraft.hydronyasama.fabric.content.FabricContentRegistrar;
 import cn.hydcraft.hydronyasama.objrender.fabric.v120.ObjRenderClientBootstrap120;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;

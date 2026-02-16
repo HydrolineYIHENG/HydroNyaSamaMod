@@ -17,7 +17,8 @@ public class ThinPanelGlassBlock extends GlassBlock {
   }
 
   @Override
-  public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction direction) {
+  public boolean skipRendering(
+      BlockState state, BlockState adjacentBlockState, Direction direction) {
     return false;
   }
 

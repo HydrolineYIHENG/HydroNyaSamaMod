@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -85,5 +86,12 @@ final class TelecomToolSupport {
     tag.remove(TARGET_ENDPOINT_TAG);
     tag.remove(TARGET_BLOCK_TAG);
     tag.remove(LINK_KEY_TAG);
+  }
+
+  static void notifyPlayer(UseOnContext context, String message) {
+    if (context == null || context.getPlayer() == null || message == null || message.isEmpty()) {
+      return;
+    }
+    context.getPlayer().displayClientMessage(new TextComponent("[Telecom] " + message), true);
   }
 }

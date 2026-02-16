@@ -28,7 +28,9 @@ public final class ObjCollisionBlock extends Block {
     super(properties);
     String modelFile = MODEL_BY_BLOCK_ID.get(blockId);
     this.shape =
-        modelFile == null ? Shapes.block() : SHAPE_CACHE.computeIfAbsent(modelFile, ObjCollisionBlock::loadShapeFromObj);
+        modelFile == null
+            ? Shapes.block()
+            : SHAPE_CACHE.computeIfAbsent(modelFile, ObjCollisionBlock::loadShapeFromObj);
   }
 
   @Override

@@ -8,17 +8,15 @@ import cn.hydcraft.hydronyasama.telecom.content.TelecomContent;
 
 public final class ModContent {
 
-    public static final String MOD_GROUP_ID = "hydronyasama";
+  public static final String MOD_GROUP_ID = "hydronyasama";
 
-    private ModContent() {
-    }
+  private ModContent() {}
 
-    public static void bootstrap(ContentRegistrar registrar) {
-        CoreDecorContent.register(registrar);
-        BuildingContent.register(registrar);
-        ElectricityContent.register(registrar);
-        OpticsContent.register(registrar);
-        TelecomContent.register(registrar);
-    }
+  public static void bootstrap(ContentRegistrar registrar) {
+    CoreDecorContent.register(registrar);
+    BuildingContent.register(registrar);
+    ElectricityContent.register(registrar);
+    OpticsContent.register(registrar);
+    TelecomContent.register(registrar);
+  }
 }
-

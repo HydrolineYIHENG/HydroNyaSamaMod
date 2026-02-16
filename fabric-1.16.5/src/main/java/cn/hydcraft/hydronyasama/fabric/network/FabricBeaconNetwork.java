@@ -23,78 +23,81 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 
-/**
- * Fabric 1.16.5 wiring for the hydroline beacon provider channel.
- */
+/** Fabric 1.16.5 wiring for the hydroline beacon provider channel. */
 public final class FabricBeaconNetwork {
-    private static final ResourceLocation CHANNEL_ID = new ResourceLocation(ChannelConstants.CHANNEL_NAME);
+  private static final ResourceLocation CHANNEL_ID =
+      new ResourceLocation(ChannelConstants.CHANNEL_NAME);
 
-    private final BeaconProviderService service;
-    private final ChannelMessageRouter router;
-    private final FabricChannelMessenger messenger;
-    private final BeaconGatewayManager gatewayManager;
+  private final BeaconProviderService service;
+  private final ChannelMessageRouter router;
+  private final FabricChannelMessenger messenger;
+  private final BeaconGatewayManager gatewayManager;
 
-    public FabricBeaconNetwork() {
-        this.service = BeaconServiceFactory.createDefault();
-        this.messenger = new FabricChannelMessenger();
-        this.router = new ChannelMessageRouter(service, messenger);
-        this.gatewayManager = new BeaconGatewayManager(service);
-        registerLifecycleHooks();
-        registerChannelReceiver();
-    }
+  public FabricBeaconNetwork() {
+    this.service = BeaconServiceFactory.createDefault();
+    this.messenger = new FabricChannelMessenger();
+    this.router = new ChannelMessageRouter(service, messenger);
+    this.gatewayManager = new BeaconGatewayManager(service);
+    registerLifecycleHooks();
+    registerChannelReceiver();
+  }
 
-    private void registerLifecycleHooks() {
-        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-            messenger.setServer(server);
-            if (FabricLoader.getInstance().isModLoaded("mtr")) {
-                MtrQueryRegistry.register(new FabricMtrQueryGateway(() -> server));
-            } else {
-                MtrQueryRegistry.register(MtrQueryGateway.UNAVAILABLE);
-            }
-            if (FabricLoader.getInstance().isModLoaded("create")) {
-                // Fabric Create support pending
-                CreateQueryRegistry.register(CreateQueryGateway.UNAVAILABLE);
-            } else {
-                CreateQueryRegistry.register(CreateQueryGateway.UNAVAILABLE);
-            }
-            gatewayManager.start(FabricLoader.getInstance().getConfigDir());
-        });
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
-            messenger.setServer(null);
+  private void registerLifecycleHooks() {
+    ServerLifecycleEvents.SERVER_STARTING.register(
+        server -> {
+          messenger.setServer(server);
+          if (FabricLoader.getInstance().isModLoaded("mtr")) {
+            MtrQueryRegistry.register(new FabricMtrQueryGateway(() -> server));
+          } else {
             MtrQueryRegistry.register(MtrQueryGateway.UNAVAILABLE);
-            gatewayManager.stop();
+          }
+          if (FabricLoader.getInstance().isModLoaded("create")) {
+            // Fabric Create support pending
+            CreateQueryRegistry.register(CreateQueryGateway.UNAVAILABLE);
+          } else {
+            CreateQueryRegistry.register(CreateQueryGateway.UNAVAILABLE);
+          }
+          gatewayManager.start(FabricLoader.getInstance().getConfigDir());
         });
-    }
-
-    private void registerChannelReceiver() {
-        ServerPlayNetworking.registerGlobalReceiver(CHANNEL_ID, (server, player, handler, buf, responseSender) -> {
-            byte[] bytes = new byte[buf.readableBytes()];
-            buf.readBytes(bytes);
-            server.execute(() -> router.handleIncoming(player.getUUID(), bytes));
+    ServerLifecycleEvents.SERVER_STOPPED.register(
+        server -> {
+          messenger.setServer(null);
+          MtrQueryRegistry.register(MtrQueryGateway.UNAVAILABLE);
+          gatewayManager.stop();
         });
+  }
+
+  private void registerChannelReceiver() {
+    ServerPlayNetworking.registerGlobalReceiver(
+        CHANNEL_ID,
+        (server, player, handler, buf, responseSender) -> {
+          byte[] bytes = new byte[buf.readableBytes()];
+          buf.readBytes(bytes);
+          server.execute(() -> router.handleIncoming(player.getUUID(), bytes));
+        });
+  }
+
+  private static final class FabricChannelMessenger implements ChannelMessenger {
+    private volatile MinecraftServer server;
+
+    void setServer(MinecraftServer server) {
+      this.server = server;
     }
 
-    private static final class FabricChannelMessenger implements ChannelMessenger {
-        private volatile MinecraftServer server;
-
-        void setServer(MinecraftServer server) {
-            this.server = server;
-        }
-
-        @Override
-        public void reply(UUID playerUuid, BeaconResponse response) {
-            MinecraftServer current = server;
-            if (current == null) {
-                return;
-            }
-            ServerPlayer player = current.getPlayerList().getPlayer(playerUuid);
-            if (player == null) {
-                return;
-            }
-            byte[] bytes = MessageSerializer.serialize(response);
-            FriendlyByteBuf reply = PacketByteBufs.create();
-            reply.writeBytes(bytes);
-            ServerPlayNetworking.send(player, CHANNEL_ID, reply);
-        }
+    @Override
+    public void reply(UUID playerUuid, BeaconResponse response) {
+      MinecraftServer current = server;
+      if (current == null) {
+        return;
+      }
+      ServerPlayer player = current.getPlayerList().getPlayer(playerUuid);
+      if (player == null) {
+        return;
+      }
+      byte[] bytes = MessageSerializer.serialize(response);
+      FriendlyByteBuf reply = PacketByteBufs.create();
+      reply.writeBytes(bytes);
+      ServerPlayNetworking.send(player, CHANNEL_ID, reply);
     }
+  }
 }

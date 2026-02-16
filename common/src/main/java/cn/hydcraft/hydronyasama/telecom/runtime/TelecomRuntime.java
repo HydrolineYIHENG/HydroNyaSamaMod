@@ -245,7 +245,10 @@ public final class TelecomRuntime {
    */
   public void setExternalBusInput(String key, boolean state) {
     String normalized = requireNonEmpty(key, "key");
-    int old = externalBusInputs.containsKey(normalized) ? externalBusInputs.get(normalized).intValue() : 0;
+    int old =
+        externalBusInputs.containsKey(normalized)
+            ? externalBusInputs.get(normalized).intValue()
+            : 0;
     externalBusInputs.put(normalized, Integer.valueOf(old + (state ? 1 : -1)));
   }
 
@@ -289,7 +292,11 @@ public final class TelecomRuntime {
     for (Component component : components.values()) {
       snapshots.add(
           new Snapshot(
-              component.id, component.key, component.kind, component.pendingInput, component.output));
+              component.id,
+              component.key,
+              component.kind,
+              component.pendingInput,
+              component.output));
     }
     Collections.sort(
         snapshots,

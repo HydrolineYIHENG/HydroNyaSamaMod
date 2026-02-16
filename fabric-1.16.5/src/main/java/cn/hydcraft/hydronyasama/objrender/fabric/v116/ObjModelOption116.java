@@ -42,15 +42,11 @@ public final class ObjModelOption116 {
             modelJson, "flip-v", GsonHelper.getAsBoolean(modelJson, "flip_v", false));
     boolean doubleSided =
         GsonHelper.getAsBoolean(
-            modelJson,
-            "double_sided",
-            GsonHelper.getAsBoolean(modelJson, "doubleSided", false));
+            modelJson, "double_sided", GsonHelper.getAsBoolean(modelJson, "doubleSided", false));
     int rotateY =
         Math.floorMod(
             GsonHelper.getAsInt(
-                modelJson,
-                "rotate_y",
-                GsonHelper.getAsInt(modelJson, "rotation_y", 0)),
+                modelJson, "rotate_y", GsonHelper.getAsInt(modelJson, "rotation_y", 0)),
             360);
 
     BlockModel.GuiLight guiLight = null;
@@ -84,7 +80,9 @@ public final class ObjModelOption116 {
         }
       }
     }
-    if (particle == null && modelJson.has("particle") && modelJson.get("particle").isJsonPrimitive()) {
+    if (particle == null
+        && modelJson.has("particle")
+        && modelJson.get("particle").isJsonPrimitive()) {
       String particleRaw = modelJson.get("particle").getAsString();
       if (!particleRaw.isEmpty()) {
         particle = new ResourceLocation(particleRaw);
@@ -128,5 +126,3 @@ public final class ObjModelOption116 {
     return materialTextures;
   }
 }
-
-

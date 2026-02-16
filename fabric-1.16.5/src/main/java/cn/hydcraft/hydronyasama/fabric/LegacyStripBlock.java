@@ -34,6 +34,7 @@ public final class LegacyStripBlock extends StairBlock {
   private static final VoxelShape OCT_TOP_NE = Block.box(8.0D, 8.0D, 8.0D, 16.0D, 16.0D, 16.0D);
   private static final VoxelShape OCT_TOP_SW = Block.box(0.0D, 8.0D, 0.0D, 8.0D, 16.0D, 8.0D);
   private static final VoxelShape OCT_TOP_SE = Block.box(8.0D, 8.0D, 0.0D, 16.0D, 16.0D, 8.0D);
+
   public LegacyStripBlock(BlockState baseState, BlockBehaviour.Properties properties) {
     super(baseState, properties);
   }
@@ -111,4 +112,3 @@ public final class LegacyStripBlock extends StairBlock {
     }
   }
 }
-

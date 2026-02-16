@@ -5,7 +5,7 @@ import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.nio.charset.StandardCharsets;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.model.ModelProviderContext;
 import net.fabricmc.fabric.api.client.model.ModelProviderException;
@@ -105,7 +104,8 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
     return null;
   }
 
-  private @Nullable UnbakedModel tryLoadSupportedObj(JsonObject modelJson) throws ModelProviderException {
+  private @Nullable UnbakedModel tryLoadSupportedObj(JsonObject modelJson)
+      throws ModelProviderException {
     if (!ObjUnbakedModel116.isForgeObjModel(modelJson)) {
       return null;
     }
@@ -135,8 +135,7 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
     ResourceLocation lightLocation = toLightObjModelLocation(modelLocation);
     if (lightLocation != null && resourceManager.hasResource(lightLocation)) {
       UnbakedModel lightModel =
-          loadExtraLayer(
-              modelJson, lightLocation, "hydronyasama:block/light_base", 0);
+          loadExtraLayer(modelJson, lightLocation, "hydronyasama:block/light_base", 0);
       if (lightModel != null) {
         layers.add(lightModel);
       }
@@ -157,7 +156,8 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
     return path.startsWith("models/blocks/") && path.endsWith(".obj");
   }
 
-  private static @Nullable ResourceLocation toLightObjModelLocation(ResourceLocation modelLocation) {
+  private static @Nullable ResourceLocation toLightObjModelLocation(
+      ResourceLocation modelLocation) {
     String path = modelLocation.getPath();
     if (!path.endsWith("_base.obj")) {
       return null;
@@ -261,7 +261,8 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
     return path.endsWith("station_lamp_logo.obj") || path.endsWith("station_lamp_back.obj");
   }
 
-  private @Nullable JsonObject readModelJson(ResourceLocation modelId) throws ModelProviderException {
+  private @Nullable JsonObject readModelJson(ResourceLocation modelId)
+      throws ModelProviderException {
     for (ResourceLocation jsonLocation : candidateModelJsonLocations(modelId)) {
       if (!resourceManager.hasResource(jsonLocation)) {
         continue;
@@ -309,7 +310,8 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
     JsonObject merged = new JsonObject();
     for (int i = chain.size() - 1; i >= 0; i--) {
       JsonObject part = chain.get(i);
-      part.entrySet().forEach(entry -> merged.add(entry.getKey(), copyJsonElement(entry.getValue())));
+      part.entrySet()
+          .forEach(entry -> merged.add(entry.getKey(), copyJsonElement(entry.getValue())));
     }
     return merged;
   }
@@ -322,5 +324,3 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
     return new JsonParser().parse(source.toString());
   }
 }
-
-

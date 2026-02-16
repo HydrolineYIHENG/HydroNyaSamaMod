@@ -57,3 +57,91 @@
 ### 本阶段价值
 - 电信迁移不再只有内容壳子，已具备可复用的逻辑核心。
 - 为下一阶段“SignalBox/NSASMBox/无线收发 方块实体接线”提供稳定 common 层。
+
+## 增量迁移（2026-02-16）
+
+### 新增：Electricity 运行时核心（common）
+- `cn.hydcraft.hydronyasama.electricity.runtime.ElectricityMath`
+  - 迁移旧版 `MathAssist` 核心函数（角度三角函数、双曲函数、距离计算）。
+  - 去除 1.12.2 `MathHelper` 依赖，改为纯 JDK 计算。
+- `cn.hydcraft.hydronyasama.electricity.runtime.ElectricityCatenary`
+  - 迁移旧版 `Wire.Catenary` 求解器（`apply/derivative/calcL/calcD`）。
+  - 作为跨加载器的悬链线参数模型，供 1.16.5/1.18.2/1.20.1 客户端渲染层复用。
+- `cn.hydcraft.hydronyasama.electricity.runtime.ElectricityWireGeometry`
+  - 迁移旧版 `Wire` 的几何采样思路为“抽象线段输出”：
+    - `buildCableSegments`（柔性线）
+    - `buildHardCableSegments`（硬线）
+    - `buildPillarSegments`（立柱连段）
+    - `buildRailCatenarySegments`（接触网分段）
+    - `buildCatenarySegments`（通用悬链线采样）
+  - 输出类型为与加载器无关的 `Segment(Vec3 from,to)`，不直接依赖 TESR/BER API。
+- `cn.hydcraft.hydronyasama.electricity.runtime.ElectricityLinkRuntime`
+  - 迁移旧版 `sender/target` 连线语义为轻量运行时状态容器：
+    - 节点注册/注销
+    - sender/target 绑定与清理
+    - `WIRE/CABLE/PILLAR/CATENARY` 类型标识
+
+### 本阶段价值
+- Electricity 迁移从“仅内容壳子”推进到“可复用运行时核心”。
+- 后续各版本客户端只需对接本地渲染管线（BER/模型系统），无需重复实现连线数学。
+- 全程未改动 `Beacon*` 代码路径，符合当前联调边界。
+
+### 新增：Telecom 通讯全量运行时（common）
+- `cn.hydcraft.hydronyasama.telecom.runtime.TelecomCommRuntime`
+  - 新增完整通信状态机，覆盖：
+    - `SignalBox`
+    - `SignalBoxSender`
+    - `SignalBoxGetter`
+    - `TriStateSignalBox`
+    - `RSLatch`
+    - `Timer`
+    - `Delayer`
+    - `WirelessRx`
+    - `WirelessTx`
+  - 支持旧版连线语义：
+    - `sender` 链接
+    - `target` 链接
+    - `transceiver` 链接
+  - 支持旧版行为特征：
+    - 反相器
+    - TriState 正/负沿触发
+    - RS 锁存
+    - 计时器/延时器参数（tick/自动重载）
+    - 外部总线输入增减（`setExternalBusInput`）
+    - 无线设备读写（`toWirelessRx` / `fromWirelessTx`）
+  - 以 `snapshot()` 提供联调态观测（输入/输出/启用态/连线态）。
+
+### 新增：Telecom 接线服务与工具链接入（2026-02-16 夜间）
+- `cn.hydcraft.hydronyasama.telecom.runtime.TelecomCommService`
+  - 新增通信服务门面，统一管理：
+    - endpoint -> component kind 自动注册
+    - `sender/target/transceiver` 连线切换
+    - 编辑器参数写入（inverter/mode）
+    - 平板快照查询
+- 工具链接入（Fabric/Forge 1.16.5 + 1.18.2 + 1.20.1）：
+  - `ConnectorItem`：第二次点击时将连线写入 `TelecomCommService`，不再只写 NBT。
+  - `DevEditorItem`：将 mode/inverter 直接应用到通信运行时。
+  - `NgTabletItem`：读取通信快照并写入 `telecom_tablet_scan_state` 便于联调。
+- 说明：本轮仍未触碰 `Beacon*` 入口逻辑，符合“BeaconNetwork 暂缓”边界。
+
+### 构建验证
+- Fabric：
+  - `:fabric-1.16.5:build -x test` 通过
+  - `:fabric-1.18.2:build -x test` 通过
+  - `:fabric-1.20.1:build -x test` 通过
+- Forge：
+  - `:forge-1.16.5:build -x test` 通过
+  - `:forge-1.18.2:build -x test` 通过
+  - `:forge-1.20.1:build -x test` 通过
+
+### 增补：Telecom 服务器 Tick 驱动（不改 BeaconNetwork 内部）
+- Fabric 1.16.5/1.18.2/1.20.1：在 `BeaconProviderFabric` 注册
+  - `ServerTickEvents.END_SERVER_TICK -> TelecomCommService.tick()`
+  - `ServerLifecycleEvents.SERVER_STOPPED -> TelecomCommService.reset()`
+- Forge 1.16.5/1.18.2/1.20.1：在 `BeaconProviderForge` 注册服务端事件
+  - `ServerTickEvent(END) -> TelecomCommService.tick()`
+  - `ServerStopped/FMLServerStopping -> TelecomCommService.reset()`
+
+### 二次构建验证（含 Tick 接入）
+- `:fabric-1.16.5:build :fabric-1.18.2:build :fabric-1.20.1:build -x test` 通过
+- `:forge-1.16.5:build :forge-1.18.2:build :forge-1.20.1:build -x test` 通过

@@ -105,4 +105,3 @@ final class CombinedObjBakedModel118 implements BakedModel, FabricBakedModel {
     return ItemOverrides.EMPTY;
   }
 }
-

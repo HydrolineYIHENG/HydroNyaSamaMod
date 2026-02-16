@@ -90,7 +90,8 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     return null;
   }
 
-  private @Nullable UnbakedModel tryLoadSupportedObj(JsonObject modelJson) throws ModelProviderException {
+  private @Nullable UnbakedModel tryLoadSupportedObj(JsonObject modelJson)
+      throws ModelProviderException {
     if (!ObjUnbakedModel120.isForgeObjModel(modelJson)) {
       return null;
     }
@@ -119,8 +120,7 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     ResourceLocation lightLocation = toLightObjModelLocation(modelLocation);
     if (lightLocation != null && resourceManager.getResource(lightLocation).isPresent()) {
       UnbakedModel lightModel =
-          loadExtraLayer(
-              modelJson, lightLocation, "hydronyasama:block/light_base", 0);
+          loadExtraLayer(modelJson, lightLocation, "hydronyasama:block/light_base", 0);
       if (lightModel != null) {
         layers.add(lightModel);
       }
@@ -141,7 +141,8 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     return path.startsWith("models/blocks/") && path.endsWith(".obj");
   }
 
-  private static @Nullable ResourceLocation toLightObjModelLocation(ResourceLocation modelLocation) {
+  private static @Nullable ResourceLocation toLightObjModelLocation(
+      ResourceLocation modelLocation) {
     String path = modelLocation.getPath();
     if (!path.endsWith("_base.obj")) {
       return null;
@@ -245,7 +246,8 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     return path.endsWith("station_lamp_logo.obj") || path.endsWith("station_lamp_back.obj");
   }
 
-  private @Nullable JsonObject readModelJson(ResourceLocation modelId) throws ModelProviderException {
+  private @Nullable JsonObject readModelJson(ResourceLocation modelId)
+      throws ModelProviderException {
     ResourceLocation jsonLocation =
         new ResourceLocation(modelId.getNamespace(), "models/" + modelId.getPath() + ".json");
     var resource = resourceManager.getResource(jsonLocation);

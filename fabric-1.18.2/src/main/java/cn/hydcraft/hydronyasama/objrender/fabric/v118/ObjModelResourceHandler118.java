@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.nio.charset.StandardCharsets;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.model.ModelProviderContext;
 import net.fabricmc.fabric.api.client.model.ModelProviderException;
@@ -93,7 +93,8 @@ public final class ObjModelResourceHandler118 implements ModelResourceProvider {
     return null;
   }
 
-  private @Nullable UnbakedModel tryLoadSupportedObj(JsonObject modelJson) throws ModelProviderException {
+  private @Nullable UnbakedModel tryLoadSupportedObj(JsonObject modelJson)
+      throws ModelProviderException {
     if (!ObjUnbakedModel118.isForgeObjModel(modelJson)) {
       return null;
     }
@@ -122,8 +123,7 @@ public final class ObjModelResourceHandler118 implements ModelResourceProvider {
     ResourceLocation lightLocation = toLightObjModelLocation(modelLocation);
     if (lightLocation != null && resourceManager.hasResource(lightLocation)) {
       UnbakedModel lightModel =
-          loadExtraLayer(
-              modelJson, lightLocation, "hydronyasama:block/light_base", 0);
+          loadExtraLayer(modelJson, lightLocation, "hydronyasama:block/light_base", 0);
       if (lightModel != null) {
         layers.add(lightModel);
       }
@@ -144,7 +144,8 @@ public final class ObjModelResourceHandler118 implements ModelResourceProvider {
     return path.startsWith("models/blocks/") && path.endsWith(".obj");
   }
 
-  private static @Nullable ResourceLocation toLightObjModelLocation(ResourceLocation modelLocation) {
+  private static @Nullable ResourceLocation toLightObjModelLocation(
+      ResourceLocation modelLocation) {
     String path = modelLocation.getPath();
     if (!path.endsWith("_base.obj")) {
       return null;
@@ -248,7 +249,8 @@ public final class ObjModelResourceHandler118 implements ModelResourceProvider {
     return path.endsWith("station_lamp_logo.obj") || path.endsWith("station_lamp_back.obj");
   }
 
-  private @Nullable JsonObject readModelJson(ResourceLocation modelId) throws ModelProviderException {
+  private @Nullable JsonObject readModelJson(ResourceLocation modelId)
+      throws ModelProviderException {
     ResourceLocation jsonLocation =
         new ResourceLocation(modelId.getNamespace(), "models/" + modelId.getPath() + ".json");
     if (!resourceManager.hasResource(jsonLocation)) {
@@ -256,7 +258,9 @@ public final class ObjModelResourceHandler118 implements ModelResourceProvider {
     }
     try (var reader =
         new BufferedReader(
-            new InputStreamReader(resourceManager.getResource(jsonLocation).getInputStream(), StandardCharsets.UTF_8))) {
+            new InputStreamReader(
+                resourceManager.getResource(jsonLocation).getInputStream(),
+                StandardCharsets.UTF_8))) {
       return GsonHelper.parse(reader);
     } catch (IOException e) {
       throw new ModelProviderException("Failed to read model json: " + modelId, e);
@@ -283,4 +287,3 @@ public final class ObjModelResourceHandler118 implements ModelResourceProvider {
     return merged;
   }
 }
-

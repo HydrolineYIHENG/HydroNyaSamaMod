@@ -20,6 +20,7 @@ public final class LegacyVStripBlock extends HorizontalDirectionalBlock {
   private static final VoxelShape SOUTH_SHAPE = Block.box(8.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
   private static final VoxelShape WEST_SHAPE = Block.box(0.0D, 0.0D, 8.0D, 8.0D, 16.0D, 16.0D);
   private static final VoxelShape EAST_SHAPE = Block.box(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
+
   public LegacyVStripBlock(BlockBehaviour.Properties properties) {
     super(properties);
     registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -62,4 +63,3 @@ public final class LegacyVStripBlock extends HorizontalDirectionalBlock {
     builder.add(FACING);
   }
 }
-

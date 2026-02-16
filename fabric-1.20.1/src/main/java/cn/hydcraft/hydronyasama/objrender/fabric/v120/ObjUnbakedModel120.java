@@ -53,18 +53,21 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
     this.option = option;
   }
 
-  public static @Nullable UnbakedModel tryLoad(ResourceManager resourceManager, ResourceLocation resourceId)
-      throws ModelProviderException {
+  public static @Nullable UnbakedModel tryLoad(
+      ResourceManager resourceManager, ResourceLocation resourceId) throws ModelProviderException {
     JsonObject modelJson = readModelJson(resourceManager, resourceId);
     return tryLoadFromModelJson(resourceManager, modelJson);
   }
 
   public static boolean isForgeObjModel(@Nullable JsonObject modelJson) {
-    if (modelJson == null || !modelJson.has("loader") || !modelJson.get("loader").isJsonPrimitive()) {
+    if (modelJson == null
+        || !modelJson.has("loader")
+        || !modelJson.get("loader").isJsonPrimitive()) {
       return false;
     }
     try {
-      ResourceLocation loaderId = new ResourceLocation(modelJson.getAsJsonPrimitive("loader").getAsString());
+      ResourceLocation loaderId =
+          new ResourceLocation(modelJson.getAsJsonPrimitive("loader").getAsString());
       return FORGE_OBJ_LOADER.equals(loaderId);
     } catch (RuntimeException ignored) {
       return false;
@@ -83,7 +86,8 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
   }
 
   public static @Nullable UnbakedModel tryLoadFromModelJson(
-      ResourceManager resourceManager, @Nullable JsonObject modelJson) throws ModelProviderException {
+      ResourceManager resourceManager, @Nullable JsonObject modelJson)
+      throws ModelProviderException {
     if (!isForgeObjModel(modelJson)) {
       return null;
     }
@@ -95,8 +99,8 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
     return loadObjModel(resourceManager, modelLocation, option);
   }
 
-  private static @Nullable JsonObject readModelJson(ResourceManager resourceManager, ResourceLocation modelId)
-      throws ModelProviderException {
+  private static @Nullable JsonObject readModelJson(
+      ResourceManager resourceManager, ResourceLocation modelId) throws ModelProviderException {
     ResourceLocation jsonLocation =
         new ResourceLocation(modelId.getNamespace(), "models/" + modelId.getPath() + ".json");
     var resource = resourceManager.getResource(jsonLocation);
@@ -179,14 +183,22 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
     materialGroups.forEach(
         (materialName, groupObj) -> {
           for (int i = 0; i < groupObj.getNumFaces(); i++) {
-            emitFace(emitter, textureGetter, modelState, particleMaterial, materialName, groupObj.getFace(i), groupObj);
+            emitFace(
+                emitter,
+                textureGetter,
+                modelState,
+                particleMaterial,
+                materialName,
+                groupObj.getFace(i),
+                groupObj);
           }
         });
 
     BlockModel.GuiLight guiLight = option.guiLight();
     boolean usesBlockLight = guiLight == null || guiLight.lightLikeBlock();
     TextureAtlasSprite particle = textureGetter.apply(particleMaterial);
-    return new ObjMeshBakedModel120(builder.build(), particle, option.useAmbientOcclusion(), usesBlockLight);
+    return new ObjMeshBakedModel120(
+        builder.build(), particle, option.useAmbientOcclusion(), usesBlockLight);
   }
 
   private Material getParticleMaterial() {
@@ -298,11 +310,15 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
       boolean reverse) {
     FloatTuple vertexTuple = model.getVertex(face.getVertexIndex(faceVertexIndex));
     Vector3f position =
-        new Vector3f(vertexTuple.getX() / 16.0F + 0.5F, vertexTuple.getY() / 16.0F + 0.5F, vertexTuple.getZ() / 16.0F + 0.5F);
+        new Vector3f(
+            vertexTuple.getX() / 16.0F + 0.5F,
+            vertexTuple.getY() / 16.0F + 0.5F,
+            vertexTuple.getZ() / 16.0F + 0.5F);
     position.add(-0.5F, -0.5F, -0.5F);
     position.rotate(modelState.getRotation().getLeftRotation());
     position.add(0.5F, 0.5F, 0.5F);
-    float[] rotatedPos = rotateAroundCenterY(position.x(), position.y(), position.z(), option.rotateY());
+    float[] rotatedPos =
+        rotateAroundCenterY(position.x(), position.y(), position.z(), option.rotateY());
     emitter.pos(emitIndex, rotatedPos[0], rotatedPos[1], rotatedPos[2]);
 
     if (face.containsNormalIndices()) {

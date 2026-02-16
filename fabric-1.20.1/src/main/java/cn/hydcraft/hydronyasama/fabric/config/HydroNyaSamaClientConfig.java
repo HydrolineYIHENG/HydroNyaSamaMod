@@ -139,7 +139,10 @@ public final class HydroNyaSamaClientConfig {
     public final boolean objLoadItemModels;
 
     public ConfigValues(
-        boolean objEnabled, boolean objDebug, boolean objLoadBlockModels, boolean objLoadItemModels) {
+        boolean objEnabled,
+        boolean objDebug,
+        boolean objLoadBlockModels,
+        boolean objLoadItemModels) {
       this.objEnabled = objEnabled;
       this.objDebug = objDebug;
       this.objLoadBlockModels = objLoadBlockModels;

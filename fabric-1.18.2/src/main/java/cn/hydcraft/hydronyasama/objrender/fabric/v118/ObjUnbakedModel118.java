@@ -13,6 +13,7 @@ import de.javagl.obj.ObjUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
-import java.nio.charset.StandardCharsets;
 import net.fabricmc.fabric.api.client.model.ModelProviderException;
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
@@ -58,18 +58,21 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     this.option = option;
   }
 
-  public static @Nullable UnbakedModel tryLoad(ResourceManager resourceManager, ResourceLocation resourceId)
-      throws ModelProviderException {
+  public static @Nullable UnbakedModel tryLoad(
+      ResourceManager resourceManager, ResourceLocation resourceId) throws ModelProviderException {
     JsonObject modelJson = readModelJson(resourceManager, resourceId);
     return tryLoadFromModelJson(resourceManager, modelJson);
   }
 
   public static boolean isForgeObjModel(@Nullable JsonObject modelJson) {
-    if (modelJson == null || !modelJson.has("loader") || !modelJson.get("loader").isJsonPrimitive()) {
+    if (modelJson == null
+        || !modelJson.has("loader")
+        || !modelJson.get("loader").isJsonPrimitive()) {
       return false;
     }
     try {
-      ResourceLocation loaderId = new ResourceLocation(modelJson.getAsJsonPrimitive("loader").getAsString());
+      ResourceLocation loaderId =
+          new ResourceLocation(modelJson.getAsJsonPrimitive("loader").getAsString());
       return FORGE_OBJ_LOADER.equals(loaderId);
     } catch (RuntimeException ignored) {
       return false;
@@ -88,7 +91,8 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
   }
 
   public static @Nullable UnbakedModel tryLoadFromModelJson(
-      ResourceManager resourceManager, @Nullable JsonObject modelJson) throws ModelProviderException {
+      ResourceManager resourceManager, @Nullable JsonObject modelJson)
+      throws ModelProviderException {
     if (!isForgeObjModel(modelJson)) {
       return null;
     }
@@ -100,8 +104,8 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     return loadObjModel(resourceManager, modelLocation, option);
   }
 
-  private static @Nullable JsonObject readModelJson(ResourceManager resourceManager, ResourceLocation modelId)
-      throws ModelProviderException {
+  private static @Nullable JsonObject readModelJson(
+      ResourceManager resourceManager, ResourceLocation modelId) throws ModelProviderException {
     ResourceLocation jsonLocation =
         new ResourceLocation(modelId.getNamespace(), "models/" + modelId.getPath() + ".json");
     if (!resourceManager.hasResource(jsonLocation)) {
@@ -109,7 +113,9 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     }
     try (var reader =
         new BufferedReader(
-            new InputStreamReader(resourceManager.getResource(jsonLocation).getInputStream(), StandardCharsets.UTF_8))) {
+            new InputStreamReader(
+                resourceManager.getResource(jsonLocation).getInputStream(),
+                StandardCharsets.UTF_8))) {
       return GsonHelper.parse(reader);
     } catch (IOException e) {
       throw new ModelProviderException("Failed to read model json: " + modelId, e);
@@ -124,7 +130,9 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     }
     try (var reader =
         new BufferedReader(
-            new InputStreamReader(resourceManager.getResource(modelLocation).getInputStream(), StandardCharsets.UTF_8))) {
+            new InputStreamReader(
+                resourceManager.getResource(modelLocation).getInputStream(),
+                StandardCharsets.UTF_8))) {
       Obj source = ObjReader.read(reader);
       Obj obj = ObjUtils.convertToRenderable(ObjUtils.triangulate(source));
       Map<String, Mtl> mtlMap = loadMtl(resourceManager, modelLocation, obj.getMtlFileNames());
@@ -149,7 +157,9 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
       }
       try (var reader =
           new BufferedReader(
-              new InputStreamReader(resourceManager.getResource(mtlLocation).getInputStream(), StandardCharsets.UTF_8))) {
+              new InputStreamReader(
+                  resourceManager.getResource(mtlLocation).getInputStream(),
+                  StandardCharsets.UTF_8))) {
         for (Mtl mtl : MtlReader.read(reader)) {
           materialMap.put(mtl.getName(), mtl);
         }
@@ -167,7 +177,8 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
 
   @Override
   public Collection<Material> getMaterials(
-      Function<ResourceLocation, UnbakedModel> resolver, Set<Pair<String, String>> unresolvedTextureReferences) {
+      Function<ResourceLocation, UnbakedModel> resolver,
+      Set<Pair<String, String>> unresolvedTextureReferences) {
     Set<Material> materials = new HashSet<>();
     Material particle = getParticleMaterial();
     if (particle != null) {
@@ -204,14 +215,22 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     materialGroups.forEach(
         (materialName, groupObj) -> {
           for (int i = 0; i < groupObj.getNumFaces(); i++) {
-            emitFace(emitter, textureGetter, modelState, particleMaterial, materialName, groupObj.getFace(i), groupObj);
+            emitFace(
+                emitter,
+                textureGetter,
+                modelState,
+                particleMaterial,
+                materialName,
+                groupObj.getFace(i),
+                groupObj);
           }
         });
 
     BlockModel.GuiLight guiLight = option.guiLight();
     boolean usesBlockLight = guiLight == null || guiLight.lightLikeBlock();
     TextureAtlasSprite particle = textureGetter.apply(particleMaterial);
-    return new ObjMeshBakedModel118(builder.build(), particle, option.useAmbientOcclusion(), usesBlockLight);
+    return new ObjMeshBakedModel118(
+        builder.build(), particle, option.useAmbientOcclusion(), usesBlockLight);
   }
 
   private Material getParticleMaterial() {
@@ -403,4 +422,3 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     }
   }
 }
-
