@@ -1,5 +1,6 @@
 package cn.hydcraft.hydronyasama.fabric;
 
+import cn.hydcraft.hydronyasama.objrender.fabric.v116.ObjRenderClientBootstrap116;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.block.Blocks;
 public final class BeaconProviderFabricClient implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
+    new ObjRenderClientBootstrap116().initialize();
     registerThinOpticsCutoutLayers();
   }
 

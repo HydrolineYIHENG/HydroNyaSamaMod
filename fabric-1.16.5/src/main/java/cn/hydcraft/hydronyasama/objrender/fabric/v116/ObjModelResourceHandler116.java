@@ -1,9 +1,11 @@
 package cn.hydcraft.hydronyasama.objrender.fabric.v116;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,10 +22,13 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 public final class ObjModelResourceHandler116 implements ModelResourceProvider {
   private static final String MOD_ID = "hydronyasama";
+  private static final Logger LOGGER = LogManager.getLogger("HydroNyaSama-OBJ-116");
 
   private final ResourceManager resourceManager;
   private final Map<ResourceLocation, Optional<UnbakedModel>> cache = new ConcurrentHashMap<>();
@@ -47,7 +52,14 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
       return cached.orElse(null);
     }
 
-    UnbakedModel loaded = tryLoadByParentChain(resourceId);
+    UnbakedModel loaded;
+    try {
+      loaded = tryLoadByParentChain(resourceId);
+    } catch (Throwable t) {
+      // Do not break whole resource reload because of one OBJ entry.
+      LOGGER.error("[obj-116] model load failed id={}", resourceId, t);
+      loaded = null;
+    }
     Optional<UnbakedModel> boxed = Optional.ofNullable(loaded);
     cache.put(resourceId, boxed);
     return boxed.orElse(null);
@@ -101,9 +113,10 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
     if (!isSupportedObjModelLocation(modelLocation)) {
       return null;
     }
+    LOGGER.info("[obj-116] obj hit obj={}", modelLocation);
     JsonObject baseJson = modelJson;
     if (modelLocation != null && isStationLampPart(modelLocation)) {
-      baseJson = modelJson.deepCopy();
+      baseJson = copyJsonObject(modelJson);
       JsonObject textures =
           baseJson.has("textures") && baseJson.get("textures").isJsonObject()
               ? baseJson.getAsJsonObject("textures")
@@ -156,7 +169,7 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
   private @Nullable UnbakedModel loadExtraLayer(
       JsonObject baseModelJson, ResourceLocation modelLocation, String particleTexture, int rotateY)
       throws ModelProviderException {
-    JsonObject layerJson = baseModelJson.deepCopy();
+    JsonObject layerJson = copyJsonObject(baseModelJson);
     layerJson.addProperty("model", modelLocation.toString());
     if (rotateY != 0) {
       layerJson.addProperty("rotate_y", rotateY);
@@ -249,20 +262,36 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
   }
 
   private @Nullable JsonObject readModelJson(ResourceLocation modelId) throws ModelProviderException {
-    ResourceLocation jsonLocation =
-        new ResourceLocation(modelId.getNamespace(), "models/" + modelId.getPath() + ".json");
-    if (!resourceManager.hasResource(jsonLocation)) {
-      return null;
+    for (ResourceLocation jsonLocation : candidateModelJsonLocations(modelId)) {
+      if (!resourceManager.hasResource(jsonLocation)) {
+        continue;
+      }
+      try (BufferedReader reader =
+          new BufferedReader(
+              new InputStreamReader(
+                  resourceManager.getResource(jsonLocation).getInputStream(),
+                  StandardCharsets.UTF_8))) {
+        return GsonHelper.parse(reader);
+      } catch (IOException e) {
+        throw new ModelProviderException("Failed to read model json: " + modelId, e);
+      }
     }
-    try (BufferedReader reader =
-        new BufferedReader(
-            new InputStreamReader(
-                resourceManager.getResource(jsonLocation).getInputStream(),
-                StandardCharsets.UTF_8))) {
-      return GsonHelper.parse(reader);
-    } catch (IOException e) {
-      throw new ModelProviderException("Failed to read model json: " + modelId, e);
+    return null;
+  }
+
+  private static List<ResourceLocation> candidateModelJsonLocations(ResourceLocation modelId) {
+    String path = modelId.getPath();
+    List<ResourceLocation> out = new ArrayList<>(4);
+    if (path.startsWith("models/")) {
+      out.add(new ResourceLocation(modelId.getNamespace(), path + ".json"));
+      return out;
     }
+    out.add(new ResourceLocation(modelId.getNamespace(), "models/" + path + ".json"));
+    if (!path.startsWith("block/") && !path.startsWith("item/")) {
+      out.add(new ResourceLocation(modelId.getNamespace(), "models/block/" + path + ".json"));
+      out.add(new ResourceLocation(modelId.getNamespace(), "models/item/" + path + ".json"));
+    }
+    return out;
   }
 
   private static @Nullable ResourceLocation getParentLocation(JsonObject modelJson) {
@@ -280,9 +309,17 @@ public final class ObjModelResourceHandler116 implements ModelResourceProvider {
     JsonObject merged = new JsonObject();
     for (int i = chain.size() - 1; i >= 0; i--) {
       JsonObject part = chain.get(i);
-      part.entrySet().forEach(entry -> merged.add(entry.getKey(), entry.getValue().deepCopy()));
+      part.entrySet().forEach(entry -> merged.add(entry.getKey(), copyJsonElement(entry.getValue())));
     }
     return merged;
+  }
+
+  private static JsonObject copyJsonObject(JsonObject source) {
+    return new JsonParser().parse(source.toString()).getAsJsonObject();
+  }
+
+  private static com.google.gson.JsonElement copyJsonElement(com.google.gson.JsonElement source) {
+    return new JsonParser().parse(source.toString());
   }
 }
 
