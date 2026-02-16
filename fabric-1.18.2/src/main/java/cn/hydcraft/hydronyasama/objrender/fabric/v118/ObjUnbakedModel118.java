@@ -232,10 +232,27 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     if (face.getNumVertices() < 3) {
       return;
     }
-    emitVertex(emitter, 0, 0, modelState, face, model);
-    emitVertex(emitter, 1, 1, modelState, face, model);
-    emitVertex(emitter, 2, 2, modelState, face, model);
-    emitVertex(emitter, 3, face.getNumVertices() == 3 ? 2 : 3, modelState, face, model);
+    emitSingleFace(
+        emitter, textureGetter, modelState, particleMaterial, materialName, face, model, false);
+    if (option.doubleSided()) {
+      emitSingleFace(
+          emitter, textureGetter, modelState, particleMaterial, materialName, face, model, true);
+    }
+  }
+
+  private void emitSingleFace(
+      QuadEmitter emitter,
+      Function<Material, TextureAtlasSprite> textureGetter,
+      ModelState modelState,
+      Material particleMaterial,
+      String materialName,
+      ObjFace face,
+      Obj model,
+      boolean reverse) {
+    emitVertex(emitter, 0, mappedFaceVertex(0, face, reverse), modelState, face, model, reverse);
+    emitVertex(emitter, 1, mappedFaceVertex(1, face, reverse), modelState, face, model, reverse);
+    emitVertex(emitter, 2, mappedFaceVertex(2, face, reverse), modelState, face, model, reverse);
+    emitVertex(emitter, 3, mappedFaceVertex(3, face, reverse), modelState, face, model, reverse);
 
     int bakeFlags = MutableQuadView.BAKE_NORMALIZED;
     if (option.flipV()) {
@@ -251,7 +268,17 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     emitter.emit();
   }
 
+  private static int mappedFaceVertex(int emitIndex, ObjFace face, boolean reverse) {
+    int[] order = reverse ? new int[] {3, 2, 1, 0} : new int[] {0, 1, 2, 3};
+    int idx = order[emitIndex];
+    return idx >= face.getNumVertices() ? 2 : idx;
+  }
+
   private Material getMaterialTexture(String materialName, Material particleMaterial) {
+    ResourceLocation overrideTexture = option.materialTextures().get(materialName);
+    if (overrideTexture != null) {
+      return new Material(InventoryMenu.BLOCK_ATLAS, overrideTexture);
+    }
     Mtl mtl = mtlMap.get(materialName);
     if (mtl == null || mtl.getMapKd() == null || mtl.getMapKd().isBlank()) {
       return particleMaterial;
@@ -286,24 +313,41 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
     return "hydronyasama:" + value;
   }
 
-  private static void emitVertex(
+  private void emitVertex(
       QuadEmitter emitter,
       int emitIndex,
       int faceVertexIndex,
       ModelState modelState,
       ObjFace face,
-      Obj model) {
+      Obj model,
+      boolean reverse) {
     FloatTuple vertexTuple = model.getVertex(face.getVertexIndex(faceVertexIndex));
     float x = vertexTuple.getX() / 16.0F + 0.5F;
     float y = vertexTuple.getY() / 16.0F + 0.5F;
     float z = vertexTuple.getZ() / 16.0F + 0.5F;
+    float[] rotated = rotateAroundCenterY(x, y, z, option.rotateY());
+    x = rotated[0];
+    y = rotated[1];
+    z = rotated[2];
     emitter.pos(emitIndex, x, y, z);
 
     if (face.containsNormalIndices()) {
       FloatTuple normalTuple = model.getNormal(face.getNormalIndex(faceVertexIndex));
-      emitter.normal(emitIndex, normalTuple.getX(), normalTuple.getY(), normalTuple.getZ());
+      float nx = normalTuple.getX();
+      float ny = normalTuple.getY();
+      float nz = normalTuple.getZ();
+      if (reverse) {
+        nx = -nx;
+        ny = -ny;
+        nz = -nz;
+      }
+      float[] rotatedNormal = rotateNormalY(nx, ny, nz, option.rotateY());
+      nx = rotatedNormal[0];
+      ny = rotatedNormal[1];
+      nz = rotatedNormal[2];
+      emitter.normal(emitIndex, nx, ny, nz);
     } else {
-      emitter.normal(emitIndex, 0.0F, 1.0F, 0.0F);
+      emitter.normal(emitIndex, 0.0F, reverse ? -1.0F : 1.0F, 0.0F);
     }
 
     if (face.containsTexCoordIndices()) {
@@ -311,6 +355,51 @@ public final class ObjUnbakedModel118 implements UnbakedModel {
       emitter.sprite(emitIndex, 0, new Vec2(uvTuple.getX(), uvTuple.getY()));
     } else {
       emitter.sprite(emitIndex, 0, Vec2.ZERO);
+    }
+  }
+
+  private static float[] rotateAroundCenterY(float x, float y, float z, int degrees) {
+    int normalized = Math.floorMod(degrees, 360);
+    if (normalized == 0) {
+      return new float[] {x, y, z};
+    }
+    float localX = x - 0.5F;
+    float localZ = z - 0.5F;
+    float rotatedX;
+    float rotatedZ;
+    switch (normalized) {
+      case 90:
+        rotatedX = -localZ;
+        rotatedZ = localX;
+        break;
+      case 180:
+        rotatedX = -localX;
+        rotatedZ = -localZ;
+        break;
+      case 270:
+        rotatedX = localZ;
+        rotatedZ = -localX;
+        break;
+      default:
+        return new float[] {x, y, z};
+    }
+    return new float[] {rotatedX + 0.5F, y, rotatedZ + 0.5F};
+  }
+
+  private static float[] rotateNormalY(float x, float y, float z, int degrees) {
+    int normalized = Math.floorMod(degrees, 360);
+    if (normalized == 0) {
+      return new float[] {x, y, z};
+    }
+    switch (normalized) {
+      case 90:
+        return new float[] {-z, y, x};
+      case 180:
+        return new float[] {-x, y, -z};
+      case 270:
+        return new float[] {z, y, -x};
+      default:
+        return new float[] {x, y, z};
     }
   }
 }

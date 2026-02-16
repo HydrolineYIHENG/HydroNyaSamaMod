@@ -20,10 +20,17 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.14.23",
-    "fabric-api": ">=0.42.0+1.16",
+    "fabricloader": ">=0.14.21",
+    "fabric-api-base": "*",
+    "fabric-item-groups-v0": "*",
+    "fabric-networking-api-v1": "*",
+    "fabric-lifecycle-events-v1": "*",
+    "fabric-blockrenderlayer-v1": "*",
     "minecraft": "1.16.5",
     "java": ">=8"
+  },
+  "suggests": {
+    "fabric-api": ">=0.42.0+1.16"
   },
   "custom": {
     "modmenu": {

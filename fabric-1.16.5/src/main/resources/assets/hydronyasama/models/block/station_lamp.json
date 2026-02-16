@@ -1,9 +1,0 @@
-﻿{
-  "loader": "forge:obj",
-  "model": "hydronyasama:models/blocks/station_lamp_mid.obj",
-  "flip-v": true,
-  "shade_quads": true,
-  "textures": {
-    "particle": "hydronyasama:block/station_lamp_base"
-  }
-}

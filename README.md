@@ -74,3 +74,16 @@ Artifacts can be found in the `build/libs/` directory of each subproject.
 ## 🤝 Contribution Guide
 
 Issues and PRs are welcome. Before adding new content, please read the [Project Structure Guide](docs/Structure.md) to understand our code organization standards.
+
+## Runtime Requirements
+
+### Fabric 1.16.5
+- `fabric-loader >= 0.14.21`
+- `fabric-api >= 0.42.0+1.16` (recommended), or equivalent Fabric API split modules:
+  `fabric-api-base`, `fabric-item-groups-v0`, `fabric-networking-api-v1`,
+  `fabric-lifecycle-events-v1`, `fabric-blockrenderlayer-v1`
+- `minecraft = 1.16.5`
+
+### Compatibility Notes
+- Do not mix cross-version protocol bridge mods in one profile, such as `viafabric-mc114`, `viafabric-mc115`, `viafabric-mc117`, `viafabric-mc118`, `viafabric-mc119` on Minecraft 1.16.5.
+- Remove mods that explicitly target Minecraft versions different from your current game version.

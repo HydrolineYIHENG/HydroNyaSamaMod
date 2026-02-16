@@ -105,7 +105,7 @@ val supportedTargets = mapOf(
     "1.18.2" to McTarget(
         minecraftVersion = "1.18.2",
         forgeVersion = "1.18.2-40.2.21",
-        fabricLoaderVersion = "0.14.23",
+        fabricLoaderVersion = "0.14.21",
         fabricApiVersion = "0.76.0+1.18.2",
         javaVersion = 17,
         packFormat = 8

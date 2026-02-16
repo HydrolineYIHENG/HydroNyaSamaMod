@@ -1,7 +1,9 @@
-package cn.hydcraft.hydronyasama.objrender.fabric.v120;
+package cn.hydcraft.hydronyasama.objrender.fabric.v116;
 
 import com.google.gson.JsonObject;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.nio.charset.StandardCharsets;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.model.ModelProviderContext;
 import net.fabricmc.fabric.api.client.model.ModelProviderException;
@@ -19,18 +22,18 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import org.jetbrains.annotations.Nullable;
 
-public final class ObjModelResourceHandler120 implements ModelResourceProvider {
+public final class ObjModelResourceHandler116 implements ModelResourceProvider {
   private static final String MOD_ID = "hydronyasama";
 
   private final ResourceManager resourceManager;
   private final Map<ResourceLocation, Optional<UnbakedModel>> cache = new ConcurrentHashMap<>();
 
-  public ObjModelResourceHandler120(ResourceManager resourceManager) {
+  public ObjModelResourceHandler116(ResourceManager resourceManager) {
     this.resourceManager = resourceManager;
   }
 
   public static void register() {
-    ModelLoadingRegistry.INSTANCE.registerResourceProvider(ObjModelResourceHandler120::new);
+    ModelLoadingRegistry.INSTANCE.registerResourceProvider(ObjModelResourceHandler116::new);
   }
 
   @Override
@@ -91,10 +94,10 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
   }
 
   private @Nullable UnbakedModel tryLoadSupportedObj(JsonObject modelJson) throws ModelProviderException {
-    if (!ObjUnbakedModel120.isForgeObjModel(modelJson)) {
+    if (!ObjUnbakedModel116.isForgeObjModel(modelJson)) {
       return null;
     }
-    ResourceLocation modelLocation = ObjUnbakedModel120.getObjModelLocation(modelJson);
+    ResourceLocation modelLocation = ObjUnbakedModel116.getObjModelLocation(modelJson);
     if (!isSupportedObjModelLocation(modelLocation)) {
       return null;
     }
@@ -109,7 +112,7 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
       baseJson.add("textures", textures);
       baseJson.addProperty("double_sided", true);
     }
-    UnbakedModel baseModel = ObjUnbakedModel120.tryLoadFromModelJson(resourceManager, baseJson);
+    UnbakedModel baseModel = ObjUnbakedModel116.tryLoadFromModelJson(resourceManager, baseJson);
     if (baseModel == null || modelLocation == null) {
       return baseModel;
     }
@@ -117,7 +120,7 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     layers.add(baseModel);
 
     ResourceLocation lightLocation = toLightObjModelLocation(modelLocation);
-    if (lightLocation != null && resourceManager.getResource(lightLocation).isPresent()) {
+    if (lightLocation != null && resourceManager.hasResource(lightLocation)) {
       UnbakedModel lightModel =
           loadExtraLayer(
               modelJson, lightLocation, "hydronyasama:block/light_base", 0);
@@ -130,7 +133,7 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
       addStationLampLayers(modelJson, layers);
     }
 
-    return layers.size() == 1 ? baseModel : new CombinedObjUnbakedModel120(layers);
+    return layers.size() == 1 ? baseModel : new CombinedObjUnbakedModel116(layers);
   }
 
   private static boolean isSupportedObjModelLocation(@Nullable ResourceLocation modelLocation) {
@@ -168,7 +171,7 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     if (isStationLampPart(modelLocation)) {
       layerJson.addProperty("double_sided", true);
     }
-    return ObjUnbakedModel120.tryLoadFromModelJson(resourceManager, layerJson);
+    return ObjUnbakedModel116.tryLoadFromModelJson(resourceManager, layerJson);
   }
 
   private void addStationLampLayers(JsonObject modelJson, List<UnbakedModel> layers)
@@ -181,7 +184,7 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
           new ResourceLocation(MOD_ID, "models/blocks/station_lamp_back.obj")
         };
     for (ResourceLocation part : parts) {
-      if (resourceManager.getResource(part).isEmpty()) {
+      if (!resourceManager.hasResource(part)) {
         continue;
       }
       if (isStationLampFacePart(part)) {
@@ -248,11 +251,14 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
   private @Nullable JsonObject readModelJson(ResourceLocation modelId) throws ModelProviderException {
     ResourceLocation jsonLocation =
         new ResourceLocation(modelId.getNamespace(), "models/" + modelId.getPath() + ".json");
-    var resource = resourceManager.getResource(jsonLocation);
-    if (resource.isEmpty()) {
+    if (!resourceManager.hasResource(jsonLocation)) {
       return null;
     }
-    try (var reader = resource.get().openAsReader()) {
+    try (BufferedReader reader =
+        new BufferedReader(
+            new InputStreamReader(
+                resourceManager.getResource(jsonLocation).getInputStream(),
+                StandardCharsets.UTF_8))) {
       return GsonHelper.parse(reader);
     } catch (IOException e) {
       throw new ModelProviderException("Failed to read model json: " + modelId, e);
@@ -279,3 +285,5 @@ public final class ObjModelResourceHandler120 implements ModelResourceProvider {
     return merged;
   }
 }
+
+

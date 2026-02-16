@@ -1,4 +1,4 @@
-package cn.hydcraft.hydronyasama.objrender.fabric.v120;
+package cn.hydcraft.hydronyasama.objrender.fabric.v116;
 
 import com.google.gson.JsonObject;
 import java.util.Collections;
@@ -9,16 +9,33 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import org.jetbrains.annotations.Nullable;
 
-public record ObjModelOption120(
-    boolean useAmbientOcclusion,
-    boolean flipV,
-    boolean doubleSided,
-    int rotateY,
-    @Nullable BlockModel.GuiLight guiLight,
-    @Nullable ResourceLocation particle,
-    Map<String, ResourceLocation> materialTextures) {
+public final class ObjModelOption116 {
+  private final boolean useAmbientOcclusion;
+  private final boolean flipV;
+  private final boolean doubleSided;
+  private final int rotateY;
+  private final @Nullable BlockModel.GuiLight guiLight;
+  private final @Nullable ResourceLocation particle;
+  private final Map<String, ResourceLocation> materialTextures;
 
-  public static ObjModelOption120 parse(JsonObject modelJson) {
+  private ObjModelOption116(
+      boolean useAmbientOcclusion,
+      boolean flipV,
+      boolean doubleSided,
+      int rotateY,
+      @Nullable BlockModel.GuiLight guiLight,
+      @Nullable ResourceLocation particle,
+      Map<String, ResourceLocation> materialTextures) {
+    this.useAmbientOcclusion = useAmbientOcclusion;
+    this.flipV = flipV;
+    this.doubleSided = doubleSided;
+    this.rotateY = rotateY;
+    this.guiLight = guiLight;
+    this.particle = particle;
+    this.materialTextures = materialTextures;
+  }
+
+  public static ObjModelOption116 parse(JsonObject modelJson) {
     boolean ambient = GsonHelper.getAsBoolean(modelJson, "ambientocclusion", true);
     boolean flipV =
         GsonHelper.getAsBoolean(
@@ -73,7 +90,7 @@ public record ObjModelOption120(
         particle = new ResourceLocation(particleRaw);
       }
     }
-    return new ObjModelOption120(
+    return new ObjModelOption116(
         ambient,
         flipV,
         doubleSided,
@@ -82,4 +99,34 @@ public record ObjModelOption120(
         particle,
         Collections.unmodifiableMap(materialTextures));
   }
+
+  public boolean useAmbientOcclusion() {
+    return useAmbientOcclusion;
+  }
+
+  public boolean flipV() {
+    return flipV;
+  }
+
+  public boolean doubleSided() {
+    return doubleSided;
+  }
+
+  public int rotateY() {
+    return rotateY;
+  }
+
+  public @Nullable BlockModel.GuiLight guiLight() {
+    return guiLight;
+  }
+
+  public @Nullable ResourceLocation particle() {
+    return particle;
+  }
+
+  public Map<String, ResourceLocation> materialTextures() {
+    return materialTextures;
+  }
 }
+
+

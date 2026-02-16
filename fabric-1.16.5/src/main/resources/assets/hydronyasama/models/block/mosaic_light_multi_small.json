@@ -1,9 +1,0 @@
-﻿{
-  "loader": "forge:obj",
-  "model": "hydronyasama:models/blocks/mosaic_light_multi_small_base.obj",
-  "flip-v": true,
-  "shade_quads": true,
-  "textures": {
-    "particle": "hydronyasama:block/light_shell"
-  }
-}

@@ -1,6 +1,7 @@
-package cn.hydcraft.hydronyasama.objrender.fabric.v120;
+package cn.hydcraft.hydronyasama.objrender.fabric.v116;
 
 import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Pair;
 import de.javagl.obj.FloatTuple;
 import de.javagl.obj.Mtl;
 import de.javagl.obj.MtlReader;
@@ -9,12 +10,18 @@ import de.javagl.obj.ObjFace;
 import de.javagl.obj.ObjReader;
 import de.javagl.obj.ObjSplitting;
 import de.javagl.obj.ObjUtils;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Collections;
 import java.util.function.Function;
+import java.nio.charset.StandardCharsets;
 import net.fabricmc.fabric.api.client.model.ModelProviderException;
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
@@ -27,7 +34,7 @@ import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
@@ -36,18 +43,17 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.phys.Vec2;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
-public final class ObjUnbakedModel120 implements UnbakedModel {
+public final class ObjUnbakedModel116 implements UnbakedModel {
   private static final ResourceLocation FORGE_OBJ_LOADER = new ResourceLocation("forge", "obj");
   private static final Material MISSING_MATERIAL =
       new Material(InventoryMenu.BLOCK_ATLAS, MissingTextureAtlasSprite.getLocation());
 
   private final Obj obj;
   private final Map<String, Mtl> mtlMap;
-  private final ObjModelOption120 option;
+  private final ObjModelOption116 option;
 
-  private ObjUnbakedModel120(Obj obj, Map<String, Mtl> mtlMap, ObjModelOption120 option) {
+  private ObjUnbakedModel116(Obj obj, Map<String, Mtl> mtlMap, ObjModelOption116 option) {
     this.obj = obj;
     this.mtlMap = mtlMap;
     this.option = option;
@@ -91,7 +97,7 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
     if (modelLocation == null) {
       return null;
     }
-    ObjModelOption120 option = ObjModelOption120.parse(modelJson);
+    ObjModelOption116 option = ObjModelOption116.parse(modelJson);
     return loadObjModel(resourceManager, modelLocation, option);
   }
 
@@ -99,11 +105,14 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
       throws ModelProviderException {
     ResourceLocation jsonLocation =
         new ResourceLocation(modelId.getNamespace(), "models/" + modelId.getPath() + ".json");
-    var resource = resourceManager.getResource(jsonLocation);
-    if (resource.isEmpty()) {
+    if (!resourceManager.hasResource(jsonLocation)) {
       return null;
     }
-    try (var reader = resource.get().openAsReader()) {
+    try (BufferedReader reader =
+        new BufferedReader(
+            new InputStreamReader(
+                resourceManager.getResource(jsonLocation).getInputStream(),
+                StandardCharsets.UTF_8))) {
       return GsonHelper.parse(reader);
     } catch (IOException e) {
       throw new ModelProviderException("Failed to read model json: " + modelId, e);
@@ -111,17 +120,20 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
   }
 
   private static @Nullable UnbakedModel loadObjModel(
-      ResourceManager resourceManager, ResourceLocation modelLocation, ObjModelOption120 option)
+      ResourceManager resourceManager, ResourceLocation modelLocation, ObjModelOption116 option)
       throws ModelProviderException {
-    var resource = resourceManager.getResource(modelLocation);
-    if (resource.isEmpty()) {
+    if (!resourceManager.hasResource(modelLocation)) {
       return null;
     }
-    try (var reader = resource.get().openAsReader()) {
+    try (BufferedReader reader =
+        new BufferedReader(
+            new InputStreamReader(
+                resourceManager.getResource(modelLocation).getInputStream(),
+                StandardCharsets.UTF_8))) {
       Obj source = ObjReader.read(reader);
       Obj obj = ObjUtils.convertToRenderable(ObjUtils.triangulate(source));
       Map<String, Mtl> mtlMap = loadMtl(resourceManager, modelLocation, obj.getMtlFileNames());
-      return new ObjUnbakedModel120(obj, mtlMap, option);
+      return new ObjUnbakedModel116(obj, mtlMap, option);
     } catch (IOException e) {
       throw new ModelProviderException("Failed to read obj model: " + modelLocation, e);
     }
@@ -137,11 +149,14 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
           modelDir.isEmpty()
               ? new ResourceLocation(modelLocation.getNamespace(), mtlName)
               : new ResourceLocation(modelLocation.getNamespace(), modelDir + "/" + mtlName);
-      var resource = resourceManager.getResource(mtlLocation);
-      if (resource.isEmpty()) {
+      if (!resourceManager.hasResource(mtlLocation)) {
         continue;
       }
-      try (var reader = resource.get().openAsReader()) {
+      try (BufferedReader reader =
+          new BufferedReader(
+              new InputStreamReader(
+                  resourceManager.getResource(mtlLocation).getInputStream(),
+                  StandardCharsets.UTF_8))) {
         for (Mtl mtl : MtlReader.read(reader)) {
           materialMap.put(mtl.getName(), mtl);
         }
@@ -154,15 +169,32 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
 
   @Override
   public Collection<ResourceLocation> getDependencies() {
-    return List.of();
+    return Collections.emptyList();
   }
 
   @Override
-  public void resolveParents(Function<ResourceLocation, UnbakedModel> resolver) {}
+  public Collection<Material> getMaterials(
+      Function<ResourceLocation, UnbakedModel> resolver, Set<Pair<String, String>> unresolvedTextureReferences) {
+    Set<Material> materials = new HashSet<>();
+    Material particle = getParticleMaterial();
+    if (particle != null) {
+      materials.add(particle);
+    }
+    for (Mtl mtl : mtlMap.values()) {
+      if (mtl == null || mtl.getMapKd() == null || mtl.getMapKd().trim().isEmpty()) {
+        continue;
+      }
+      String texturePath = normalizeTexturePath(mtl.getMapKd());
+      if (texturePath != null) {
+        materials.add(new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(texturePath)));
+      }
+    }
+    return materials;
+  }
 
   @Override
   public BakedModel bake(
-      ModelBaker modelBaker,
+      ModelBakery modelBaker,
       Function<Material, TextureAtlasSprite> textureGetter,
       ModelState modelState,
       ResourceLocation modelLocation) {
@@ -186,7 +218,7 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
     BlockModel.GuiLight guiLight = option.guiLight();
     boolean usesBlockLight = guiLight == null || guiLight.lightLikeBlock();
     TextureAtlasSprite particle = textureGetter.apply(particleMaterial);
-    return new ObjMeshBakedModel120(builder.build(), particle, option.useAmbientOcclusion(), usesBlockLight);
+    return new ObjMeshBakedModel116(builder.build(), particle, option.useAmbientOcclusion(), usesBlockLight);
   }
 
   private Material getParticleMaterial() {
@@ -255,7 +287,7 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
       return new Material(InventoryMenu.BLOCK_ATLAS, overrideTexture);
     }
     Mtl mtl = mtlMap.get(materialName);
-    if (mtl == null || mtl.getMapKd() == null || mtl.getMapKd().isBlank()) {
+    if (mtl == null || mtl.getMapKd() == null || mtl.getMapKd().trim().isEmpty()) {
       return particleMaterial;
     }
     String texturePath = normalizeTexturePath(mtl.getMapKd());
@@ -297,13 +329,14 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
       Obj model,
       boolean reverse) {
     FloatTuple vertexTuple = model.getVertex(face.getVertexIndex(faceVertexIndex));
-    Vector3f position =
-        new Vector3f(vertexTuple.getX() / 16.0F + 0.5F, vertexTuple.getY() / 16.0F + 0.5F, vertexTuple.getZ() / 16.0F + 0.5F);
-    position.add(-0.5F, -0.5F, -0.5F);
-    position.rotate(modelState.getRotation().getLeftRotation());
-    position.add(0.5F, 0.5F, 0.5F);
-    float[] rotatedPos = rotateAroundCenterY(position.x(), position.y(), position.z(), option.rotateY());
-    emitter.pos(emitIndex, rotatedPos[0], rotatedPos[1], rotatedPos[2]);
+    float x = vertexTuple.getX() / 16.0F + 0.5F;
+    float y = vertexTuple.getY() / 16.0F + 0.5F;
+    float z = vertexTuple.getZ() / 16.0F + 0.5F;
+    float[] rotated = rotateAroundCenterY(x, y, z, option.rotateY());
+    x = rotated[0];
+    y = rotated[1];
+    z = rotated[2];
+    emitter.pos(emitIndex, x, y, z);
 
     if (face.containsNormalIndices()) {
       FloatTuple normalTuple = model.getNormal(face.getNormalIndex(faceVertexIndex));
@@ -377,3 +410,5 @@ public final class ObjUnbakedModel120 implements UnbakedModel {
     }
   }
 }
+
+

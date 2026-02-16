@@ -14,6 +14,8 @@ import cn.hydcraft.hydronyasama.fabric.LegacyVStripBlock;
 import cn.hydcraft.hydronyasama.fabric.ObjCollisionBlock;
 import cn.hydcraft.hydronyasama.fabric.TelecomRenderBlock;
 import cn.hydcraft.hydronyasama.fabric.TelecomRenderBlockEntity;
+import cn.hydcraft.hydronyasama.fabric.ThinPanelBlock;
+import cn.hydcraft.hydronyasama.fabric.ThinPanelGlassBlock;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +105,20 @@ public final class FabricContentRegistrar implements ContentRegistrar {
             "adsorption_lamp_large",
             "adsorption_lamp_mono",
             "adsorption_lamp_multi");
+    private static final Set<String> OPTICS_THIN_NO_OCCLUSION_BLOCK_IDS = Set.of(
+            "adsorption_lamp",
+            "adsorption_lamp_mid",
+            "adsorption_lamp_up",
+            "fluorescent_lamp",
+            "spot_light",
+            "text_wall",
+            "text_wall_lit",
+            "guide_board_np",
+            "guide_board_sp",
+            "guide_board_dp",
+            "guide_board_np_lit",
+            "guide_board_sp_lit",
+            "guide_board_dp_lit");
     private static BlockEntityType<TelecomRenderBlockEntity> telecomRenderBlockEntityType;
     private final Map<ContentId, Block> blockIndex = new HashMap<>();
 
@@ -187,6 +203,15 @@ public final class FabricContentRegistrar implements ContentRegistrar {
         } else if ("iron".equals(definition.material)) {
             props = BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK);
         }
+
+        Block baseBlock = null;
+        if (definition.baseBlockId != null) {
+            baseBlock = blockIndex.get(definition.baseBlockId);
+            if (baseBlock != null) {
+                props = BlockBehaviour.Properties.copy(baseBlock);
+            }
+        }
+
         if ("telecom".equals(definition.contentGroup) && "simple_block".equals(definition.kind)) {
             return new TelecomRenderBlock(props.noOcclusion());
         }
@@ -195,13 +220,18 @@ public final class FabricContentRegistrar implements ContentRegistrar {
                 && OPTICS_OBJ_BLOCK_IDS.contains(definition.id.path())) {
             return new ObjCollisionBlock(props.noOcclusion(), definition.id.path());
         }
-        
-        Block baseBlock = null;
-        if (definition.baseBlockId != null) {
-            baseBlock = blockIndex.get(definition.baseBlockId);
-            if (baseBlock != null) {
-                props = BlockBehaviour.Properties.copy(baseBlock);
+        if ("optics".equals(definition.contentGroup)
+                && OPTICS_THIN_NO_OCCLUSION_BLOCK_IDS.contains(definition.id.path())) {
+            props =
+                    props
+                            .noOcclusion()
+                            .isViewBlocking((state, world, pos) -> false)
+                            .isSuffocating((state, world, pos) -> false)
+                            .isRedstoneConductor((state, world, pos) -> false);
+            if ("simple_glass_block".equals(definition.kind)) {
+                return new ThinPanelGlassBlock(props);
             }
+            return new ThinPanelBlock(props);
         }
 
         switch (definition.kind) {

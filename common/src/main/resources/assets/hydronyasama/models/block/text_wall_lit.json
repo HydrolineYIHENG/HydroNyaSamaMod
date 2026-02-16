@@ -1,6 +1,6 @@
 {
   "parent": "block/block",
-  "textures": {"all": "hydronyasama:block/text_wall_lit", "particle": "hydronyasama:block/text_wall_lit"},
+  "textures": {"all": "hydronyasama:block/light_base", "particle": "hydronyasama:block/light_base"},
   "elements": [
     {"from":[1,1,7],"to":[15,15,9],"faces":{"north":{"uv":[1,1,15,15],"texture":"#all"},"east":{"uv":[7,1,9,15],"texture":"#all"},"south":{"uv":[1,1,15,15],"texture":"#all"},"west":{"uv":[7,1,9,15],"texture":"#all"},"up":{"uv":[1,7,15,9],"texture":"#all"},"down":{"uv":[1,7,15,9],"texture":"#all"}}}
   ]

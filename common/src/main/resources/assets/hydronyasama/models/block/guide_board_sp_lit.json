@@ -20,8 +20,8 @@
 	},
 	"textures": {
     "particle": "#shell",
-    "shell": "hydronyasama:block/guide_board_sp_lit",
-    "base": "hydronyasama:block/guide_board_sp_lit"
+    "shell": "hydronyasama:block/light_shell",
+    "base": "hydronyasama:block/light_base"
   },
 	"elements": [
 		{
