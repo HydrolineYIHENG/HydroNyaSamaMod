@@ -47,6 +47,10 @@ final class TelecomRenderBlockEntity extends BlockEntity {
       return;
     }
     String endpoint = TelecomToolSupport.endpointId(level, pos, blockPath);
+    if ("signal_box_input".equals(blockPath)) {
+      TelecomCommService.getInstance()
+          .setInputFromRedstone(endpoint, blockPath, level.hasNeighborSignal(pos));
+    }
     TelecomCommRuntime.Snapshot snapshot =
         TelecomCommService.getInstance().snapshot(endpoint, blockPath);
     if (snapshot != null) {
@@ -90,10 +94,14 @@ final class TelecomRenderBlockEntity extends BlockEntity {
     if (telecomInput == input && telecomEnabled == enabled && telecomOutput == output) {
       return;
     }
+    boolean enabledChanged = telecomEnabled != enabled;
     telecomInput = input;
     telecomEnabled = enabled;
     telecomOutput = output;
     syncToClient();
+    if (enabledChanged) {
+      notifyRedstoneIfNeeded();
+    }
   }
 
   private void writeSyncTag(CompoundTag tag) {
@@ -115,5 +123,18 @@ final class TelecomRenderBlockEntity extends BlockEntity {
       BlockState state = getBlockState();
       currentLevel.sendBlockUpdated(worldPosition, state, state, 3);
     }
+  }
+
+  private void notifyRedstoneIfNeeded() {
+    Level currentLevel = level;
+    if (currentLevel == null || currentLevel.isClientSide) {
+      return;
+    }
+    String blockPath = TelecomToolSupport.resolveTelecomBlockPath(getBlockState());
+    if (!"signal_box_output".equals(blockPath)) {
+      return;
+    }
+    currentLevel.updateNeighborsAt(worldPosition, getBlockState().getBlock());
+    currentLevel.updateNeighborsAt(worldPosition.below(), getBlockState().getBlock());
   }
 }

@@ -1,0 +1,139 @@
+.reference/NyaSamaCore/src/main/java\org\thewdj\telecom\ITransceiver.java:6:public interface ITransceiver<Transceiver> extends IInitiative {
+.reference/NyaSamaCore/src/main/java\org\thewdj\telecom\IReceiver.java:6:public interface IReceiver<Sender> extends IInitiative {
+.reference/NyaSamaCore/src/main/java\cn\ac\nya\nsasm\Util.java:9:public class Util {
+.reference/NyaSamaCore/src/main/java\org\thewdj\telecom\IRelay.java:6:public interface IRelay<Target, Sender> extends IReceiver<Sender> {
+.reference/NyaSamaCore/src/main/java\org\thewdj\telecom\IPassive.java:6:public interface IPassive {
+.reference/NyaSamaCore/src/main/java\org\thewdj\telecom\IInitiative.java:6:public interface IInitiative {
+.reference/NyaSamaCore/src/main/java\org\thewdj\physics\Point3D.java:8:public class Point3D {
+.reference/NyaSamaCore/src/main/java\org\thewdj\physics\Vec3.java:8:public class Vec3 extends net.minecraft.util.math.Vec3d {
+.reference/NyaSamaCore/src/main/java\org\thewdj\physics\Dynamics.java:6:public class Dynamics {
+.reference/NyaSamaCore/src/main/java\org\thewdj\physics\Dynamics.java:9:    public static class LocoMotions {
+.reference/NyaSamaCore/src/main/java\cn\ac\nya\nsasm\NSASM.java:8:public class NSASM {
+.reference/NyaSamaCore/src/main/java\cn\ac\nya\nsasm\NSASM.java:12:    protected enum RegType {
+.reference/NyaSamaCore/src/main/java\cn\ac\nya\nsasm\NSASM.java:16:    protected class Register {
+.reference/NyaSamaCore/src/main/java\cn\ac\nya\nsasm\NSASM.java:37:    protected interface Operator {
+.reference/NyaSamaCore/src/main/java\cn\ac\nya\nsasm\NSASM.java:54:    public enum Result {
+.reference/NyaSamaCore/src/main/java\cn\ac\nya\nsasm\NSASM.java:58:    private enum WordType {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\util\Util.java:13:public class Util {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\util\NSASM.java:16:public abstract class NSASM extends cn.ac.nya.nsasm.NSASM {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\util\GuiNGT.java:27:public class GuiNGT extends GuiScreen {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\util\GuiNGT.java:237:    static class NextPageButton extends GuiButton {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\util\TrainController.java:17:public class TrainController {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\util\TrainController.java:22:    public static class KeyInput {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\tileentity\TileEntityTriStateReceiver.java:8:public class TileEntityTriStateReceiver extends TileEntityPassiveReceiver {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\creativetab\CreativeTabLoader.java:12:public class CreativeTabLoader {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\tileentity\TileEntityTransceiver.java:14:public class TileEntityTransceiver extends TileEntity implements ITransceiver<TileEntityTransceiver> {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\event\TrainControlServerHandler.java:15:public class TrainControlServerHandler {
+.reference/NyaSamaOptics/src/main/java\org\thewdj\optics\IOpticalDevice.java:6:public interface IOpticalDevice {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\tileentity\TileEntitySingleSender.java:11:public class TileEntitySingleSender extends TileEntityTransceiver {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\item\ItemToolBase.java:27:public abstract class ItemToolBase extends ItemTool implements IItemBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\event\TrainControlClientHandler.java:18:public class TrainControlClientHandler {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\network\NetworkWrapper.java:12:public class NetworkWrapper {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\tileentity\TileEntityReceiver.java:14:public class TileEntityReceiver extends TileEntity implements IReceiver<TileEntityTransceiver> {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\item\ItemNTP8Bit.java:18:public class ItemNTP8Bit extends ItemToolBase {
+.reference/NyaSamaOptics/src/main/java\org\thewdj\optics\ILightBeam.java:6:public interface ILightBeam {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\network\NGTPacket.java:16:public class NGTPacket implements IMessage {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\network\NGTPacket.java:18:    public static class PacketCtSHandler implements IMessageHandler<NGTPacket, IMessage> {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\event\ToolHandler.java:17:public class ToolHandler {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\tileentity\TileEntityPassiveReceiver.java:6:public class TileEntityPassiveReceiver extends TileEntityReceiver {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\item\ItemNTP32Bit.java:18:public class ItemNTP32Bit extends ItemToolBase {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\NyaSamaOptics.java:16:public class NyaSamaOptics {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\tileentity\TileEntityNSASMCore.java:8:public class TileEntityNSASMCore extends TileEntityTransceiver {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\item\ItemNGT.java:23:public class ItemNGT extends ItemWritableBook implements IItemBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\event\EventRegister.java:8:public class EventRegister {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\item\ItemLoader.java:21:public class ItemLoader {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\tileentity\TileEntityMultiSender.java:9:public class TileEntityMultiSender extends TileEntityTransceiver {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\tileentity\TileEntityActuator.java:12:public class TileEntityActuator extends TileEntityReceiver implements IRelay<TileEntity, TileEntityTransceiver> {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\StationLampCore.java:14:public abstract class StationLampCore extends NSASM {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\item\IItemBase.java:6:public interface IItemBase {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\network\NetworkWrapper.java:11:public class NetworkWrapper {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSELogo.java:12:public class BlockNSELogo extends BlockGlass implements IBlockBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\event\ClientTickHandler.java:10:public class ClientTickHandler {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSOSign.java:12:public class BlockNSOSign extends BlockGlass implements IBlockBase {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\RGBLightCore.java:15:public abstract class RGBLightCore extends NSASM {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\network\TrainPacket.java:20:public class TrainPacket implements IMessage {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\network\TrainPacket.java:22:    public static class PacketCtSHandler implements IMessageHandler<TrainPacket, IMessage> {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\network\TrainPacket.java:53:    public static class PacketStCHandler implements IMessageHandler<TrainPacket, IMessage> {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSDNLogo.java:12:public class BlockNSDNLogo extends BlockGlass implements IBlockBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSESign.java:12:public class BlockNSESign extends BlockGlass implements IBlockBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\network\ParticlePacket.java:16:public class ParticlePacket implements IMessage {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\network\ParticlePacket.java:18:    public static class PacketStCHandler implements IMessageHandler<ParticlePacket, IMessage> {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSOLogo.java:12:public class BlockNSOLogo extends BlockGlass implements IBlockBase {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\PlatformPlateCore.java:13:public abstract class PlatformPlateCore extends NSASM {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSCLogo.java:12:public class BlockNSCLogo extends BlockGlass implements IBlockBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\IBlockBase.java:6:public interface IBlockBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSRSign.java:12:public class BlockNSRSign extends BlockGlass implements IBlockBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\proxy\ServerProxy.java:11:public class ServerProxy extends CommonProxy {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\item\NSOConv.java:29:public class NSOConv extends ToolBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSTLogo.java:12:public class BlockNSTLogo extends BlockGlass implements IBlockBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSTSign.java:12:public class BlockNSTSign extends BlockGlass implements IBlockBase {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\DecoTextCore.java:14:public abstract class DecoTextCore extends NSASM {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\PillarHeadCore.java:14:public abstract class PillarHeadCore extends NSASM {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSBLogo.java:12:public class BlockNSBLogo extends BlockGlass implements IBlockBase {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\proxy\CommonProxy.java:13:public class CommonProxy {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockNSRLogo.java:12:public class BlockNSRLogo extends BlockGlass implements IBlockBase {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\item\ItemLoader.java:20:public class ItemLoader {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\block\BlockLoader.java:23:public class BlockLoader {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\proxy\ClientProxy.java:14:public class ClientProxy extends CommonProxy {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\LEDPlateCore.java:13:public abstract class LEDPlateCore extends NSASM {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\creativetab\CreativeTabLoader.java:11:public class CreativeTabLoader {
+.reference/NyaSamaCore/src/main/java\club\nsdn\nyasamacore\NyaSamaCore.java:15:public class NyaSamaCore {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockAdsorptionLamp.java:27:public class BlockAdsorptionLamp extends Block {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockAdsorptionLamp.java:29:    public static enum EnumVertical implements IStringSerializable {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\api\ILightSource.java:6:public interface ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\api\LightBeam.java:24:public class LightBeam extends Block implements ILightBeam {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\HoloJetRevCore.java:14:public abstract class HoloJetRevCore extends NSASM {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\TileEntityModelBinder.java:26:public class TileEntityModelBinder {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockLoader.java:30:public class BlockLoader {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockNSDNLogo.java:12:public class BlockNSDNLogo extends BlockGlass {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockSpotLight.java:33:public class BlockSpotLight extends Block implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockSpotLight.java:35:    public static enum EnumVertical implements IStringSerializable {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\TileEntityLoader.java:24:public class TileEntityLoader {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\event\ToolHandler.java:9:public class ToolHandler {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockFluorescentLamp.java:27:public class BlockFluorescentLamp extends Block {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockFluorescentLamp.java:29:    public static enum EnumVertical implements IStringSerializable {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockLogo.java:12:public class BlockLogo extends BlockGlass {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\TileEntityDecoText.java:12:public class TileEntityDecoText extends TileEntityHoloText {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\block\BlockSign.java:12:public class BlockSign extends BlockGlass {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\event\EventRegister.java:12:public class EventRegister {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\AdBoard.java:32:public class AdBoard extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\AdBoard.java:34:    public static class TileEntityAdBoard extends TileEntityDecoText {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\font\TextModel.java:29:public class TextModel {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\TextWall.java:40:public class TextWall extends DeviceBase {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\TextWall.java:42:    public static class TileEntityTextWall extends TileEntityDecoText {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\util\font\FontLoader.java:12:public class FontLoader {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\proxy\ServerProxy.java:11:public class ServerProxy extends CommonProxy {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\StationBoard.java:36:public class StationBoard extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\StationBoard.java:38:    public static class TileEntityStationBoard extends TileEntityDecoText {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\GuideBoard.java:37:public class GuideBoard extends DeviceBase {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\deco\GuideBoard.java:39:    public static class TileEntityGuideBoard extends TileEntityDecoText {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\proxy\ClientProxy.java:15:public class ClientProxy extends CommonProxy {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\proxy\CommonProxy.java:11:public class CommonProxy {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\TileEntityPlatformPlate.java:14:public class TileEntityPlatformPlate extends TileEntityReceiver {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\light\RGBLight.java:35:public class RGBLight extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\light\RGBLight.java:37:    public static class TileEntityRGBLight extends TileEntityReceiver {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\PlatformPlateFull.java:29:public class PlatformPlateFull extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\PlatformPlateFull.java:33:    public static class TileEntityPlatformPlateFull extends TileEntityPlatformPlate {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\LEDPlate.java:34:public class LEDPlate extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\LEDPlate.java:39:    public interface ISpecialCommand {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\LEDPlate.java:47:    public static class TileEntityLEDPlate extends TileEntityReceiver {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\holo\TileEntityHoloText.java:21:public class TileEntityHoloText extends TileEntityReceiver {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\GuideBoardRenderer.java:19:public class GuideBoardRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\HoloJetRevRenderer.java:19:public class HoloJetRevRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\StationLamp.java:37:public class StationLamp extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\StationLamp.java:41:    public static class TileEntityStationLamp extends TileEntityReceiver {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\StationLamp.java:43:        public static class LampInfo {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\PlatformPlateHalf.java:29:public class PlatformPlateHalf extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\screen\PlatformPlateHalf.java:33:    public static class TileEntityPlatformPlateHalf extends TileEntityPlatformPlate {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\PillarHeadRenderer.java:17:public class PillarHeadRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\holo\HoloJetRev.java:29:public class HoloJetRev extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\holo\HoloJetRev.java:31:    public static class TileEntityHoloJetRev extends TileEntityHoloText {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\holo\PillarHead.java:33:public class PillarHead extends DeviceBase implements ILightSource {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\tileblock\holo\PillarHead.java:35:    public static class TileEntityPillarHead extends TileEntityHoloText {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\AdBoardRenderer.java:20:public class AdBoardRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\StationBoardRenderer.java:20:public class StationBoardRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\LEDPlateRenderer.java:19:public class LEDPlateRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\LightRenderer.java:16:public class LightRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\TextWallRenderer.java:19:public class TextWallRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\PlatformPlateRenderer.java:19:public class PlatformPlateRenderer extends AbsTileEntitySpecialRenderer {
+.reference/NyaSamaOptics/src/main/java\club\nsdn\nyasamaoptics\renderer\tileblock\StationLampRenderer.java:19:public class StationLampRenderer extends AbsTileEntitySpecialRenderer {

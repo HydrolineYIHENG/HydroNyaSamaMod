@@ -1,6 +1,7 @@
 package cn.hydcraft.hydronyasama.forge;
 
 import cn.hydcraft.hydronyasama.BeaconProviderMod;
+import cn.hydcraft.hydronyasama.core.train.TrainControlService;
 import cn.hydcraft.hydronyasama.forge.network.ForgeBeaconNetwork;
 import cn.hydcraft.hydronyasama.telecom.runtime.TelecomCommService;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,5 +40,6 @@ public final class BeaconProviderForge {
   @SubscribeEvent
   public void onServerStopped(FMLServerStoppingEvent event) {
     TelecomCommService.getInstance().reset();
+    TrainControlService.getInstance().reset();
   }
 }

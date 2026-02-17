@@ -1,23 +1,10 @@
 {
-  "parent": "block/block",
+  "loader": "forge:obj",
+  "model": "hydronyasama:models/blocks/nspga_base.obj",
+  "flip-v": true,
+  "shade_quads": true,
   "textures": {
-    "top": "hydronyasama:block/nspga_base",
-    "side": "minecraft:block/white_concrete",
-    "bottom": "minecraft:block/white_concrete",
-    "particle": "hydronyasama:block/nspga_base"
-  },
-  "elements": [
-    {
-      "from": [1, 0, 1],
-      "to": [15, 2, 15],
-      "faces": {
-        "north": {"uv": [1, 14, 15, 16], "texture": "#side"},
-        "east": {"uv": [1, 14, 15, 16], "texture": "#side"},
-        "south": {"uv": [1, 14, 15, 16], "texture": "#side"},
-        "west": {"uv": [1, 14, 15, 16], "texture": "#side"},
-        "up": {"uv": [1, 1, 15, 15], "texture": "#top"},
-        "down": {"uv": [1, 1, 15, 15], "texture": "#bottom"}
-      }
-    }
-  ]
+    "0.001": "hydronyasama:block/nspga_f344nhv1",
+    "particle": "hydronyasama:block/nspga_f344nhv1"
+  }
 }

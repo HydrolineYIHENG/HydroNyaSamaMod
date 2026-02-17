@@ -12,6 +12,8 @@ import cn.hydcraft.hydronyasama.fabric.LegacyVSlabBlock;
 import cn.hydcraft.hydronyasama.fabric.LegacyVStripBlock;
 import cn.hydcraft.hydronyasama.fabric.NgTabletItem;
 import cn.hydcraft.hydronyasama.fabric.ObjCollisionBlock;
+import cn.hydcraft.hydronyasama.fabric.OpticsTextBlockEntity;
+import cn.hydcraft.hydronyasama.fabric.OpticsTextPanelBlock;
 import cn.hydcraft.hydronyasama.fabric.TelecomInteractiveBlock;
 import cn.hydcraft.hydronyasama.fabric.ThinPanelBlock;
 import cn.hydcraft.hydronyasama.fabric.ThinPanelGlassBlock;
@@ -38,6 +40,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.WoolCarpetBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public final class FabricContentRegistrar implements ContentRegistrar {
@@ -86,6 +89,7 @@ public final class FabricContentRegistrar implements ContentRegistrar {
           .build();
 
   private final Map<ContentId, Block> blockIndex = new HashMap<>();
+  private static final java.util.List<Block> OPTICS_TEXT_BLOCKS = new java.util.ArrayList<>();
   private static final Set<String> OPTICS_OBJ_BLOCK_IDS =
       Collections.unmodifiableSet(
           new HashSet<>(
@@ -128,14 +132,47 @@ public final class FabricContentRegistrar implements ContentRegistrar {
                   "guide_board_np_lit",
                   "guide_board_sp_lit",
                   "guide_board_dp_lit")));
+  private static final Set<String> OPTICS_TEXT_BLOCK_IDS =
+      Collections.unmodifiableSet(
+          new HashSet<>(
+              Arrays.asList(
+                  "text_wall",
+                  "text_wall_lit",
+                  "guide_board_np",
+                  "guide_board_sp",
+                  "guide_board_dp",
+                  "guide_board_np_lit",
+                  "guide_board_sp_lit",
+                  "guide_board_dp_lit")));
+  private static BlockEntityType<OpticsTextBlockEntity> opticsTextBlockEntityType;
 
   @Override
   public Object registerBlock(BlockDefinition definition) {
     ResourceLocation id = new ResourceLocation(definition.id.namespace(), definition.id.path());
     Block block = createBlock(definition);
     Registry.register(Registry.BLOCK, id, block);
+    if ("optics".equals(definition.contentGroup) && block instanceof OpticsTextPanelBlock) {
+      OPTICS_TEXT_BLOCKS.add(block);
+    }
     blockIndex.put(definition.id, block);
     return block;
+  }
+
+  public static void finalizeOpticsTextRegistry() {
+    if (opticsTextBlockEntityType != null || OPTICS_TEXT_BLOCKS.isEmpty()) {
+      return;
+    }
+    opticsTextBlockEntityType =
+        Registry.register(
+            Registry.BLOCK_ENTITY_TYPE,
+            new ResourceLocation(ModContent.MOD_GROUP_ID, "optics_text"),
+            BlockEntityType.Builder.of(
+                    OpticsTextBlockEntity::new, OPTICS_TEXT_BLOCKS.toArray(new Block[0]))
+                .build(null));
+  }
+
+  public static BlockEntityType<OpticsTextBlockEntity> opticsTextBlockEntityType() {
+    return opticsTextBlockEntityType;
   }
 
   @Override
@@ -200,6 +237,10 @@ public final class FabricContentRegistrar implements ContentRegistrar {
         && "simple_block".equals(definition.kind)
         && OPTICS_OBJ_BLOCK_IDS.contains(definition.id.path())) {
       return new ObjCollisionBlock(props.noOcclusion(), definition.id.path());
+    }
+    if ("optics".equals(definition.contentGroup)
+        && OPTICS_TEXT_BLOCK_IDS.contains(definition.id.path())) {
+      return new OpticsTextPanelBlock(props.noOcclusion());
     }
     if ("optics".equals(definition.contentGroup)
         && OPTICS_THIN_NO_OCCLUSION_BLOCK_IDS.contains(definition.id.path())) {

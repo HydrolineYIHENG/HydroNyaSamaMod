@@ -40,6 +40,7 @@ final class ForgeContentRegistry {
   private static final List<RegistryObject<Item>> ELECTRICITY_ITEMS = new ArrayList<>();
   private static final List<RegistryObject<Item>> OPTICS_ITEMS = new ArrayList<>();
   private static final List<RegistryObject<Item>> TELECOM_ITEMS = new ArrayList<>();
+  private static final List<RegistryObject<Block>> OPTICS_TEXT_BLOCKS = new ArrayList<>();
   private static final Set<String> OPTICS_OBJ_BLOCK_IDS =
       Collections.unmodifiableSet(
           new HashSet<>(
@@ -65,8 +66,21 @@ final class ForgeContentRegistry {
                   "adsorption_lamp_large",
                   "adsorption_lamp_mono",
                   "adsorption_lamp_multi")));
+  private static final Set<String> OPTICS_TEXT_BLOCK_IDS =
+      Collections.unmodifiableSet(
+          new HashSet<>(
+              Arrays.asList(
+                  "text_wall",
+                  "text_wall_lit",
+                  "guide_board_np",
+                  "guide_board_sp",
+                  "guide_board_dp",
+                  "guide_board_np_lit",
+                  "guide_board_sp_lit",
+                  "guide_board_dp_lit")));
   private static RegistryObject<Block> telecomNodeBlock;
   private static RegistryObject<BlockEntityType<TelecomNodeBlockEntity>> telecomNodeBlockEntityType;
+  private static RegistryObject<BlockEntityType<OpticsTextBlockEntity>> opticsTextBlockEntityType;
   private static RegistryObject<Item> probeItem;
 
   private ForgeContentRegistry() {}
@@ -114,6 +128,14 @@ final class ForgeContentRegistry {
             "telecom_node",
             () ->
                 BlockEntityType.Builder.of(TelecomNodeBlockEntity::new, telecomNodeBlock.get())
+                    .build(null));
+    opticsTextBlockEntityType =
+        BLOCK_ENTITY_TYPES.register(
+            "optics_text",
+            () ->
+                BlockEntityType.Builder.of(
+                        OpticsTextBlockEntity::new,
+                        OPTICS_TEXT_BLOCKS.stream().map(RegistryObject::get).toArray(Block[]::new))
                     .build(null));
     probeItem =
         ITEMS.register(
@@ -176,6 +198,10 @@ final class ForgeContentRegistry {
     return telecomNodeBlockEntityType.get();
   }
 
+  static BlockEntityType<OpticsTextBlockEntity> opticsTextBlockEntityType() {
+    return opticsTextBlockEntityType.get();
+  }
+
   private static ItemStack iconFor(List<RegistryObject<Item>> items) {
     return items.isEmpty() ? new ItemStack(Items.BRICK) : new ItemStack(items.get(0).get());
   }
@@ -209,12 +235,18 @@ final class ForgeContentRegistry {
         BLOCKS.register(
             id,
             () ->
-                OPTICS_OBJ_BLOCK_IDS.contains(id)
-                    ? new ObjCollisionBlock(
-                        BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), id)
-                    : new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+                OPTICS_TEXT_BLOCK_IDS.contains(id)
+                    ? new OpticsTextPanelBlock(
+                        BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion())
+                    : OPTICS_OBJ_BLOCK_IDS.contains(id)
+                        ? new ObjCollisionBlock(
+                            BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), id)
+                        : new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
     RegistryObject<Item> item =
         ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+    if (OPTICS_TEXT_BLOCK_IDS.contains(id)) {
+      OPTICS_TEXT_BLOCKS.add(block);
+    }
     tabItems.add(item);
   }
 

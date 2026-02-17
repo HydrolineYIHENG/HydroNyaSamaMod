@@ -2,14 +2,44 @@ package cn.hydcraft.hydronyasama.fabric;
 
 import cn.hydcraft.hydronyasama.telecom.runtime.TelecomCommRuntime;
 import cn.hydcraft.hydronyasama.telecom.runtime.TelecomCommService;
+import cn.hydcraft.hydronyasama.telecom.runtime.TelecomNgScriptEngine;
+import java.util.List;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.WritableBookItem;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 
-public final class NgTabletItem extends Item {
+public final class NgTabletItem extends WritableBookItem {
   public NgTabletItem(Properties properties) {
     super(properties);
+  }
+
+  @Override
+  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    ItemStack stack = player.getItemInHand(hand);
+    if (!player.isShiftKeyDown()) {
+      return super.use(level, player, hand);
+    }
+    if (level.isClientSide) {
+      return InteractionResultHolder.success(stack);
+    }
+    CompoundTag tag = stack.getOrCreateTag();
+    String code = TelecomToolSupport.readTabletCode(tag);
+    List<String> logs =
+        TelecomNgScriptEngine.run(
+            code,
+            tag.getString(TelecomToolSupport.LAST_ENDPOINT_TAG),
+            tag.getString(TelecomToolSupport.LAST_BLOCK_TAG),
+            TelecomCommService.getInstance());
+    for (int i = 0; i < logs.size() && i < 8; i++) {
+      TelecomToolSupport.notifyPlayer(player, logs.get(i));
+    }
+    return InteractionResultHolder.success(stack);
   }
 
   @Override

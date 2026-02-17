@@ -1,7 +1,9 @@
 package cn.hydcraft.hydronyasama.telecom.runtime;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +26,8 @@ public final class TelecomCommService {
   private final TelecomCommRuntime runtime = new TelecomCommRuntime();
   private final LinkedHashMap<String, TelecomCommRuntime.Kind> kindsByEndpoint =
       new LinkedHashMap<String, TelecomCommRuntime.Kind>();
+  private final LinkedHashMap<String, NspgaProfile> nspgaProfilesByEndpoint =
+      new LinkedHashMap<String, NspgaProfile>();
 
   private TelecomCommService() {}
 
@@ -33,6 +37,7 @@ public final class TelecomCommService {
 
   public synchronized void reset() {
     kindsByEndpoint.clear();
+    nspgaProfilesByEndpoint.clear();
   }
 
   public synchronized void ensureComponent(String endpoint, String blockPath) {
@@ -46,6 +51,11 @@ public final class TelecomCommService {
     }
     register(endpoint, kind);
     kindsByEndpoint.put(endpoint, kind);
+    if (!isNspgaBlock(blockPath)) {
+      nspgaProfilesByEndpoint.remove(endpoint);
+    } else if (!nspgaProfilesByEndpoint.containsKey(endpoint)) {
+      nspgaProfilesByEndpoint.put(endpoint, NspgaProfile.empty());
+    }
   }
 
   public synchronized ConnectResult connect(
@@ -179,6 +189,115 @@ public final class TelecomCommService {
 
   public synchronized void tick() {
     runtime.tick();
+  }
+
+  public synchronized void setInputFromRedstone(
+      String endpoint, String blockPath, boolean powered) {
+    ensureComponent(endpoint, blockPath);
+    TelecomCommRuntime.Kind kind = kindsByEndpoint.get(endpoint);
+    if (kind != TelecomCommRuntime.Kind.INPUT) {
+      return;
+    }
+    runtime.setInputSourceState(endpoint, powered);
+  }
+
+  public synchronized boolean redstoneOutputPowered(String endpoint, String blockPath) {
+    ensureComponent(endpoint, blockPath);
+    TelecomCommRuntime.Kind kind = kindsByEndpoint.get(endpoint);
+    if (kind != TelecomCommRuntime.Kind.OUTPUT) {
+      return false;
+    }
+    TelecomCommRuntime.Snapshot snapshot = runtime.snapshots().get(endpoint);
+    return snapshot != null && snapshot.enabled;
+  }
+
+  public synchronized void setNspgaIoCount(String endpoint, String blockPath, int ioCount) {
+    ensureComponent(endpoint, blockPath);
+    if (!isNspgaBlock(blockPath)) {
+      return;
+    }
+    NspgaProfile profile = nspgaProfilesByEndpoint.get(endpoint);
+    if (profile == null) {
+      profile = NspgaProfile.empty();
+    }
+    int safe = Math.max(1, ioCount);
+    nspgaProfilesByEndpoint.put(
+        endpoint, new NspgaProfile(safe, profile.inputs, profile.outputs, profile.code));
+  }
+
+  public synchronized void setNspgaInputs(String endpoint, String blockPath, List<String> inputs) {
+    ensureComponent(endpoint, blockPath);
+    if (!isNspgaBlock(blockPath)) {
+      return;
+    }
+    NspgaProfile profile = nspgaProfilesByEndpoint.get(endpoint);
+    if (profile == null) {
+      profile = NspgaProfile.empty();
+    }
+    nspgaProfilesByEndpoint.put(
+        endpoint,
+        new NspgaProfile(profile.ioCount, sanitizeSignals(inputs), profile.outputs, profile.code));
+  }
+
+  public synchronized void setNspgaOutputs(
+      String endpoint, String blockPath, List<String> outputs) {
+    ensureComponent(endpoint, blockPath);
+    if (!isNspgaBlock(blockPath)) {
+      return;
+    }
+    NspgaProfile profile = nspgaProfilesByEndpoint.get(endpoint);
+    if (profile == null) {
+      profile = NspgaProfile.empty();
+    }
+    nspgaProfilesByEndpoint.put(
+        endpoint,
+        new NspgaProfile(profile.ioCount, profile.inputs, sanitizeSignals(outputs), profile.code));
+  }
+
+  public synchronized void setNspgaCode(String endpoint, String blockPath, String code) {
+    ensureComponent(endpoint, blockPath);
+    if (!isNspgaBlock(blockPath)) {
+      return;
+    }
+    NspgaProfile profile = nspgaProfilesByEndpoint.get(endpoint);
+    if (profile == null) {
+      profile = NspgaProfile.empty();
+    }
+    nspgaProfilesByEndpoint.put(
+        endpoint,
+        new NspgaProfile(
+            profile.ioCount, profile.inputs, profile.outputs, code == null ? "" : code));
+  }
+
+  public synchronized void clearNspgaProfile(String endpoint, String blockPath) {
+    ensureComponent(endpoint, blockPath);
+    if (!isNspgaBlock(blockPath)) {
+      return;
+    }
+    nspgaProfilesByEndpoint.put(endpoint, NspgaProfile.empty());
+  }
+
+  public synchronized NspgaProfile nspgaProfile(String endpoint, String blockPath) {
+    ensureComponent(endpoint, blockPath);
+    if (!isNspgaBlock(blockPath)) {
+      return null;
+    }
+    NspgaProfile profile = nspgaProfilesByEndpoint.get(endpoint);
+    return profile == null ? NspgaProfile.empty() : profile;
+  }
+
+  public static String describeNspgaProfile(NspgaProfile profile) {
+    if (profile == null) {
+      return "nspga:missing";
+    }
+    return "nspga:io="
+        + profile.ioCount
+        + ";inputs="
+        + String.join(",", profile.inputs)
+        + ";outputs="
+        + String.join(",", profile.outputs)
+        + ";codeLen="
+        + profile.code.length();
   }
 
   public static String describeSnapshot(TelecomCommRuntime.Snapshot snapshot) {
@@ -323,5 +442,46 @@ public final class TelecomCommService {
         || kind == TelecomCommRuntime.Kind.TIMER
         || kind == TelecomCommRuntime.Kind.WIRELESS_RX
         || kind == TelecomCommRuntime.Kind.WIRELESS_TX;
+  }
+
+  private static boolean isNspgaBlock(String blockPath) {
+    return blockPath != null && blockPath.startsWith("nspga_");
+  }
+
+  private static List<String> sanitizeSignals(List<String> values) {
+    ArrayList<String> sanitized = new ArrayList<String>();
+    if (values == null) {
+      return sanitized;
+    }
+    for (int i = 0; i < values.size(); i++) {
+      String value = values.get(i);
+      if (value == null) {
+        continue;
+      }
+      String trimmed = value.trim();
+      if (!trimmed.isEmpty()) {
+        sanitized.add(trimmed);
+      }
+    }
+    return sanitized;
+  }
+
+  public static final class NspgaProfile {
+    public final int ioCount;
+    public final List<String> inputs;
+    public final List<String> outputs;
+    public final String code;
+
+    private NspgaProfile(int ioCount, List<String> inputs, List<String> outputs, String code) {
+      this.ioCount = Math.max(1, ioCount);
+      this.inputs = Collections.unmodifiableList(new ArrayList<String>(inputs));
+      this.outputs = Collections.unmodifiableList(new ArrayList<String>(outputs));
+      this.code = code == null ? "" : code;
+    }
+
+    private static NspgaProfile empty() {
+      return new NspgaProfile(
+          1, Collections.<String>emptyList(), Collections.<String>emptyList(), "");
+    }
   }
 }

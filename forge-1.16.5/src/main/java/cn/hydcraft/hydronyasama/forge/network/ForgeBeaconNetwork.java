@@ -1,6 +1,8 @@
 package cn.hydcraft.hydronyasama.forge.network;
 
+import cn.hydcraft.hydronyasama.forge.NgtCommandRegistrar;
 import cn.hydcraft.hydronyasama.forge.ProbeCommandRegistrar;
+import cn.hydcraft.hydronyasama.forge.TrainCommandRegistrar;
 import cn.hydcraft.hydronyasama.forge.mtr.ForgeMtrQueryGateway;
 import cn.hydcraft.hydronyasama.gateway.BeaconGatewayManager;
 import cn.hydcraft.hydronyasama.mtr.MtrQueryGateway;
@@ -57,6 +59,8 @@ public final class ForgeBeaconNetwork {
   public void onServerStarted(FMLServerStartedEvent event) {
     messenger.setServer(event.getServer());
     ProbeCommandRegistrar.register(event.getServer());
+    NgtCommandRegistrar.register(event.getServer());
+    TrainCommandRegistrar.register(event.getServer());
     MtrQueryRegistry.register(new ForgeMtrQueryGateway(() -> event.getServer()));
     gatewayManager.start(FMLPaths.CONFIGDIR.get());
   }

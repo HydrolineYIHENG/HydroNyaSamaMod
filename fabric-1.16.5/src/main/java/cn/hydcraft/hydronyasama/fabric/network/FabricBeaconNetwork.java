@@ -2,6 +2,9 @@ package cn.hydcraft.hydronyasama.fabric.network;
 
 import cn.hydcraft.hydronyasama.create.CreateQueryGateway;
 import cn.hydcraft.hydronyasama.create.CreateQueryRegistry;
+import cn.hydcraft.hydronyasama.fabric.NgtCommandRegistrar;
+import cn.hydcraft.hydronyasama.fabric.ProbeCommandRegistrar;
+import cn.hydcraft.hydronyasama.fabric.TrainCommandRegistrar;
 import cn.hydcraft.hydronyasama.fabric.mtr.FabricMtrQueryGateway;
 import cn.hydcraft.hydronyasama.gateway.BeaconGatewayManager;
 import cn.hydcraft.hydronyasama.mtr.MtrQueryGateway;
@@ -57,6 +60,9 @@ public final class FabricBeaconNetwork {
           } else {
             CreateQueryRegistry.register(CreateQueryGateway.UNAVAILABLE);
           }
+          ProbeCommandRegistrar.register(server);
+          NgtCommandRegistrar.register(server);
+          TrainCommandRegistrar.register(server);
           gatewayManager.start(FabricLoader.getInstance().getConfigDir());
         });
     ServerLifecycleEvents.SERVER_STOPPED.register(

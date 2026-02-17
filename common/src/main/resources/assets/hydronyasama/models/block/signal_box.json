@@ -1,23 +1,10 @@
 {
-  "parent": "block/block",
+  "loader": "forge:obj",
+  "model": "hydronyasama:models/blocks/signal_box_base.obj",
+  "flip-v": true,
+  "shade_quads": true,
   "textures": {
-    "top": "hydronyasama:block/signal_box_base",
-    "side": "minecraft:block/white_concrete",
-    "bottom": "minecraft:block/white_concrete",
+    "0": "hydronyasama:block/signal_box_base",
     "particle": "hydronyasama:block/signal_box_base"
-  },
-  "elements": [
-    {
-      "from": [2, 0, 2],
-      "to": [14, 8, 14],
-      "faces": {
-        "north": {"uv": [2, 8, 14, 16], "texture": "#side"},
-        "east": {"uv": [2, 8, 14, 16], "texture": "#side"},
-        "south": {"uv": [2, 8, 14, 16], "texture": "#side"},
-        "west": {"uv": [2, 8, 14, 16], "texture": "#side"},
-        "up": {"uv": [2, 2, 14, 14], "texture": "#top"},
-        "down": {"uv": [2, 2, 14, 14], "texture": "#bottom"}
-      }
-    }
-  ]
+  }
 }

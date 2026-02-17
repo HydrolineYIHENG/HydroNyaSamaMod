@@ -42,6 +42,9 @@ public final class TelecomRenderBlockEntityRenderer
     if (blockPath.isEmpty()) {
       return;
     }
+    if (!showLampOverlay(blockPath)) {
+      return;
+    }
 
     boolean isThin = blockPath.startsWith("nspga_");
     float y = (isThin ? 2.0F : 8.0F) / 16.0F + 0.002F;
@@ -50,74 +53,98 @@ public final class TelecomRenderBlockEntityRenderer
     boolean enabled = entity.telecomEnabled();
     boolean output = entity.telecomOutput();
 
-    // left lamp: input bus, middle lamp: core state, right lamp: output bus
+    // Match legacy sign positions from signal_box_sign*.obj
     drawLamp(
         poseStack,
         buffer,
-        4.0F / 16.0F,
+        5.0F / 16.0F,
+        6.0F / 16.0F,
         y,
+        10.0F / 16.0F,
         11.0F / 16.0F,
-        2.0F / 16.0F,
-        input ? TEX_YELLOW : TEX_OFF,
-        input,
-        packedLight,
-        packedOverlay);
-    drawLamp(
-        poseStack,
-        buffer,
-        7.0F / 16.0F,
-        y,
-        11.0F / 16.0F,
-        2.0F / 16.0F,
-        enabled ? TEX_GREEN : TEX_RED,
+        enabled ? TEX_RED : TEX_OFF,
         true,
         packedLight,
         packedOverlay);
     drawLamp(
         poseStack,
         buffer,
-        10.0F / 16.0F,
+        7.0F / 16.0F,
+        8.0F / 16.0F,
         y,
         11.0F / 16.0F,
-        2.0F / 16.0F,
-        output ? TEX_BLUE : TEX_OFF,
-        output,
+        10.0F / 16.0F,
+        input ? TEX_YELLOW : TEX_OFF,
+        true,
+        packedLight,
+        packedOverlay);
+    drawLamp(
+        poseStack,
+        buffer,
+        5.0F / 16.0F,
+        6.0F / 16.0F,
+        y,
+        8.0F / 16.0F,
+        9.0F / 16.0F,
+        output ? TEX_GREEN : TEX_OFF,
+        true,
         packedLight,
         packedOverlay);
 
-    if (hasWhiteButton(blockPath)) {
+    if ("tri_state_signal_box".equals(blockPath)) {
       drawLamp(
           poseStack,
           buffer,
-          7.0F / 16.0F,
+          5.0F / 16.0F,
+          6.0F / 16.0F,
           y,
-          3.0F / 16.0F,
-          2.0F / 16.0F,
-          enabled ? TEX_GREEN : TEX_WHITE,
-          enabled,
+          7.0F / 16.0F,
+          8.0F / 16.0F,
+          output ? TEX_WHITE : TEX_BLUE,
+          true,
+          packedLight,
+          packedOverlay);
+    }
+
+    if (hasButtonLamp(blockPath)) {
+      drawLamp(
+          poseStack,
+          buffer,
+          6.0F / 16.0F,
+          10.0F / 16.0F,
+          y,
+          5.0F / 16.0F,
+          7.0F / 16.0F,
+          enabled ? TEX_WHITE : TEX_OFF,
+          true,
           packedLight,
           packedOverlay);
     }
   }
 
-  private static boolean hasWhiteButton(String blockPath) {
-    return "signal_box".equals(blockPath)
-        || "signal_box_sender".equals(blockPath)
-        || "signal_box_getter".equals(blockPath)
-        || "tri_state_signal_box".equals(blockPath)
-        || "signal_box_rx".equals(blockPath)
-        || "signal_box_tx".equals(blockPath)
+  private static boolean showLampOverlay(String blockPath) {
+    if ("nsasm_box".equals(blockPath) || blockPath.startsWith("nspga_")) {
+      return false;
+    }
+    return true;
+  }
+
+  private static boolean hasButtonLamp(String blockPath) {
+    return "signal_box_sender".equals(blockPath)
         || "signal_box_input".equals(blockPath)
-        || "signal_box_output".equals(blockPath);
+        || "signal_box_rx".equals(blockPath)
+        || "rs_latch".equals(blockPath)
+        || "timer".equals(blockPath);
   }
 
   private static void drawLamp(
       PoseStack poseStack,
       MultiBufferSource buffer,
-      float x,
+      float x0,
+      float x1,
       float y,
-      float z,
-      float size,
+      float z0,
+      float z1,
       ResourceLocation texture,
       boolean emissive,
       int packedLight,
@@ -128,11 +155,10 @@ public final class TelecomRenderBlockEntityRenderer
     VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(texture));
     int light = emissive ? LightTexture.FULL_BRIGHT : packedLight;
 
-    addVertex(consumer, matrix4f, matrix3f, x, y, z, 0.0F, 0.0F, light, packedOverlay);
-    addVertex(consumer, matrix4f, matrix3f, x + size, y, z, 1.0F, 0.0F, light, packedOverlay);
-    addVertex(
-        consumer, matrix4f, matrix3f, x + size, y, z + size, 1.0F, 1.0F, light, packedOverlay);
-    addVertex(consumer, matrix4f, matrix3f, x, y, z + size, 0.0F, 1.0F, light, packedOverlay);
+    addVertex(consumer, matrix4f, matrix3f, x0, y, z0, 0.0F, 0.0F, light, packedOverlay);
+    addVertex(consumer, matrix4f, matrix3f, x1, y, z0, 1.0F, 0.0F, light, packedOverlay);
+    addVertex(consumer, matrix4f, matrix3f, x1, y, z1, 1.0F, 1.0F, light, packedOverlay);
+    addVertex(consumer, matrix4f, matrix3f, x0, y, z1, 0.0F, 1.0F, light, packedOverlay);
   }
 
   private static void addVertex(

@@ -3,6 +3,7 @@ package cn.hydcraft.hydronyasama.fabric;
 import cn.hydcraft.hydronyasama.objrender.fabric.v116.ObjRenderClientBootstrap116;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +16,13 @@ public final class BeaconProviderFabricClient implements ClientModInitializer {
   public void onInitializeClient() {
     new ObjRenderClientBootstrap116().initialize();
     registerThinOpticsCutoutLayers();
+    if (cn.hydcraft.hydronyasama.fabric.content.FabricContentRegistrar.opticsTextBlockEntityType()
+        != null) {
+      BlockEntityRendererRegistry.INSTANCE.register(
+          cn.hydcraft.hydronyasama.fabric.content.FabricContentRegistrar
+              .opticsTextBlockEntityType(),
+          OpticsTextBlockEntityRenderer::new);
+    }
   }
 
   private static void registerThinOpticsCutoutLayers() {

@@ -1,8 +1,9 @@
 package cn.hydcraft.hydronyasama.forge;
 
 import cn.hydcraft.hydronyasama.telecom.runtime.TelecomCommService;
+import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -64,10 +65,60 @@ final class TelecomInteractiveBlock extends Block {
       return InteractionResult.PASS;
     }
     String endpoint = TelecomToolSupport.endpointId(level, pos, blockPath);
-    String message =
-        TelecomCommService.getInstance()
-            .handleManualUse(endpoint, blockPath, player.isShiftKeyDown());
-    player.displayClientMessage(new TextComponent("[Telecom] " + message), true);
+    TelecomCommService.getInstance().handleManualUse(endpoint, blockPath, player.isShiftKeyDown());
     return InteractionResult.SUCCESS;
+  }
+
+  @Override
+  public void neighborChanged(
+      BlockState state,
+      Level level,
+      BlockPos pos,
+      Block neighborBlock,
+      BlockPos neighborPos,
+      boolean movedByPiston) {
+    super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+    if (level.isClientSide) {
+      return;
+    }
+    String blockPath = TelecomToolSupport.resolveTelecomBlockPath(state);
+    if (!"signal_box_input".equals(blockPath)) {
+      return;
+    }
+    String endpoint = TelecomToolSupport.endpointId(level, pos, blockPath);
+    TelecomCommService.getInstance()
+        .setInputFromRedstone(endpoint, blockPath, level.hasNeighborSignal(pos));
+  }
+
+  @Override
+  public boolean canConnectRedstone(
+      BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
+    String blockPath = TelecomToolSupport.resolveTelecomBlockPath(state);
+    return "signal_box_input".equals(blockPath) || "signal_box_output".equals(blockPath);
+  }
+
+  @Override
+  public boolean isSignalSource(BlockState state) {
+    return "signal_box_output".equals(TelecomToolSupport.resolveTelecomBlockPath(state));
+  }
+
+  @Override
+  public int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+    String blockPath = TelecomToolSupport.resolveTelecomBlockPath(state);
+    if (!"signal_box_output".equals(blockPath) || !(level instanceof Level)) {
+      return 0;
+    }
+    Level world = (Level) level;
+    if (world.isClientSide) {
+      return 0;
+    }
+    String endpoint = TelecomToolSupport.endpointId(world, pos, blockPath);
+    return TelecomCommService.getInstance().redstoneOutputPowered(endpoint, blockPath) ? 15 : 0;
+  }
+
+  @Override
+  public int getDirectSignal(
+      BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+    return direction == Direction.UP ? getSignal(state, level, pos, direction) : 0;
   }
 }

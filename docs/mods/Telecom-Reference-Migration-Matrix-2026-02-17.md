@@ -1,0 +1,100 @@
+﻿# Telecom Reference Migration Matrix - 2026-02-17
+
+## Legend
+- `Migrated`: implemented with same/very-close capability in current project
+- `Merged`: capability migrated but absorbed into new cross-loader runtime/registry/renderer architecture
+- `Pending`: not migrated yet (or only stub-level)
+
+## Per-Class Status
+| Reference Class | Status | Notes |
+|---|---|---|
+| `DeviceBase` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `SignalBox` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `SignalBoxGetter` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `SignalBoxSender` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TriStateSignalBox` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `NetworkRegister` | `Merged` | Packet registration replaced by loader lifecycle channel wiring (`FabricBeaconNetwork`/`ForgeBeaconNetwork`) and tool/runtime dispatch. |
+| `NGTPacket` | `Merged` | Replaced by vanilla writable-book page sync + server-side NGT execution flow. |
+| `NGTPacketHandler` | `Merged` | Replaced by vanilla writable-book packet handling; server-side code path kept in NGTablet + `/ngt`. |
+| `ParticlePacket` | `Merged` | Compatibility payload added in `telecom.compat.network.ParticlePacket`; emission delegated to runtime/loader callback. |
+| `ParticlePacketHandler` | `Merged` | Compatibility handler added in `telecom.compat.network.ParticlePacketHandler` with emitter callback bridge. |
+| `AbsFastTESR` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `AbsTileEntitySpecialRenderer` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `RendererHelper` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `ITileAnchor` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `ITriStateReceiver` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `TileEntityActuator` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityBase` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityMultiSender` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityPassiveReceiver` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityReceiver` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntitySingleSender` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityTransceiver` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityTriStateReceiver` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityTriStateTransmitter` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `Connector` | `Migrated` | Directly available in current loader/runtime path. |
+| `DevEditor` | `Migrated` | Directly available in current loader/runtime path. |
+| `NGTablet` | `Migrated` | Directly available in current loader/runtime path. |
+| `ToolBase` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `GuiNGTablet` | `Merged` | Replaced by native writable-book UI (non-sneak right click) with telecom code compatibility (`pages`/`code`). |
+| `NGTCommand` | `Migrated` | `/ngt` command added for all loaders/versions (`run/set/clear`), bound to NGTablet code/runtime path. |
+| `NGTEditor` | `Merged` | Headless compatibility editor (`telecom.compat.tool.NGTEditor`); primary UX remains in-game writable-book + `/ngt`. |
+| `NSASM` | `Merged` | Core runtime intent migrated as lightweight `TelecomNgScriptEngine` command subset integrated with NGTablet + `/ngt`. |
+| `Util` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `BlockLoader` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `BlockLogo` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `BlockNSDNLogo` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `BlockSign` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `CreativeTabLoader` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `ChunkLoaderHandler` | `Merged` | Compatibility chunk ticket tracker added (`telecom.compat.event.ChunkLoaderHandler`). |
+| `ClientTickHandler` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `EventRegister` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `ServerTickHandler` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TelecomHandler` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `ToolHandler` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `ItemLoader` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `NyaGameMR` | `Migrated` | Directly available in current loader/runtime path. |
+| `ItemConnector` | `Migrated` | Directly available in current loader/runtime path. |
+| `ItemDevEditor` | `Migrated` | Directly available in current loader/runtime path. |
+| `ItemNGTablet` | `Migrated` | Directly available in current loader/runtime path. |
+| `NetworkWrapper` | `Merged` | Legacy `SimpleNetworkWrapper` role absorbed by loader channel adapters and command/tool entrypoints. |
+| `NSPGAEditorHandler` | `Merged` | Editor callback flow migrated into NGT command/script path with NSPGA profile operations in common service. |
+| `NSPGAPacket` | `Merged` | NSPGA payload semantics migrated to `TelecomCommService.NspgaProfile` operations (`io/inputs/outputs/code`). |
+| `NSPGAPacketHandler` | `Merged` | Server apply path replaced by direct runtime updates through tool/script execution (`TelecomNgScriptEngine`). |
+| `CryptManager` | `Merged` | Compatibility crypto utility added (`telecom.compat.webservice.CryptManager`) with digest/base64/token helpers. |
+| `ITelecom` | `Merged` | Compatibility telecom facade interface added (`telecom.compat.webservice.ITelecom`). |
+| `TelecomImpl` | `Merged` | Compatibility facade implementation added (`telecom.compat.webservice.TelecomImpl`) backed by common runtime service. |
+| `NyaSamaTelecom` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `ClientProxy` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `CommonProxy` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `ServerProxy` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `AdvancedBoxRenderer` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `NSPGAFlexRenderer` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `NSPGARenderer` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `RenderNyaGameMR` | `Merged` | Compatibility renderer descriptor added (`telecom.compat.renderer.RenderNyaGameMR`); actual rendering stays in loader model pipeline. |
+| `SignalBoxRenderer` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TriStateSignalBoxRenderer` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockDelayer` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockNSASMBox` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockNSPGA` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockNSPGAFlex` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockRSLatch` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockSignalBox` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockSignalBoxGetter` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockSignalBoxSender` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockTimer` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockTriStateSignalBox` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockRedInput` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockRedOutput` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityLoader` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `TileEntityModelBinder` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockWirelessRx` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `BlockWirelessTx` | `Merged` | Function moved into TelecomCommRuntime/Telecom*Block/ToolSupport or unified renderer/content pipeline. |
+| `PackagePrivate` | `Merged` | Infrastructure replaced by Architectury common+loader split or unified runtime interfaces. |
+| `TelecomProcessor` | `Migrated` | Directly available in current loader/runtime path. |
+
+## Current Focus (from latest user feedback)
+- Lamp/button visual alignment and per-device overlay rules (telecom BER).
+- Remove unexpected click action-bar output for telecom blocks.
+- Then migrate pending NSASM/NGT/network/webservice capability chain.
+- Continue migrating remaining legacy-only capabilities (`NGTEditor`, `ParticlePacket*`, `CryptManager`, external telecom API facade).

@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -24,6 +26,7 @@ final class TelecomToolSupport {
   static final String EDITOR_INVERTER_TAG = "telecom_editor_inverter";
   static final String TABLET_SCAN_TAG = "telecom_tablet_scan";
   static final String TABLET_SCAN_TIME_TAG = "telecom_tablet_scan_time";
+  static final String TABLET_CODE_TAG = "code";
 
   private static final Set<String> TELECOM_BLOCK_IDS = new HashSet<String>();
 
@@ -88,10 +91,43 @@ final class TelecomToolSupport {
     tag.remove(LINK_KEY_TAG);
   }
 
+  static String readTabletCode(CompoundTag tag) {
+    if (tag == null) {
+      return "";
+    }
+    String code = tag.getString(TABLET_CODE_TAG);
+    if (!code.isEmpty()) {
+      return code;
+    }
+    if (!tag.contains("pages", 9)) {
+      return "";
+    }
+    ListTag pages = tag.getList("pages", 8);
+    StringBuilder builder = new StringBuilder();
+    for (int i = 0; i < pages.size(); i++) {
+      String page = pages.getString(i);
+      if (page == null || page.isEmpty()) {
+        continue;
+      }
+      if (builder.length() > 0) {
+        builder.append('\n');
+      }
+      builder.append(page);
+    }
+    return builder.toString();
+  }
+
   static void notifyPlayer(UseOnContext context, String message) {
     if (context == null || context.getPlayer() == null || message == null || message.isEmpty()) {
       return;
     }
     context.getPlayer().displayClientMessage(new TextComponent("[Telecom] " + message), true);
+  }
+
+  static void notifyPlayer(Player player, String message) {
+    if (player == null || message == null || message.isEmpty()) {
+      return;
+    }
+    player.displayClientMessage(new TextComponent("[Telecom] " + message), true);
   }
 }

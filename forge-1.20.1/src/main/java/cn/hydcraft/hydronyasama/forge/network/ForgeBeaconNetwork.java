@@ -2,7 +2,9 @@ package cn.hydcraft.hydronyasama.forge.network;
 
 import cn.hydcraft.hydronyasama.create.CreateQueryGateway;
 import cn.hydcraft.hydronyasama.create.CreateQueryRegistry;
+import cn.hydcraft.hydronyasama.forge.NgtCommandRegistrar;
 import cn.hydcraft.hydronyasama.forge.ProbeCommandRegistrar;
+import cn.hydcraft.hydronyasama.forge.TrainCommandRegistrar;
 import cn.hydcraft.hydronyasama.forge.create.ForgeCreateQueryGateway;
 import cn.hydcraft.hydronyasama.forge.mtr.ForgeMtrQueryGateway;
 import cn.hydcraft.hydronyasama.gateway.BeaconGatewayManager;
@@ -63,6 +65,8 @@ public final class ForgeBeaconNetwork {
     MinecraftServer server = event.getServer();
     messenger.setServer(server);
     ProbeCommandRegistrar.register(server);
+    NgtCommandRegistrar.register(server);
+    TrainCommandRegistrar.register(server);
     MtrQueryRegistry.register(new ForgeMtrQueryGateway(() -> server));
     if (ModList.get().isLoaded("create")) {
       createGateway = new ForgeCreateQueryGateway(() -> server);

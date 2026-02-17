@@ -28,6 +28,10 @@ public final class BeaconProviderFabricClient implements ClientModInitializer {
           FabricContentRegistrar.telecomRenderBlockEntityType(),
           TelecomRenderBlockEntityRenderer::new);
     }
+    if (FabricContentRegistrar.opticsTextBlockEntityType() != null) {
+      BlockEntityRendererRegistry.register(
+          FabricContentRegistrar.opticsTextBlockEntityType(), OpticsTextBlockEntityRenderer::new);
+    }
   }
 
   private static void registerThinOpticsCutoutLayers() {
